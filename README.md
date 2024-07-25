@@ -10,11 +10,7 @@
 - Now run to install:
 ```cd note-app```
 ```npm install```
-```npm install react-router-dom```
-```npm install react-icons```
-```npm install react-modal```
-```npm install axios```
-```npm install moment```
+```npm install react-router-dom react-icons react-modal axios moment```
 - Run Frontend:
 ```npm run dev```
 
