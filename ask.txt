@@ -1,0 +1,24 @@
+import React from "react";
+import { Link, useLocation } from 'react-router-dom'; 
+
+const Navbar = () => {
+  const location = useLocation();
+
+  return (
+    <div>
+      <nav >
+        <Link to="/home" className={`link ${location.pathname === '/home' ? 'active' : ''}`}>
+          HOME
+        </Link>
+        <Link to="/search" className={`link ${location.pathname === '/search' ? 'active' : ''}`}>
+          SEARCH
+        </Link>
+        <Link to="/data" className={`link ${location.pathname === '/data' ? 'active' : ''}`}>
+          DATA
+        </Link>
+      </nav>
+    </div>
+  );
+};
+
+export default Navbar;
