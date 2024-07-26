@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import Theme from "./Theme";
 
 const Navbar = () => {
   const location = useLocation();
@@ -40,6 +41,8 @@ const Navbar = () => {
           >
             Operation Code
           </Link>
+
+          <Theme />
         </nav>
       </nav>
     </div>

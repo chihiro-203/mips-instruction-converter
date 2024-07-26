@@ -24,5 +24,4 @@
 
 
 ## Reference:
-[Build a Full Stack Notes App using MERN | MongoDB, Express, React JS, Node JS](https://www.youtube.com/watch?v=Rgvec9UA2_I)
 
