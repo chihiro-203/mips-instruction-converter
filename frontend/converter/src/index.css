@@ -10,9 +10,20 @@
   }
 
   body {
+    background-color: transparent;
     overflow-x: hidden;
     overflow-y: hidden;
+    /* transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;  */
   }
+
+  body.light{
+    background-color: #e3d6f6;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  }
+  body.dark{
+    background-color: #330044;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  } 
 }
 
 @layer components {
@@ -25,6 +36,9 @@
   ::-webkit-scrollbar-thumb {
     @apply bg-[#b366ff] rounded-[10px] hover:bg-[#8d19ff];
   }
+  .transition{
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+  }
 
   .nav,
   .navbar {
@@ -36,19 +50,40 @@
   .link.active{
     @apply text-[#5f3c91] underline;
   }
-
   .logo-box + .logo-box {
     @apply ml-20;
   }
+
   .logo-box {
-    @apply flex-1 h-[250px] text-center flex flex-col justify-center items-center font-semibold transition-all duration-[0.5s] ease-[ease] p-2.5 rounded-xl hover:shadow-[0px_4px_6px_#8a51ab,0px_-4px_6px_#8a51ab,4px_0px_6px_#8a51ab,-4px_0px_6px_#8a51ab];
+    @apply bg-transparent flex-1 h-[250px] text-center flex flex-col justify-center items-center font-semibold transition-all duration-[0.5s] ease-[ease] p-2.5 rounded-xl hover:shadow-[0px_4px_6px_#8a51ab,0px_-4px_6px_#8a51ab,4px_0px_6px_#8a51ab,-4px_0px_6px_#8a51ab];
   }
+  .logo-box.light{
+    @apply bg-[#d4c0f1cc];
+  }
+  .logo-box.dark{
+    @apply bg-[#26003399];
+  }
+
   .logo-text {
-    @apply text-3xl text-[#4b0082] mt-10 mb-2.5 mx-auto;
+    @apply text-3xl text-transparent mt-10 mb-2.5 mx-auto;
   }
+  .logo-text.light{
+    @apply text-[#26003399];
+  }
+  .logo-text.dark{
+    @apply text-[#d4c0f1cc];
+  }
+
   .cir-btn {
     @apply inline-flex flex-col justify-center items-center w-[60px] h-[60px] relative overflow-hidden cursor-pointer bg-[rgba(150,101,221,0.8)] mt-5 mb-[30px] mx-auto rounded-[50%] hover:bg-[rgba(95,60,145,1)];
   }
+  .cir-btn.light{
+    @apply text-[#e3d6f6];
+  }
+  .cir-btn.dark{
+    @apply text-[#330044];
+  }
+
   .converter-icon {
     @apply text-lg;
   }

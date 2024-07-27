@@ -1,24 +1,23 @@
-import React from "react";
-import { Link, useLocation } from 'react-router-dom'; 
+Create theme mode and change color of body of screen
+import React, { useEffect, useState } from "react";
+import { FaMoon, FaSun } from "react-icons/fa";
 
-const Navbar = () => {
-  const location = useLocation();
+const Theme = () => {
+  const [mode, setMode] = useState("");
+
+  // Load the theme from localStorage and apply it
+  useEffect(() => {}, []);
+
 
   return (
-    <div>
-      <nav >
-        <Link to="/home" className={`link ${location.pathname === '/home' ? 'active' : ''}`}>
-          HOME
-        </Link>
-        <Link to="/search" className={`link ${location.pathname === '/search' ? 'active' : ''}`}>
-          SEARCH
-        </Link>
-        <Link to="/data" className={`link ${location.pathname === '/data' ? 'active' : ''}`}>
-          DATA
-        </Link>
-      </nav>
-    </div>
+    <button onClick={toggleTheme}>
+      {isDarkMode ? (
+        <FaMoon className="text-[#fff] text-xl" />
+      ) : (
+        <FaSun className="text-[#000] text-xl" />
+      )}
+    </button>
   );
 };
 
-export default Navbar;
+export default Theme;
