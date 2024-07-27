@@ -1,0 +1,9 @@
+:root {
+    --theme: #E3D6F6;
+    --text: #9665DD;
+    --text-hover: #5F3C91;
+    --text-table: #282129;
+    --d-theme: #330044;
+    --placeholder-text: #8A51AB;
+    --table-head: #4B0082;
+}

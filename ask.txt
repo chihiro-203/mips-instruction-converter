@@ -1,50 +1,34 @@
-Apply transition to each cir-btn, for the oo and rr className, you can use mouseover and mouseout
-
-Home.jsx
+How to set the image SearchIcon in center
 ```
 import React from "react";
-import { Link } from "react-router-dom";
-import {
-  FaArrowLeft,
-  FaArrowRight,
-  FaFile,
-  FaFileCode,
-  FaRegFile,
-  FaRegFileCode,
-} from "react-icons/fa6";
-import HomeNavbar from "../components/HomeNavbar";
+import Navbar from "../components/Navbar";
+import SearchIcon from "../assets/search.png"
 
-const Home = () => {
+const Search = () => {
   return (
     <div>
-      <HomeNavbar />
-      <div className="flex items-center justify-center h-screen">
-        <div className="flex justify-center items-center flex-1 max-w-[1150px] mx-[50px] my-0">
-          <div className="logo-box transition">
-            <div className="logo-text transition">
-            <Link to="/s" className="cir-btn transition">
-              <FaArrowRight /> (Make <FaArrowRight /> to move to the right a little bit, then move to its original position, and repeat like a gif)
-              <FaArrowLeft /> (Make <FaArrowLeft /> to move to the left a little bit, then move to its original position, and repear like a gif)
-            </Link>
-          </div>
-          <div className="logo-box transition">
-            <div className="logo-text r transition"></div>
-            <Link to="/r" className="cir-btnn rr transition">
-              <FaRegFile /> (change to <FaRegFileCode />)
-            </Link>
-          </div>
-          <div className="logo-box transition">
-            <div className="logo-text transition"></div>
-            <Link to="/o" className="cir-btn oo transition">
-              <FaFile /> (change to <FaFileCode />)
-            </Link>
-          </div>
+      <Navbar />
+      <div className="flex flex-col items-center justify-center h-screen">
+        <div className="max-w-[1000px] w-[95%] text-center mb-[30px]">       
+        <img src={SearchIcon} className="w-1/5" />     
+            {/* <SearchIcon /> */}
+            {/* <img src="../Resources/mips.png" alt="icon" class="icon"> */}
+            <div className="font-semibold text-[40px] tracking-[0px] text-[#955ed3] text-center">MIPS Instruction Converter</div>
+            <div className="text-[15px] tracking-[0px] text-[#955ed3] text-center mb-2.5">
+                    This tool will helps you to convert the MIPS Instruction to R-format/I-format, Binary, Decimal, Hexadecimal.
+                    <br /> 
+                    This will also show you how to have that result.
+            </div>
+            <div className="searching-tool">                
+                <input type="text" className="searching-input" placeholder="Searching MIPS Instruction... (e.g. add $s0 $s1 $s2)" id="search-input" name="mips=" required />
+                {/* <!-- <button type="submit" class="searching-submit"><i class="fa-solid fa-paw"></i></button> --> */}
+                <button type="submit" className="searching-submit"><i className="fa-solid fa-paw"></i></button>
+            </div>
         </div>
-      </div>
+    </div>
     </div>
   );
 };
 
-export default Home;
-
+export default Search;
 ```

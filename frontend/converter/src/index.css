@@ -48,7 +48,7 @@
     @apply text-base text-[#9665dd] font-semibold transition-[0.3s] mx-[15px] hover:text-[#5f3c91] hover:underline;
   }
   .link.active{
-    @apply text-[#5f3c91] underline;
+    @apply text-[#5f3c91];
   }
   .logo-box + .logo-box {
     @apply ml-20;
@@ -91,9 +91,18 @@
   .opcodes-icon {
     @apply text-[28px];
   }
+  .converter-icon:hover,
   .register-icon:hover,
   .opcodes-icon:hover {
-    @apply shadow-[0px_2px_3px_#5f3c91,0px_-2px_3px_var(--text-hover),2px_0px_3px_#5f3c91,-2px_0px_3px_#5f3c91];
+    @apply shadow-[0px_2px_3px_#5f3c91,0px_-2px_3px_#5f3c91,2px_0px_3px_#5f3c91,-2px_0px_3px_#5f3c91];
+  }
+
+  .search-btn{
+    @apply text-3xl text-[#9665dd] bg-transparent pr-2.5 rounded-[50%] hover:text-[#5f3c91];
+  }
+  .search-btn:hover{      
+  text-shadow: 0px 0.5px 0.75px #9665dd, 0px -0.5px 0.75px #9665dd,
+  0.5px 0px 0.75px #9665dd, -0.5px 0px 0.75px #9665dd;
   }
 
 }
