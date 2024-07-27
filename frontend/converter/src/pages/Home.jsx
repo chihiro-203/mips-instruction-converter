@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // import { FaLongArrowAltRight, FaLongArrowAltLeft } from "react-icons/fa";
 import {
@@ -12,6 +12,32 @@ import {
 import HomeNavbar from "../components/HomeNavbar";
 
 const Home = () => {
+  const [isHoveringArrowRight, setIsHoveringArrowRight] = useState(false);
+  const [isHoveringArrowLeft, setIsHoveringArrowLeft] = useState(false);
+  const [isHoveringFileReg, setIsHoveringFileReg] = useState(false);
+  const [isHoveringFile, setIsHoveringFile] = useState(false);
+
+  const handleArrowOver = () => {
+    setIsHoveringArrowRight(true);
+    setIsHoveringArrowLeft(true);
+  };
+  const handleArrowOut = () => {
+    setIsHoveringArrowRight(false);
+    setIsHoveringArrowLeft(false);
+  };
+  const handleFileRegOver = () => {
+    setIsHoveringFileReg(true);
+  };
+  const handleFileRegOut = () => {
+    setIsHoveringFileReg(false);
+  };
+  const handleFileOver = () => {
+    setIsHoveringFile(true);
+  };
+  const handleFileOut = () => {
+    setIsHoveringFile(false);
+  };
+
   return (
     <div>
       <HomeNavbar />
@@ -23,11 +49,28 @@ const Home = () => {
               <br />
               Converter
             </div>
-            <Link to="/search" className="cir-btn converter-icon transition">
-              <FaArrowRight />
-              <FaArrowLeft />
-              {/* <i className="fas fa-arrow-right bottom-icon"></i>
-                            <i className="fas fa-arrow-left top-icon"></i> */}
+            <Link
+              to="/search"
+              className="cir-btn converter-icon transition"
+              onMouseOver={handleArrowOver}
+              onMouseOut={handleArrowOut}
+            >
+              <FaArrowRight
+                style={{
+                  transform: isHoveringArrowRight
+                    ? "translateX(5px)"
+                    : "translateX(0)",
+                  transition: "transform 0.2s ease-in-out",
+                }}
+              />{" "}
+              <FaArrowLeft
+                style={{
+                  transform: isHoveringArrowLeft
+                    ? "translateX(-5px)"
+                    : "translateX(0)",
+                  transition: "transform 0.2s ease-in-out",
+                }}
+              />{" "}
             </Link>
           </div>
           <div className="logo-box transition">
@@ -36,10 +79,13 @@ const Home = () => {
               <br />
               Usage
             </div>
-            <Link to="/register" className="cir-btn register-icon transition">
-              <FaRegFile />
-              {/* <FaRegFileCode /> */}
-              {/* <i className="fa-regular fa-file" id="register-icon"></i> */}
+            <Link
+              to="/register"
+              className="cir-btn register-icon transition"
+              onMouseOver={handleFileRegOver}
+              onMouseOut={handleFileRegOut}
+            >
+              {isHoveringFileReg ? <FaRegFileCode /> : <FaRegFile />}
             </Link>
           </div>
           <div className="logo-box transition">
@@ -48,10 +94,13 @@ const Home = () => {
               <br />
               Code
             </div>
-            <Link to="/opcode" className="cir-btn opcodes-icon transition">
-              <FaFile />
-              {/* <FaFileCode /> */}
-              {/* <i className="fa-solid fa-file" id="opcode-icon"></i> */}
+            <Link
+              to="/opcode"
+              className="cir-btn opcodes-icon transition"
+              onMouseOver={handleFileOver}
+              onMouseOut={handleFileOut}
+            >
+              {isHoveringFile ? <FaFileCode /> : <FaFile />}
             </Link>
           </div>
         </div>

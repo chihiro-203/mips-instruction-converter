@@ -1,23 +1,50 @@
-Create theme mode and change color of body of screen
-import React, { useEffect, useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
+Apply transition to each cir-btn, for the oo and rr className, you can use mouseover and mouseout
 
-const Theme = () => {
-  const [mode, setMode] = useState("");
+Home.jsx
+```
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaFile,
+  FaFileCode,
+  FaRegFile,
+  FaRegFileCode,
+} from "react-icons/fa6";
+import HomeNavbar from "../components/HomeNavbar";
 
-  // Load the theme from localStorage and apply it
-  useEffect(() => {}, []);
-
-
+const Home = () => {
   return (
-    <button onClick={toggleTheme}>
-      {isDarkMode ? (
-        <FaMoon className="text-[#fff] text-xl" />
-      ) : (
-        <FaSun className="text-[#000] text-xl" />
-      )}
-    </button>
+    <div>
+      <HomeNavbar />
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex justify-center items-center flex-1 max-w-[1150px] mx-[50px] my-0">
+          <div className="logo-box transition">
+            <div className="logo-text transition">
+            <Link to="/s" className="cir-btn transition">
+              <FaArrowRight /> (Make <FaArrowRight /> to move to the right a little bit, then move to its original position, and repeat like a gif)
+              <FaArrowLeft /> (Make <FaArrowLeft /> to move to the left a little bit, then move to its original position, and repear like a gif)
+            </Link>
+          </div>
+          <div className="logo-box transition">
+            <div className="logo-text r transition"></div>
+            <Link to="/r" className="cir-btnn rr transition">
+              <FaRegFile /> (change to <FaRegFileCode />)
+            </Link>
+          </div>
+          <div className="logo-box transition">
+            <div className="logo-text transition"></div>
+            <Link to="/o" className="cir-btn oo transition">
+              <FaFile /> (change to <FaFileCode />)
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default Theme;
+export default Home;
+
+```
