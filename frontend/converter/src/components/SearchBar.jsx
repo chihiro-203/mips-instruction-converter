@@ -1,9 +1,12 @@
 import React from "react";
 import { FaPaw } from "react-icons/fa6";
 
-const SearchBar = () => {
+const SearchBar = ({inputWidth}) => {
   return (
-    <div className="bg-[white] h-fit w-full flex items-center border-[#955ed3] justify-between px-2.5 py-[5px] rounded-[40px] border-[2.5px] border-solid">
+    <div
+      className="bg-[white] h-fit flex items-center border-[#955ed3] justify-between px-2.5 py-[5px] rounded-[40px] border-[2.5px] border-solid"
+        style={{ width: `${inputWidth}%` }}
+    >
       <input
         type="text"
         className="bg-transparent w-[90%] outline-none text-[15px] text-[#8a51ab] p-2.5 placeholder:text-[15px] placeholder:text-[#955ed3]"

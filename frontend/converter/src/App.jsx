@@ -15,7 +15,7 @@ const routes = (
       <Route path="/home" exact element={<Home />}/>
       <Route path="/opcode" exact element={<Opcode />}/>
       <Route path="/register" exact element={<Register />}/>
-      {/* <Route path="/result" exact element={<Result />}/> */}
+      <Route path="/result" exact element={<Result />}/>
       <Route path="*" exact element={<NotFound />}/>
     </Routes>
   </Router>

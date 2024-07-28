@@ -24,7 +24,7 @@ const Search = () => {
             This will also show you how to have that result.
           </div>
 
-          <SearchBar />
+          <SearchBar inputWidth={100}/>
         </div>
       </div>
     </div>
