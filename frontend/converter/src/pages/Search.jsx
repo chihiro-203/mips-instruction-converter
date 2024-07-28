@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import SearchIcon from "../assets/search.png";
-import { FaPaw } from "react-icons/fa6";
+import SearchIcon from "../assets/image/search.png";
+import SearchBar from "../components/SearchBar";
 
 const Search = () => {
   return (
@@ -24,20 +24,7 @@ const Search = () => {
             This will also show you how to have that result.
           </div>
 
-          <div className="bg-[white] h-fit w-full flex items-center border-[#955ed3] justify-between px-2.5 py-[5px] rounded-[40px] border-[2.5px] border-solid">
-            <input
-              type="text"
-              className="bg-transparent w-[90%] outline-none text-[15px] text-[#8a51ab] p-2.5 placeholder:text-[15px] placeholder:text-[#955ed3]"
-              placeholder="Searching MIPS Instruction... (e.g. add $s0 $s1 $s2)"
-              id="search-input"
-              name="mips="
-              required
-            />
-            {/* <!-- <button type="submit" class="searching-submit"><i class="fa-solid fa-paw"></i></button> --> */}
-            <button type="submit" className="search-btn">
-              <FaPaw />
-            </button>
-          </div>
+          <SearchBar />
         </div>
       </div>
     </div>

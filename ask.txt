@@ -1,34 +1,54 @@
-How to set the image SearchIcon in center
-```
-import React from "react";
-import Navbar from "../components/Navbar";
-import SearchIcon from "../assets/search.png"
-
-const Search = () => {
-  return (
-    <div>
-      <Navbar />
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div className="max-w-[1000px] w-[95%] text-center mb-[30px]">       
-        <img src={SearchIcon} className="w-1/5" />     
-            {/* <SearchIcon /> */}
-            {/* <img src="../Resources/mips.png" alt="icon" class="icon"> */}
-            <div className="font-semibold text-[40px] tracking-[0px] text-[#955ed3] text-center">MIPS Instruction Converter</div>
-            <div className="text-[15px] tracking-[0px] text-[#955ed3] text-center mb-2.5">
-                    This tool will helps you to convert the MIPS Instruction to R-format/I-format, Binary, Decimal, Hexadecimal.
-                    <br /> 
-                    This will also show you how to have that result.
-            </div>
-            <div className="searching-tool">                
-                <input type="text" className="searching-input" placeholder="Searching MIPS Instruction... (e.g. add $s0 $s1 $s2)" id="search-input" name="mips=" required />
-                {/* <!-- <button type="submit" class="searching-submit"><i class="fa-solid fa-paw"></i></button> --> */}
-                <button type="submit" className="searching-submit"><i className="fa-solid fa-paw"></i></button>
-            </div>
-        </div>
-    </div>
-    </div>
-  );
-};
-
-export default Search;
-```
+{
+  "Class A": [
+    {
+      "name": "Nana",
+      "age": 18,
+      "grade": [
+        9.0,
+        7.0
+      ]
+    },
+    {
+      "name": "Gima",
+      "age": 18,
+      "grade": [
+        2.0,
+        7.0
+      ]
+    },
+    {
+      "name": "Synyan",
+      "age": 19,
+      "grade": [
+        5.7,
+        5.0
+      ]
+    }
+  ],
+  "Class B": [
+    {
+      "name": "Miko",
+      "age": 20,
+      "grade": [
+        7.0,
+        10.0
+      ]
+    },
+    {
+      "name": "Yuta",
+      "age": 18,
+      "grade": [
+        6.7,
+        7.6
+      ]
+    },
+    {
+      "name": "Ivy",
+      "age": 18,
+      "grade": [
+        8.9,
+        8.2
+      ]
+    }
+  ]
+}

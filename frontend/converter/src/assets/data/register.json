@@ -1,0 +1,74 @@
+[
+    {
+      "Name": "$zero",
+      "Number": 0,
+      "Function_Use": "The constant value 0",
+      "Preserved_Across_A_Call": "N.A."
+    },
+    {
+      "Name": "$at",
+      "Number": 1,
+      "Function_Use": "Assembler temporary, reserved for pseudo-instructions",
+      "Preserved_Across_A_Call": "No"
+    },
+    {
+      "Name": "$v0-$v1",
+      "Number": "2-3",
+      "Function_Use": "Values for Function Results and Expression Evaluation",
+      "Preserved_Across_A_Call": "No"
+    },
+    {
+      "Name": "$a0-$a3",
+      "Number": "4-7",
+      "Function_Use": "Function parameters, not preserved by sub-programs",
+      "Preserved_Across_A_Call": "No"
+    },
+    {
+      "Name": "$t0-$t7",
+      "Number": "8-15",
+      "Function_Use": "Temporary data, not preserved by subprograms",
+      "Preserved_Across_A_Call": "No"
+    },
+    {
+      "Name": "$s0-$s7",
+      "Number": "16-23",
+      "Function_Use": "Saved registers, preserved by subprograms",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$t8-$t9",
+      "Number": "24-25",
+      "Function_Use": "Temporary data, not preserved by subprograms",
+      "Preserved_Across_A_Call": "No"
+    },
+    {
+      "Name": "$k0-$k1",
+      "Number": "26-27",
+      "Function_Use": "Reserved for interrupt handler. Don't use!",
+      "Preserved_Across_A_Call": "No"
+    },
+    {
+      "Name": "$gp",
+      "Number": 28,
+      "Function_Use": "Global Area Pointer (base of global data segment)",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$sp",
+      "Number": 29,
+      "Function_Use": "Stack Pointer",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$fp",
+      "Number": 30,
+      "Function_Use": "Frame Pointer",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$ra",
+      "Number": 31,
+      "Function_Use": "Return Address",
+      "Preserved_Across_A_Call": "Yes"
+    }
+  ]
