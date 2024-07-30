@@ -105,6 +105,29 @@
       0.5px 0px 0.75px #9665dd, -0.5px 0px 0.75px #9665dd;
   }
 
+  .panel{
+    @apply h-[420px] w-[48%] text-center text-2xl shadow-[0px_4px_6px_rgba(95,60,145,0.2),0px_-4px_6px_rgba(95,60,145,0.2),4px_0px_6px_rgba(95,60,145,0.2),-4px_0px_6px_rgba(95,60,145,0.2)] mx-[35px] my-[45px] p-5 rounded-[10px]; /* font-family: ; */
+    text-shadow: 700;
+    background: var(--text);
+  }
+  .panel.dark {
+    @apply text-[#e3d6f6];
+  }
+  .panel.light {
+    @apply text-[#330044];
+  }
+  .line.light {
+    @apply mt-[5px] border-t-2 border-solid border-t-[#330044];
+  }
+  .line.dark {
+    @apply mt-[5px] border-t-2 border-solid border-t-[#e3d6f6];
+  }
+  
+  .result {
+    @apply text-lg text-center text-white;
+    text-shadow: 600;
+  }
+
   .ref-title {
     @apply text-[50px] font-bold tracking-[0px] text-[#9665dd] mt-5 mb-10;
   }

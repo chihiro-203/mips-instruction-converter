@@ -4,7 +4,7 @@ import { FaPaw } from "react-icons/fa6";
 const SearchBar = ({inputWidth}) => {
   return (
     <div
-      className="bg-[white] h-fit flex items-center border-[#955ed3] justify-between px-2.5 py-[5px] rounded-[40px] border-[2.5px] border-solid"
+      className="m-auto bg-[white] h-fit flex items-center border-[#955ed3] justify-between px-2.5 py-[5px] rounded-[40px] border-[2.5px] border-solid"
         style={{ width: `${inputWidth}%` }}
     >
       <input
