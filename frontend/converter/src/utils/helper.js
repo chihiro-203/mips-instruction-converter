@@ -1,0 +1,1 @@
+// Remove unnecessary character and space from searchTerm

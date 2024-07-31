@@ -44,8 +44,6 @@ app.get('/get-data', async (req, res) => {
   });
 
   res.json(filteredData);
-  // Prevent caching
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
 });
 
 const port = process.env.PORT || 8000;

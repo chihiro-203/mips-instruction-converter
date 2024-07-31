@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaPaw } from "react-icons/fa6";
-import axios from "axios";
+import axiosInstance from "../utils/axiosInstance";
 
 const SearchBar = ({ inputWidth }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,7 +14,7 @@ const SearchBar = ({ inputWidth }) => {
     const url = `/get-data?keyword=${searchTerm}&t=${timestamp}`; 
   
     try {
-      const res = await axios.get(url, { cache: false });
+      const res = await axiosInstance.get(url, { cache: false });
       console.log(res.data);
     } catch (error) {
       console.log("Error fetching data: ", error);
