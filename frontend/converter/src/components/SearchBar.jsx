@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { FaPaw } from "react-icons/fa6";
 import axiosInstance from "../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ inputWidth }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   // Search for MIPS instruction
   const onSearch = async (e) => {
@@ -11,11 +13,12 @@ const SearchBar = ({ inputWidth }) => {
   
     // Add a random parameter to prevent caching
     const timestamp = new Date().getTime();
-    const url = `/get-data?keyword=${searchTerm}&t=${timestamp}`; 
+    const url = `search-data?keyword=${searchTerm}&t=${timestamp}`; 
   
     try {
       const res = await axiosInstance.get(url, { cache: false });
       console.log(res.data);
+      navigate(url)
     } catch (error) {
       console.log("Error fetching data: ", error);
     }

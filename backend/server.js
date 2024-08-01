@@ -23,7 +23,7 @@ app.get("/", async (req, res) => {
 });
 
 // API to get data by keyword
-app.get('/get-data', async (req, res) => {
+app.get('/search-data', async (req, res) => {
   // Retrieve and decode the keyword
   const keyword = req.query.keyword;
 
@@ -38,8 +38,8 @@ app.get('/get-data', async (req, res) => {
   // Perform filtering based on the split array
   const filteredData = register.filter(item => {
       return keywordArray.some(word =>
-          item.name1.toLowerCase().includes(word.toLowerCase()) ||
-          item.name2.toLowerCase().includes(word.toLowerCase())
+          item.name1.includes(word.toLowerCase()) ||
+          item.name2.includes(word.toLowerCase())
       );
   });
 

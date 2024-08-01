@@ -18,9 +18,9 @@ const Navbar = () => {
         </Link>
         <nav className="navbar">
           <Link
-            to="/search"
+            to="/search" 
             className={`link ${
-              location.pathname === "/search" ? "active" : ""
+              location.pathname.startsWith("/search") ? "active" : ""
             }`}
           >
             Instruction Converter

@@ -11,11 +11,11 @@ const routes = (
   <Router>
     <Routes>
       <Route path="/search" exact element={<Search />}/>
+      <Route path="/search/search-data" element={<Result />} /> 
       <Route path="/" element={<Navigate to="/search" />} />
       <Route path="/home" exact element={<Home />}/>
       <Route path="/opcode" exact element={<Opcode />}/>
       <Route path="/register" exact element={<Register />}/>
-      <Route path="/result" exact element={<Result />}/>
       <Route path="*" exact element={<NotFound />}/>
     </Routes>
   </Router>

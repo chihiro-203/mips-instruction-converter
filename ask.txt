@@ -1,85 +1,30 @@
-I have this api get in server (get-data), and the SearchBar.jsx that will receive the input from user, then send to server to find if the data inputted is contained in the json file, but the data I have inputted once, inputted again, it appears as 304 Not Modified. While if 200, Success, the server does not print the keyword in terminal of server
-server.js
-``
-require("dotenv").config();
-
-const express = require("express");
-const fs = require("fs");
-const cors = require("cors");
-const app = express();
-
-app.use(express.json());
-
-// Enable CORS
-if (process.env.ENABLE_CORS === "true") {
-  app.use(cors({ origin: "*" }));
-}
-
-// Load JSON data from resources folder
-const register = JSON.parse(
-  fs.readFileSync("./resources/Register.json", "utf-8")
-);
-const opcode = JSON.parse(fs.readFileSync("./resources/Opcode.json", "utf-8"));
-
-app.get("/", async (req, res) => {
-  res.json({ data: "hello" });
-});
-
-// API to get data by keyword
-app.get('/get-data', async (req, res) => {
-  // Retrieve and decode the keyword
-  const keyword = req.query.keyword;
-
-  console.log(keyword);
-  
-  // Split the keyword into an array based on spaces
-  const keywordArray = keyword.split(/\s+/);
-
-  // Log the array to verify
-  console.log('Keyword Array:', keywordArray);
-
-  // Perform filtering based on the split array
-  const filteredData = register.filter(item => {
-      return keywordArray.some(word =>
-          item.name1.toLowerCase().includes(word.toLowerCase()) ||
-          item.name2.toLowerCase().includes(word.toLowerCase())
-      );
-  });
-
-  res.json(filteredData);
-  // Prevent caching
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-});
-
-const port = process.env.PORT || 8000;
-
-app.listen(port);
-console.log(`Running on http://localhost:${port}`);
-
-module.exports = app;
-```
-
-SearchBar.jsx
-```
 import React, { useState } from "react";
 import { FaPaw } from "react-icons/fa6";
-import axios from "axios";
+import axiosInstance from "../utils/axiosInstance";
+import { useNavigate } from "react-router-dom";
+import NotFound from "../pages/NotFound";
 
 const SearchBar = ({ inputWidth }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   // Search for MIPS instruction
   const onSearch = async (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
+
+    // Add a random parameter to prevent caching
+    const timestamp = new Date().getTime();
+    const url = `search-data?keyword=${searchTerm}&t=${timestamp}`;
 
     try {
-      // Send the searchTerm as a query parameter
-      const res = await axios.get(`/get-data?keyword=${searchTerm}`, { cache: false });
-      // navigat
-
-      // Handle response from the API here
+      const res = await axiosInstance.get(url, { cache: false });
       console.log(res.data);
 
+      if (res.data.isValid) {
+        navigate(`/search/search-data?keyword=${searchTerm}&t=${timestamp}`);
+      } else {
+        navigate(NotFound);
+      }
     } catch (error) {
       console.log("Error fetching data: ", error);
     }
@@ -87,14 +32,10 @@ const SearchBar = ({ inputWidth }) => {
 
   return (
     <div
-      className="m-auto bg-[white] h-fit flex items-center border-[#955ed3] justify-between px-2.5 py-[5px] rounded-[40px] border-[2.5px] border-solid"
-      style={{ width: `${inputWidth}%` }}
+      className=""
     >
       <input
         type="text"
-        className="bg-transparent w-[90%] outline-none text-[15px] text-[#8a51ab] p-2.5 placeholder:text-[15px] placeholder:text-[#955ed3]"
-        placeholder="Searching MIPS Instruction... (e.g. add $s0 $s1 $s2)"
-        id="search-input"
         name="mips="
         required
         value={searchTerm}
@@ -109,5 +50,3 @@ const SearchBar = ({ inputWidth }) => {
 };
 
 export default SearchBar;
-
-```

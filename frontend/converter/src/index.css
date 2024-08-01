@@ -111,16 +111,16 @@
     background: var(--text);
   }
   .panel.dark {
-    @apply text-[#e3d6f6];
+    @apply text-[#d4c0f1cc] bg-[#26003399];
   }
   .panel.light {
-    @apply text-[#330044];
+    @apply text-[#26003399] bg-[#d4c0f1cc];
   }
   .line.light {
-    @apply mt-[5px] border-t-2 border-solid border-t-[#330044];
+    @apply mt-[5px] border-t-2 border-solid border-t-[#26003399];
   }
   .line.dark {
-    @apply mt-[5px] border-t-2 border-solid border-t-[#e3d6f6];
+    @apply mt-[5px] border-t-2 border-solid border-t-[#d4c0f1cc];
   }
   
   .result {
