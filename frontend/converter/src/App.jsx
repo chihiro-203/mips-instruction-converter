@@ -11,7 +11,7 @@ const routes = (
   <Router>
     <Routes>
       <Route path="/search" exact element={<Search />}/>
-      <Route path="/search/search-data" element={<Result />} /> 
+      <Route path="/search/search-mips" element={<Result />} /> 
       <Route path="/" element={<Navigate to="/search" />} />
       <Route path="/home" exact element={<Home />}/>
       <Route path="/opcode" exact element={<Opcode />}/>

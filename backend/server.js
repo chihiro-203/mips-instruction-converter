@@ -23,24 +23,46 @@ app.get("/", async (req, res) => {
 });
 
 // API to get data by keyword
-app.get('/search-data', async (req, res) => {
+app.get("/search-mips", async (req, res) => {
   // Retrieve and decode the keyword
-  const keyword = req.query.keyword;
+  const mips = req.query.mips;
 
-  console.log(keyword);
-  
+  console.log(mips);
+
   // Split the keyword into an array based on spaces
+  const mipsArray = mips.split(/\s+/);
+
+  // Log the array to verify
+  console.log("Keyword Array:", mipsArray);
+
+  // Perform filtering based on the split array
+  const filteredMIPS = register.filter((item) => {
+    return mipsArray.some(
+      (word) =>
+        item.name1.includes(word.toLowerCase()) ||
+        item.name2.includes(word.toLowerCase())
+    );
+  });
+
+  res.json(filteredMIPS);
+});
+
+// API to get data by keyword
+app.get("/get-data/:keyword", async (req, res) => {
+  const keyword = req.params.keyword.toLowerCase();
+
   const keywordArray = keyword.split(/\s+/);
 
   // Log the array to verify
-  console.log('Keyword Array:', keywordArray);
+  console.log("Keyword Array:", keywordArray);
 
   // Perform filtering based on the split array
-  const filteredData = register.filter(item => {
-      return keywordArray.some(word =>
-          item.name1.includes(word.toLowerCase()) ||
-          item.name2.includes(word.toLowerCase())
-      );
+  const filteredData = register.filter((item) => {
+    return keywordArray.some(
+      (word) =>
+        item.name1.includes(word.toLowerCase()) ||
+        item.name2.includes(word.toLowerCase())
+    );
   });
 
   res.json(filteredData);

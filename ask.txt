@@ -1,42 +1,36 @@
+Can you make the data in SearchBar stay alive until I delete and enter another keyword?, I mean, when I enter in Search page, it will save in Search input params, then it go to Result page, appear in the input bar of Result, both Search and Result call the <SearchBar />, I have done the navigation.
+```
 import React, { useState } from "react";
 import { FaPaw } from "react-icons/fa6";
 import axiosInstance from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
-import NotFound from "../pages/NotFound";
 
 const SearchBar = ({ inputWidth }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  // Search for MIPS instruction
+  // Search for keyword instruction
   const onSearch = async (e) => {
     e.preventDefault();
-
+  
     // Add a random parameter to prevent caching
     const timestamp = new Date().getTime();
-    const url = `search-data?keyword=${searchTerm}&t=${timestamp}`;
-
+    const url = `search-keyword?keyword=${searchTerm}&t=${timestamp}`; 
+  
     try {
       const res = await axiosInstance.get(url, { cache: false });
       console.log(res.data);
-
-      if (res.data.isValid) {
-        navigate(`/search/search-data?keyword=${searchTerm}&t=${timestamp}`);
-      } else {
-        navigate(NotFound);
-      }
+      navigate(url)
     } catch (error) {
       console.log("Error fetching data: ", error);
     }
   };
 
   return (
-    <div
-      className=""
-    >
+    <div>
       <input
         type="text"
-        name="mips="
+        id="search-input"
         required
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
@@ -50,3 +44,4 @@ const SearchBar = ({ inputWidth }) => {
 };
 
 export default SearchBar;
+```
