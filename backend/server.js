@@ -13,10 +13,10 @@ if (process.env.ENABLE_CORS === "true") {
 }
 
 // Load JSON data from resources folder
-const register = JSON.parse(
+const registers = JSON.parse(
   fs.readFileSync("./resources/Register.json", "utf-8")
 );
-const opcode = JSON.parse(fs.readFileSync("./resources/Opcode.json", "utf-8"));
+const opcodes = JSON.parse(fs.readFileSync("./resources/Opcode.json", "utf-8"));
 
 app.get("/", async (req, res) => {
   res.json({ data: "hello" });
@@ -36,7 +36,7 @@ app.get("/search-mips", async (req, res) => {
   console.log("Keyword Array:", mipsArray);
 
   // Perform filtering based on the split array
-  const filteredMIPS = register.filter((item) => {
+  const filteredMIPS = registers.filter((item) => {
     return mipsArray.some(
       (word) =>
         item.name1.includes(word.toLowerCase()) ||
@@ -56,8 +56,15 @@ app.get("/get-data/:keyword", async (req, res) => {
   // Log the array to verify
   console.log("Keyword Array:", keywordArray);
 
+  let name = keywordArray[0];
+  var mnemonic = opcodes.find(function (item) {
+    return item.mnemonic.includes(name.toLowerCase());
+  });
+
+  if (mnemonic) {}
+
   // Perform filtering based on the split array
-  const filteredData = register.filter((item) => {
+  const filteredData = registers.filter((item) => {
     return keywordArray.some(
       (word) =>
         item.name1.includes(word.toLowerCase()) ||

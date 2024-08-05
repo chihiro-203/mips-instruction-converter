@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { validateMIPS } from "../utils/helper";
 
 const SearchBar = ({ inputWidth }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+  let [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ const SearchBar = ({ inputWidth }) => {
 
     setError(null); // Clear error if validation passes
 
+    searchTerm = validateMIPS(searchTerm);
 
     // Add a random parameter to prevent caching
     const timestamp = new Date().getTime();
