@@ -2,161 +2,161 @@
     {
       "name1": "zero",
       "name2": "$zero",
-      "register": 0
+      "value": 0
     },
     {
       "name1": "at",
       "name2": "$at",
-      "register": 1
+      "value": 1
     },
     {
       "name1": "v0",
       "name2": "$v0",
-      "register": 2
+      "value": 2
     },
     {
       "name1": "v1",
       "name2": "$v1",
-      "register": 3
+      "value": 3
     },
     {
       "name1": "a0",
       "name2": "$a0",
-      "register": 4
+      "value": 4
     },
     {
       "name1": "a1",
       "name2": "$a1",
-      "register": 5
+      "value": 5
     },
     {
       "name1": "a2",
       "name2": "$a2",
-      "register": 6
+      "value": 6
     },
     {
       "name1": "a3",
       "name2": "$a3",
-      "register": 7
+      "value": 7
     },
     {
       "name1": "t0",
       "name2": "$t0",
-      "register": 8
+      "value": 8
     },
     {
       "name1": "t1",
       "name2": "$t1",
-      "register": 9
+      "value": 9
     },
     {
       "name1": "t2",
       "name2": "$t2",
-      "register": 10
+      "value": 10
     },
     {
       "name1": "t3",
       "name2": "$t3",
-      "register": 11
+      "value": 11
     },
     {
       "name1": "t4",
       "name2": "$t4",
-      "register": 12
+      "value": 12
     },
     {
       "name1": "t5",
       "name2": "$t5",
-      "register": 13
+      "value": 13
     },
     {
       "name1": "t6",
       "name2": "$t6",
-      "register": 14
+      "value": 14
     },
     {
       "name1": "t7",
       "name2": "$t7",
-      "register": 15
+      "value": 15
     },
     {
       "name1": "s0",
       "name2": "$s0",
-      "register": 16
+      "value": 16
     },
     {
       "name1": "s1",
       "name2": "$s1",
-      "register": 17
+      "value": 17
     },
     {
       "name1": "s2",
       "name2": "$s2",
-      "register": 18
+      "value": 18
     },
     {
       "name1": "s3",
       "name2": "$s3",
-      "register": 19
+      "value": 19
     },
     {
       "name1": "s4",
       "name2": "$s4",
-      "register": 20
+      "value": 20
     },
     {
       "name1": "s5",
       "name2": "$s5",
-      "register": 21
+      "value": 21
     },
     {
       "name1": "s6",
       "name2": "$s6",
-      "register": 22
+      "value": 22
     },
     {
       "name1": "s7",
       "name2": "$s7",
-      "register": 23
+      "value": 23
     },
     {
       "name1": "t8",
       "name2": "$t8",
-      "register": 24
+      "value": 24
     },
     {
       "name1": "t9",
       "name2": "$t9",
-      "register": 25
+      "value": 25
     },
     {
       "name1": "k0",
       "name2": "$k0",
-      "register": 26
+      "value": 26
     },
     {
       "name1": "k1",
       "name2": "$k1",
-      "register": 27
+      "value": 27
     },
     {
       "name1": "gp",
       "name2": "$gp",
-      "register": 28
+      "value": 28
     },
     {
       "name1": "sp",
       "name2": "$sp",
-      "register": 29
+      "value": 29
     },
     {
       "name1": "fp",
       "name2": "$fp",
-      "register": 30
+      "value": 30
     },
     {
       "name1": "ra",
       "name2": "$ra",
-      "register": 31
+      "value": 31
     }
   ]
