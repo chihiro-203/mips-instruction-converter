@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-const { registerBin } = require("./utilities");
+const { registerBin, checkType } = require("./utilities");
 const app = express();
 
 app.use(express.json());
@@ -65,91 +65,14 @@ app.get("/get-data/:keyword", async (req, res) => {
   let result = "";
 
   if (mnemonic) {
-
-    // R-format
-    if (mnemonic.format == "R") {
-      //Shifter
-      if (mnemonic.kind == "shifter") {
-        //check if shamt is necessary or not
-        //Normal Shift
-        if (mnemonic.shamt == "sa") {
-          console.log(mnemonic.shamt);
-          let swap = keywordArray[1];
-          keywordArray[1] = keywordArray[2];
-          keywordArray[2] = swap;
-          result += mnemonic.rs;
-          // result += mnemonic.rs;
-          // let sa = mips.splice(3, 1)[0];
-          // result = findRegister(mips, result);
-          // result += String(toBinary(Number(sa))).padStart(5, "0");
-          // binary +=
-          //   eachRegister(mips[1]) +
-          //   eachRegister(mips[2]) +
-          //   String(toBinary(Number(sa))).padStart(5, "0");
-          // mips.push(sa);
-        }
-
-        //Shift Variable
-        else if (mnemonic.shamt != "sa") {
-          // let swap = mips[1];
-          // mips[1] = mips[3];
-          // mips[3] = swap;
-          // result = findRegister(mips, result);
-          // if (result != "No data") {
-          //   result += mnemonic.shamt;
-          //   binary +=
-          //     eachRegister(mips[1]) +
-          //     eachRegister(mips[2]) +
-          //     eachRegister(mips[3]) +
-          //     mnemonic.shamt;
-          // }
-        }
+    if (mnemonic.kind == "arithmetic") {
+      if (mnemonic.rd == "imm") {
+        let rt = keywordArray[1], rs = keywordArray[2], imm = keywordArray[3];
+        let type = checkType(imm);
+      } else {
+        let rd = keywordArray[1], rs = keywordArray[2], rt = keywordArray[3];
       }
-
-      //Arithmetic Logic Unit
-      else if (mnemonic.kind == "arithmetic") {
-        // let swap = mips[1];
-        // mips[1] = mips[2];
-        // mips[2] = mips[3];
-        // mips[3] = swap;
-        // result = findRegister(mips, result);
-        // result += mnemonic.shamt;
-        // binary +=
-        //   eachRegister(mips[1]) +
-        //   eachRegister(mips[2]) +
-        //   eachRegister(mips[3]) +
-        //   mnemonic.shamt;
-      }
-
-      //Multiply
-      else if (mnemonic.kind == "multiply") {
-        // if (mnemonic.rd == null) {
-        //   result +=
-        //     mnemonic.rs + mnemonic.rt + eachRegister(mips[1]) + mnemonic.shamt;
-        //   binary +=
-        //     mnemonic.rs + mnemonic.rt + eachRegister(mips[1]) + mnemonic.shamt;
-        // } else if (mnemonic.rt == null) {
-        //   result +=
-        //     eachRegister(mips[1]) +
-        //     eachRegister(mips[2]) +
-        //     mnemonic.rd +
-        //     mnemonic.shamt;
-        //   binary +=
-        //     eachRegister(mips[1]) +
-        //     eachRegister(mips[2]) +
-        //     mnemonic.rd +
-        //     mnemonic.shamt;
-        // } else {
-        //   result +=
-        //     eachRegister(mips[1]) + mnemonic.rt + mnemonic.rd + mnemonic.shamt;
-        // }
-      }
-      //Break, jalr, jr
     }
-
-    // I-format
-    else if (mnemonic.format == "I") {}
-    else if (mnemonic.format == "J") {}
   }
 
   // Perform filtering based on the split array

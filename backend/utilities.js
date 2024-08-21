@@ -3,6 +3,23 @@ function toBinary(number) {
   return (number >>> 0).toString(2);
 }
 
+function isHex(value) {
+  return /^0x[0-9A-Fa-f]+$/.test(value) || /^[0-9A-Fa-f]+$/.test(value);
+}
+
+function isDec(value) {
+  // A simple regex to check if the value is a valid decimal number
+  return /^[0-9]+$/.test(value);
+}
+
+function checkType(input) {
+  if (isHex(input)) {
+      return "hex";
+  } else if (isDec(input)) {
+      return "dec"
+  }
+}
+
 function registerBin(name, registers) {
   for (const item of registers) {
     if (
@@ -42,6 +59,7 @@ function findRegister(mips, registers, result) {
 function drawTable() {}
 
 module.exports = {
+  checkType,
   registerBin,
   findRegister,
   drawTable,

@@ -5,14 +5,12 @@ export const validateMIPS = (mips) => {
     .replace(/\s+/g, " ") // replaces multiple spaces with a single space
     .trim(); // removes leading and trailing spaces
 
-
     const words = cleanedMIPS.split(" ");
 
     if (words.length < 2 || words.length > 4) {
       return false;
     }
-
-  //   return true;
+    
   return cleanedMIPS;
 };
 
