@@ -78,19 +78,6 @@
       "funct": "null"
     },
     {
-      "mnemonic": "lui",
-      "kind": "arithmetic",
-      "name": "Load Upper Immediate",
-      "opcode": "LUI rt imm",
-      "format": "I",
-      "op": "001111",
-      "rs": "rs",
-      "rt": "rt",
-      "rd": "imm",
-      "shamt": "null",
-      "funct": "null"
-    },
-    {
       "mnemonic": "nor",
       "kind": "arithmetic",
       "name": "Nor",
@@ -672,6 +659,19 @@
       "rs": "rs",
       "rt": "rt",
       "rd": "offset",
+      "shamt": "null",
+      "funct": "null"
+    },
+    {
+      "mnemonic": "lui",
+      "kind": "memory",
+      "name": "Load Upper Immediate",
+      "opcode": "LUI rt imm",
+      "format": "I",
+      "op": "001111",
+      "rs": "rs",
+      "rt": "rt",
+      "rd": "imm",
       "shamt": "null",
       "funct": "null"
     },

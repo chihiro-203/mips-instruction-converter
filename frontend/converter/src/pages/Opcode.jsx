@@ -101,17 +101,6 @@ const Opcode = () => {
                 <td colSpan={3}>imm</td>
               </tr>
               <tr>
-                <td>LUI rt,imm</td>
-                <td>Load Upper Immediate</td>
-                <td>lui</td>
-                <td>I</td>
-                <td>rt=imm&lt;&lt;16</td>
-                <td>001111</td>
-                <td>rs</td>
-                <td>rt</td>
-                <td colSpan={3}>imm</td>
-              </tr>
-              <tr>
                 <td>NOR rd,rs,rt</td>
                 <td>Nor</td>
                 <td>nor</td>
@@ -659,6 +648,17 @@ const Opcode = () => {
                 <td>rs</td>
                 <td>rt</td>
                 <td colSpan={3}>offset</td>
+              </tr>
+              <tr>
+                <td>LUI rt,imm</td>
+                <td>Load Upper Immediate</td>
+                <td>lui</td>
+                <td>I</td>
+                <td>rt=imm&lt;&lt;16</td>
+                <td>001111</td>
+                <td>rs</td>
+                <td>rt</td>
+                <td colSpan={3}>imm</td>
               </tr>
               <tr>
                 <td>LW rt,offset(rs)</td>
