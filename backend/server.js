@@ -66,13 +66,22 @@ app.get("/get-data/:keyword", async (req, res) => {
 
   if (mnemonic) {
     if (mnemonic.kind == "arithmetic") {
-      if (mnemonic.rd == "imm") {
+      if (mnemonic.rd == "imm") { // rt, rs, imm
         let rt = keywordArray[1], rs = keywordArray[2], imm = keywordArray[3];
         let type = checkType(imm);
-      } else {
+      } else {  // rd, rs, rt
         let rd = keywordArray[1], rs = keywordArray[2], rt = keywordArray[3];
       }
-    }
+
+    } else if (mnemonic.kind == "shifter") {  // rd, rt, sa
+      if (mnemonic.shamt == "sa") {
+        let rs = "00000", rd = keywordArray[1], rt = keywordArray[2];
+        let shamt = toBin(sa);
+      } else {  // rd, rt, rs
+        let rd = keywordArray[1], rt = keywordArray[2], rs = keywordArray[3];
+      }
+
+    } else if (mnemonic.kind == "") {}
   }
 
   // Perform filtering based on the split array
