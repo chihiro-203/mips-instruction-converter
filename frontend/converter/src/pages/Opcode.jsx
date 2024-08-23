@@ -322,7 +322,7 @@ const Opcode = () => {
 
               <tr>
                 <td colSpan={11}>
-                  <b>Multiply</b>
+                  <b>Multiply & Divide</b>
                 </td>
               </tr>
               <tr>

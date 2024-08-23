@@ -76,11 +76,19 @@ app.get("/get-data/:keyword", async (req, res) => {
     } else if (mnemonic.kind == "shifter") {  // rd, rt, sa
       if (mnemonic.shamt == "sa") {
         let rs = "00000", rd = keywordArray[1], rt = keywordArray[2];
-        let shamt = toBin(sa);
+        let shamt = toBin(sa);  // create one
       } else {  // rd, rt, rs
         let rd = keywordArray[1], rt = keywordArray[2], rs = keywordArray[3];
       }
 
+    } else if (mnemonic.kind == "muldiv") {
+      if (mnemonic.rt == mnemonic.rd && mnemonic.rd == mnemonic.shamt) {  // Move to
+        let rs = keywordArray[1];
+      } else if (mnemonic.rd != "00000") {  // Move to
+        let rd = keywordArray[1];
+      } else {
+        let rs = keywordArray[1], rt = keywordArray[2];
+      }
     } else if (mnemonic.kind == "") {}
   }
 
