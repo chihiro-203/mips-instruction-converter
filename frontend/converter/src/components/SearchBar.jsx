@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPaw } from "react-icons/fa6";
 import axiosInstance from "../utils/axiosInstance";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { validateMIPS } from "../utils/helper";
 
-const SearchBar = ({ inputWidth }) => {
+const SearchBar = ({ inputWidth, onSearchResults }) => {
   let [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const term = params.get("mips");
+    if (term) {
+      setSearchTerm(term);
+    }
+  }, [location.search]);
 
   // Search for MIPS instruction
   const onSearch = async (e) => {
@@ -19,18 +28,20 @@ const SearchBar = ({ inputWidth }) => {
       return;
     }
 
-    setError(null); // Clear error if validation passes
+    setError(null); 
 
     searchTerm = validateMIPS(searchTerm);
 
-    // Add a random parameter to prevent caching
-    const timestamp = new Date().getTime();
-    const url = `search-mips?mips=${searchTerm}&t=${timestamp}`;
+    const url = `search-mips?mips=${searchTerm}`;
 
     try {
       const res = await axiosInstance.get(url, { cache: false });
       console.log(res.data);
+      if (onSearchResults) {
+        onSearchResults(res.data); 
+      }
       navigate(url);
+      // onSearchResults(res.data);
     } catch (error) {
       console.log("Error fetching data: ", error);
     }

@@ -12,11 +12,13 @@ function isDec(value) {
   return /^[0-9]+$/.test(value);
 }
 
-function checkType(input) {
+function toBin(input) {
   if (isHex(input)) {
-      return "hex";
+      let dec = parseInt(input, 16);
+      return dec.toString(2);
   } else if (isDec(input)) {
-      return "dec"
+      let dec = parseInt(input);
+      return dec.toString(2);
   }
 }
 
@@ -59,7 +61,7 @@ function findRegister(mips, registers, result) {
 function drawTable() {}
 
 module.exports = {
-  checkType,
+  toBin,
   registerBin,
   findRegister,
   drawTable,

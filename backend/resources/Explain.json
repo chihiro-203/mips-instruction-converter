@@ -1,0 +1,11 @@
+{
+    "op": "Opcode: the operation type",
+    "rs": "Source Register: the 1st source register",
+    "rt": "Target Register: the 2nd source register/target register in I-type instructions",
+    "rd": "Destination Register: the destination register in R-type instructions",
+    "shamt": "Shift Amount: the amount of shift in shift instructions",
+    "address": "Function Code: the specific operation in R-type instructions",
+    "offset": "A 16-bit signed value used to calculate memory addresses in load/store instructions",
+    "imm": "A 16-bit constant value used in arithmetic, logical, and load/store operations",
+    "target": "A 26-bit value used in jump instructions to determine the target address"
+}

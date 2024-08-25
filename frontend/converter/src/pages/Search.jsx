@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import SearchIcon from "../assets/image/search.png";
 import SearchBar from "../components/SearchBar";
 
 const Search = () => {
+  const [searchResults, setSearchResults] = useState([]);
+  // const location = useLocation();
+
+  const handleSearchResults = (result) => {
+    setSearchResults(result);
+  }
+
   return (
     <div>
       <Navbar />
@@ -24,7 +31,7 @@ const Search = () => {
             This will also show you how to have that result.
           </div>
 
-          <SearchBar inputWidth={100}/>
+          <SearchBar inputWidth={100} onSearchResults={handleSearchResults} />
         </div>
       </div>
     </div>

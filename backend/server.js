@@ -45,6 +45,11 @@ app.get("/search-mips", async (req, res) => {
     );
   });
 
+  // let name = mipsArray[0];
+  // var mnemonic = opcodes.find(function (item) {
+  //   return item.mnemonic.includes(name.toLowerCase());
+  // });
+
   res.json(filteredMIPS);
 });
 
@@ -66,9 +71,9 @@ app.get("/get-data/:keyword", async (req, res) => {
 
   if (mnemonic) {
     if (mnemonic.kind == "arithmetic") {
-      if (mnemonic.rd == "imm") { // rt, rs, imm
-        let rt = keywordArray[1], rs = keywordArray[2], imm = keywordArray[3];
-        let type = checkType(imm);
+      if (mnemonic.rd == "imm") { // rt, rs, imm - I type
+        let rt = keywordArray[1], rs = keywordArray[2];
+        let imm = toBin(keywordArray[3]).padStart(16, "0");
       } else {  // rd, rs, rt
         let rd = keywordArray[1], rs = keywordArray[2], rt = keywordArray[3];
       }
@@ -89,8 +94,14 @@ app.get("/get-data/:keyword", async (req, res) => {
       } else {
         let rs = keywordArray[1], rt = keywordArray[2];
       }
-    } else if (mnemonic.kind == "") {}
-  }
+    } else if (mnemonic.kind == "memory") {
+      if (mnemonic.rd == "imm") {
+        //
+      } else {  // rt, offset(rs)	
+        let rt = keywordArray[1], offset = keywordArray[2], rs = keywordArray[3];
+      }
+    }
+  } else {}
 
   // Perform filtering based on the split array
   // const filteredData = registers.filter(() => {
