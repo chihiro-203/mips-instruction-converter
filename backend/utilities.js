@@ -14,11 +14,11 @@ function isDec(value) {
 
 function toBin(input) {
   if (isHex(input)) {
-      let dec = parseInt(input, 16);
-      return dec.toString(2);
+    let dec = parseInt(input, 16);
+    return dec.toString(2);
   } else if (isDec(input)) {
-      let dec = parseInt(input);
-      return dec.toString(2);
+    let dec = parseInt(input);
+    return dec.toString(2);
   }
 }
 
@@ -60,9 +60,56 @@ function findRegister(mips, registers, result) {
 
 function drawTable() {}
 
+function explanation(mnemonic) {
+  let format = mnemonic.format;
+  let explain = `
+      <div class="" style="text-align: left; font-size: 1.2vw; margin-bottom: 0.5rem;">
+        ${mnemonic.name} (${mnemonic.mnemonic}) is ${format}-type instruction.
+      </div>`;
+  if (format == "R") {
+    explain += `
+      <table style="width: 100%; border: 2px solid #5f3c9180; border-collapse: collapse; font-size: 1.2vw">
+        <tr><th>op</th><th>rs</th><th>rt</th><th>rd</th><th>shamt</th><th>funct</th></tr>
+        <tr><td>6-bit</td><td>5-bit</td><td>5-bit</td><td>5-bit</td><td>5-bit</td><td>6-bit</td></tr>
+      </table>
+      <div style="text-align: left; font-size: 1vw; margin-top: 0.75rem;">
+        <li><strong>op:</strong> Opcode = 0 (common to all R-format instructions) (6 bits)</li>
+        <li><strong>rs:</strong> 1st register operand (5 bits)</li>
+        <li><strong>rt:</strong> 2nd register operand (5 bits)</li>
+        <li><strong>rd:</strong> Register destination (5 bits)</li>
+        <li><strong>shamt:</strong> Shift amount (0 when not applicable) (5 bits)</li>
+        <li><strong>funct:</strong> Function code (identifies the specific R-format instruction) (6 bits)</li>
+      </div>`;
+  } else if (format == "I") {
+    explain += `
+      <table style="width: 100%; border: 2px solid #5f3c9180; border-collapse: collapse; font-size: 1.2vw">
+        <tr><th>op</th><th>rs</th><th>rt</th><th colspan="3">imm/offset</th></tr>
+        <tr><td>6-bit</td><td>5-bit</td><td>5-bit</td><td colspan="3">16-bit</td></tr>
+      </table>
+      <div style="text-align: left; font-size: 1vw; margin-top: 0.75rem;">
+        <li><strong>op:</strong> Opcode (specifies the operation type) (6 bits)</li>
+        <li><strong>rs:</strong> Source register (5 bits)</li>
+        <li><strong>rt:</strong> Destination register (5 bits)</li>
+        <li><strong>imm/offset:</strong> Immediate value or offset (16 bits)</li>
+      </div>`;
+  } else if (format == "J") {
+    explain += `
+      <table style="width: 100%; border: 2px solid #5f3c9180; font-size: 1.2vw">
+        <tr><th>op</th><th colspan="5">target</th></tr>
+        <tr><td>6-bit</td><td colspan="5">16-bit</td></tr>
+      </table>
+      <div style="text-align: left; font-size: 1vw; margin-top: 0.75rem;">
+        <li><strong>op:</strong> Opcode (specifies the operation type) (6 bits)</li>
+        <li><strong>target/offset:</strong> Target Address (26 bits)</li>
+      </div>`;
+  }
+  return explain;
+}
+
 module.exports = {
   toBin,
   registerBin,
   findRegister,
   drawTable,
+  explanation,
 };

@@ -34,7 +34,7 @@ const Result = () => {
               <h4>Explanation</h4>
               <div className="line"></div>
               <div
-                className="result my-[15px]"
+                className="result my-[12px]"
               ><Explain searchResults={searchResults} /></div>
             </div>
             <div className="panel hex-dec">

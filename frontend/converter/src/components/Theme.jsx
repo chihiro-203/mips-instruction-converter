@@ -30,6 +30,7 @@ const Theme = () => {
     const cirBtns = document.querySelectorAll(".cir-btn");
     const panels = document.querySelectorAll(".panel");
     const lines = document.querySelectorAll(".line");
+    const results = document.querySelectorAll(".result");
 
     logoBoxs.forEach(box => {
       box.classList.remove("light", "dark");
@@ -54,6 +55,11 @@ const Theme = () => {
     lines.forEach(line => {
       line.classList.remove("light", "dark");
       line.classList.add(mode);
+    })
+
+    results.forEach(result => {
+      result.classList.remove("light", "dark");
+      result.classList.add(mode);
     })
   }, [mode]);
 
