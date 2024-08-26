@@ -1,11 +1,26 @@
-{
-    "op": "Opcode: the operation type",
-    "rs": "Source Register: the 1st source register",
-    "rt": "Target Register: the 2nd source register/target register in I-type instructions",
-    "rd": "Destination Register: the destination register in R-type instructions",
-    "shamt": "Shift Amount: the amount of shift in shift instructions",
-    "address": "Function Code: the specific operation in R-type instructions",
-    "offset": "A 16-bit signed value used to calculate memory addresses in load/store instructions",
-    "imm": "A 16-bit constant value used in arithmetic, logical, and load/store operations",
-    "target": "A 26-bit value used in jump instructions to determine the target address"
-}
+[
+    {
+        "format": "R",
+        "content": "<div style='text-align: left;' ><strong>- op</strong>: Opcode = 0 (common to all R-format instructions)<br><a>- rs</a>: 1st register operand<br></div>",
+        "op": "op: Opcode = 0 (common to all R-format instructions)",
+        "rs": "rs: 1st register operand",
+        "rt": "rt: 2nd register operand",
+        "rd": "rd: Register destination",
+        "shamt": "shamt: Shift amount (0 when not applicable)",
+        "funct": "funct: Function code (identifies the specific R-format instruction)"
+    },
+    {
+        "format": "I",
+        "content": "",
+        "op": "Opcode (specifies the operation type)",
+        "rs": "Source register (5 bits)",
+        "rt": "Destination register (5 bits)",
+        "imm/offset": "Immediate value or offset (16 bits)"
+    },
+    {
+        "format": "J",
+        "content": "",
+        "op": "Opcode (specifies the operation type)",
+        "target/offset": "Target Address (26 bits)"
+    }
+]

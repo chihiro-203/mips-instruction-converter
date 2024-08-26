@@ -1,20 +1,11 @@
-Now modify that word from Search to Result page, so that after I input to SearchBar in Search and go to Result, the data in SearchBar will be handled and displayed in Explain
 
-Explain.jsx
-
-```
 import React from 'react'
 
 const Explain = ({ searchResults }) => {
   return (
     <div>
         {searchResults.length > 0 ? (
-        searchResults.map((item, index) => (
-          <div key={index}>
-            <p>{item.name1}</p>
-            <p>{item.name2}</p>
-          </div>
-        ))
+          searchResults
       ) : (
         <p>No results found.</p>)}
     </div>
@@ -22,178 +13,65 @@ const Explain = ({ searchResults }) => {
 }
 
 export default Explain
-```
 
-Search.jsx
+// API to get data by keyword
+app.get("/search-word", async (req, res) => {
+  // Retrieve and decode the keyword
+  const word = req.query.word;
 
-```
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import SearchIcon from "../assets/image/search.png";
-import SearchBar from "../components/SearchBar";
+  console.log(word);
 
-const Search = () => {
-  const [searchResults, setSearchResults] = useState([]);
+  // Split the keyword into an array based on spaces
+  const wordArray = word.split(/\s+/);
 
-  const handleSearchResults = (result) => {
-    setSearchResults(result);
+  // Log the array to verify
+  console.log("Keyword Array:", wordArray);
+
+  // Perform filtering based on the split array
+  const filteredword = registers.filter((item) => {
+    return wordArray.some(
+      (word) =>
+        item.name1.includes(word.toLowerCase()) ||
+        item.name2.includes(word.toLowerCase())
+    );
+  });
+
+  // This is to print the Explanation
+  let explain = "";
+
+  let name = wordArray[0];
+  var mnemonic = opcodes.find(function (item) {
+    return item.mnemonic.includes(name.toLowerCase());
+  });
+
+  // console.log(mnemonic);
+  explain = mnemonic.kind;
+  explain = `
+    <table border="1">
+      <tr><th>Field</th><th>Description</th></tr>
+      <tr><td>opcode</td><td>${mnemonic.opcode}</td></tr>
+      <tr><td>rs</td><td>${mnemonic.rs}</td></tr>
+      <tr><td>rt</td><td>${mnemonic.rt}</td></tr>
+      <tr><td>rd</td><td>${mnemonic.rd}</td></tr>
+      <tr><td>shamt</td><td>${mnemonic.shamt}</td></tr>
+      <tr><td>funct</td><td>${mnemonic.funct}</td></tr>
+    </table>`;
+
+  if (mnemonic) {
+    if (mnemonic.kind == "R") {
+      // explain = `
+      //   <table border="1">
+      //     <tr><th>Field</th><th>Description</th></tr>
+      //     <tr><td>opcode</td><td>${mnemonic.opcode}</td></tr>
+      //     <tr><td>rs</td><td>${mnemonic.rs}</td></tr>
+      //     <tr><td>rt</td><td>${mnemonic.rt}</td></tr>
+      //     <tr><td>rd</td><td>${mnemonic.rd}</td></tr>
+      //     <tr><td>shamt</td><td>${mnemonic.shamt}</td></tr>
+      //     <tr><td>funct</td><td>${mnemonic.funct}</td></tr>
+      //   </table>`;
+      explain = "This is R format"
+    } else if (mnemonic.kind == "I") {} else if (mnemonic.kind == "J") {}
   }
 
-  return (
-    <div>
-      <Navbar />
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div className="max-w-[1000px] w-[95%] text-center mb-[30px]">
-          <div className="flex justify-center">
-            <img src={SearchIcon} className="w-1/5" />
-          </div>
-
-          <div className="font-semibold text-[40px] tracking-[0px] text-[#955ed3] text-center">
-            Searching Tool
-          </div>
-
-          <div className="text-[15px] tracking-[0px] text-[#955ed3] text-center mb-2.5">
-            This will also show you how to have that result.
-          </div>
-
-          <SearchBar inputWidth={100} onSearchResults={handleSearchResults} />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Search;
-```
-
-Result.jsx
-
-```
-import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-import SearchBar from "../components/SearchBar";
-import { FaPaw } from "react-icons/fa6";
-import Explain from "../components/Explain";
-import BinHexDec from "../components/BinHexDec";
-import { useLocation } from "react-router-dom";
-
-const Result = () => {
-  const [searchResults, setSearchResults] = useState([]);
-  const location = useLocation();
-
-  const handleSearchResults = (result) => {
-    setSearchResults(result);
-  }
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const word = params.get("word");
-    if (word) {
-      // handleSearchResults(word);
-      // You can initiate a search with the word here if needed
-    }
-  }, [location.search]);
-
-  return (
-    <div>
-      <Navbar />
-      <div className="flex flex-col items-center justify-center h-screen">
-        <div >
-          <SearchBar inputWidth={80} onSearchResults={handleSearchResults} />
-          <div >
-            <div className="panel">
-              <h4>Explanation</h4>
-              <div className="line"></div>
-              <div
-                className="result my-[15px]"
-              ><Explain searchResults={searchResults} /></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default Result;
-```
-
-SearchBar
-
-```
-import React, { useEffect, useState } from "react";
-import { FaPaw } from "react-icons/fa6";
-import axiosInstance from "../utils/axiosInstance";
-import { useLocation, useNavigate } from "react-router-dom";
-import { validateword } from "../utils/helper";
-
-const SearchBar = ({ inputWidth, onSearchResults }) => {
-  let [searchTerm, setSearchTerm] = useState("");
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const term = params.get("word");
-    if (term) {
-      setSearchTerm(term);
-    }
-  }, [location.search]);
-
-  // Search for word instruction
-  const onSearch = async (e) => {
-    e.preventDefault();
-
-    // Validate keyword
-    if (!validateword(searchTerm)) {
-      setError("Wrong Syntax of word Instruction");
-      return;
-    }
-
-    setError(null); 
-
-    searchTerm = validateword(searchTerm);
-
-    const url = `search-word?word=${searchTerm}`;
-
-    try {
-      const res = await axiosInstance.get(url, { cache: false });
-      console.log(res.data);
-      if (onSearchResults) {
-        onSearchResults(res.data); 
-      }
-      navigate(url);
-    } catch (error) {
-      console.log("Error fetching data: ", error);
-    }
-  };
-
-  return (
-    <div>
-      <div
-        className="m-auto bg-[white] h-fit flex items-center border-[#955ed3] justify-between px-2.5 py-[5px] rounded-[40px] border-[2.5px] border-solid"
-        style={{ width: `${inputWidth}%` }}
-      >
-        <input
-          type="text"
-          placeholder="Searching..."
-          id="search-input"
-          name="word="
-          required
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-
-        <button type="submit" className="search-btn" onClick={onSearch}>
-          <FaPaw />
-        </button>
-      </div>
-
-      {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
-    </div>
-  );
-};
-
-export default SearchBar;
-```
+  res.json(explain);
+});

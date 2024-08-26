@@ -45,12 +45,36 @@ app.get("/search-mips", async (req, res) => {
     );
   });
 
-  // let name = mipsArray[0];
-  // var mnemonic = opcodes.find(function (item) {
-  //   return item.mnemonic.includes(name.toLowerCase());
-  // });
+  // This is to print the Explanation
+  let explain = "";
 
-  res.json(filteredMIPS);
+  let name = mipsArray[0];
+  var mnemonic = opcodes.find(function (item) {
+    return item.mnemonic.includes(name.toLowerCase());
+  });
+
+  if (mnemonic) {
+    let format = mnemonic.format;
+    if (format == "R") {
+      explain = `
+        <div style="text-align: left;">${mnemonic.name} (${mnemonic.mnemonic}) is ${format}-type instruction.</div>
+        <table style="width: 100%;">
+          <tr><th>op</th><th>rs</th><th>rt</th><th>rd</th><th>shamt</th><th>funct</th></tr>
+          <tr><td>6-bit</td><td>5-bit</td><td>5-bit</td><td>5-bit</td><td>5-bit</td><td>6-bit</td></tr>
+        </table>
+        <br>
+        <div style="text-align: left;">
+          <li><strong>op:</strong> Opcode = 0 (common to all R-format instructions)</li>
+          <li><strong>rs:</strong> 1st register operand</li>
+          <li><strong>rt:</strong> 2nd register operand</li>
+          <li><strong>rd:</strong> Register destination</li>
+          <li><strong>shamt:</strong> Shift amount (0 when not applicable)</li>
+          <li><strong>funct:</strong> Function code (identifies the specific R-format instruction)</li>
+        </div>`;
+    } else if (format == "I") {} else if (format == "J") {}
+  }
+
+  res.json(explain);
 });
 
 // API to get data by keyword

@@ -4,12 +4,7 @@ const Explain = ({ searchResults }) => {
   return (
     <div>
         {searchResults.length > 0 ? (
-        searchResults.map((item, index) => (
-          <div key={index}>
-            <p>{item.name1}</p>
-            <p>{item.name2}</p>
-          </div>
-        ))
+        <div dangerouslySetInnerHTML={{ __html: searchResults }} />
       ) : (
         <p>No results found.</p>)}
     </div>
