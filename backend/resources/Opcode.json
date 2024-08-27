@@ -720,7 +720,7 @@
       "opcode": "LUI rt imm",
       "format": "I",
       "op": "001111",
-      "rs": "rs",
+      "rs": "00000",
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",

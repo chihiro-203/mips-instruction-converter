@@ -4,33 +4,34 @@ function toBinary(number) {
 }
 
 function isHex(value) {
-  return /^0x[0-9A-Fa-f]+$/.test(value) || /^[0-9A-Fa-f]+$/.test(value);
+  // return /^0x[0-9A-Fa-f]+$/.test(value) || /^[0-9A-Fa-f]+$/.test(value);
+  return /^0x[0-9A-Fa-f]+$/.test(value);
 }
-
 function isDec(value) {
   // A simple regex to check if the value is a valid decimal number
   return /^[0-9]+$/.test(value);
 }
-
 function toBin(input) {
   if (isHex(input)) {
     let dec = parseInt(input, 16);
-    return dec.toString(2);
+    return dec.toString(2).padStart(5, "0");
   } else if (isDec(input)) {
     let dec = parseInt(input);
-    return dec.toString(2);
+    return dec.toString(2).padStart(5, "0");
   }
 }
 
+// Fix this
 function registerBin(name, registers) {
   for (const item of registers) {
     if (
-      item.name1.includes(name.toLowerCase()) ||
-      item.name1.includes(name.toLowerCase())
+      item.name1.toLowerCase() === name.toLowerCase() ||
+      item.name2.toLowerCase() === name.toLowerCase()
     ) {
       return String(toBinary(item.value)).padStart(5, "0");
     }
   }
+  return null;
 }
 
 function findRegister(mips, registers, result) {
@@ -63,13 +64,13 @@ function drawTable() {}
 function explanation(mnemonic) {
   let format = mnemonic.format;
   let explain = `
-      <p style="text-align: left; font-size: 1.2vw; margin-bottom: 0.5rem;">
-        ${mnemonic.name} (${mnemonic.mnemonic}) is ${format}-type instruction
-      </p>
-      <p></p>`;
+      <div style="text-align: left; margin-bottom: 0.5rem; font-size: 1vw;">
+        <strong>${mnemonic.name} (${mnemonic.mnemonic})</strong> is a ${format}-type instruction: 
+        ${mnemonic.action}
+      </div>`;
   if (format == "R") {
     explain += `
-      <table style="width: 100%; border: 2px solid #5f3c9180; border-collapse: collapse; font-size: 1.2vw">
+      <table style="width: 100%; border: 2px solid #5f3c9180; border-collapse: collapse; font-size: 1.2vw";>
         <tr><th>op</th><th>rs</th><th>rt</th><th>rd</th><th>shamt</th><th>funct</th></tr>
         <tr><td>6-bit</td><td>5-bit</td><td>5-bit</td><td>5-bit</td><td>5-bit</td><td>6-bit</td></tr>
       </table>
@@ -107,8 +108,19 @@ function explanation(mnemonic) {
   return explain;
 }
 
+function sepOffset(str) {
+  const match = str.match(/^(\d+)\((\$\w+)\)$/);
+  if (match) {
+    const [ , offset, rs] = match;
+    return { offset, rs };
+  } else {
+    throw new Error("Format is incorrect");
+  }
+}
+
 module.exports = {
   toBin,
+  sepOffset,
   registerBin,
   findRegister,
   drawTable,

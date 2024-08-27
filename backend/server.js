@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-const { registerBin, checkType, explanation } = require("./utilities");
+const { registerBin, checkType, explanation, toBin, sepOffset } = require("./utilities");
 const app = express();
 
 app.use(express.json());
@@ -73,50 +73,70 @@ app.get("/get-data/:keyword", async (req, res) => {
     return item.mnemonic.includes(name.toLowerCase());
   });
 
-  let result = "";
+  let result = "hello";
 
   if (mnemonic) {
     if (mnemonic.kind == "arithmetic") {
+      
       if (mnemonic.rd == "imm") { // rt, rs, imm - I type
-        let rt = keywordArray[1], rs = keywordArray[2];
+        let rt = registerBin(keywordArray[1], registers);
+        let rs = registerBin(keywordArray[2], registers);
         let imm = toBin(keywordArray[3]).padStart(16, "0");
+        result = mnemonic.op + " " + rt + " " + rs + " " + imm;
+
       } else {  // rd, rs, rt
-        let rd = keywordArray[1], rs = keywordArray[2], rt = keywordArray[3];
+        let rd = registerBin(keywordArray[1], registers);
+        let rs = registerBin(keywordArray[2], registers);
+        let rt = registerBin(keywordArray[3], registers);
+        result = mnemonic.op + " " + rs + " " + rt + " " + rd +  " " + mnemonic.shamt + " " + mnemonic.funct;
       }
 
     } else if (mnemonic.kind == "shifter") {  // rd, rt, sa
       if (mnemonic.shamt == "sa") {
-        let rs = "00000", rd = keywordArray[1], rt = keywordArray[2];
-        let shamt = toBin(sa);  // create one
+        let rs = "00000"; // no source register
+        let rd = registerBin(keywordArray[1], registers);
+        let rt = registerBin(keywordArray[2], registers);
+        let shamt = toBin(keywordArray[3]);  
+        result = mnemonic.op + " " + rs + " " + rt + " " + rd +  " " + shamt + " " + mnemonic.funct;
       } else {  // rd, rt, rs
-        let rd = keywordArray[1], rt = keywordArray[2], rs = keywordArray[3];
+        let rd = registerBin(keywordArray[1], registers);
+        let rt = registerBin(keywordArray[2], registers);
+        let rs = registerBin(keywordArray[3], registers);
+        result = mnemonic.op + " " + rs + " " + rt + " " + rd +  " " + mnemonic.shamt + " " + mnemonic.funct;
       }
 
     } else if (mnemonic.kind == "muldiv") {
       if (mnemonic.rt == mnemonic.rd && mnemonic.rd == mnemonic.shamt) {  // Move to
-        let rs = keywordArray[1];
+        let rs = registerBin(keywordArray[1], registers); // not used rt, rd, shamt
+        result = mnemonic.op + " " + rs + " " + mnemonic.rt + " " + mnemonic.rd +  " " + mnemonic.shamt + " " + mnemonic.funct;
+
       } else if (mnemonic.rd != "00000") {  // Move to
-        let rd = keywordArray[1];
+        let rd = registerBin(keywordArray[1], registers); // not used rs, rt, shamt
+        result = mnemonic.op + " " + mnemonic.rs + " " + mnemonic.rt + " " + rd +  " " + mnemonic.shamt + " " + mnemonic.funct;
+
       } else {
-        let rs = keywordArray[1], rt = keywordArray[2];
+        let rs = registerBin(keywordArray[1], registers);
+        let rt = registerBin(keywordArray[2], registers); // not used rd, shamt
+        result = mnemonic.op + " " + rs + " " + rt + " " + mnemonic.rd +  " " + mnemonic.shamt + " " + mnemonic.funct;
       }
     } else if (mnemonic.kind == "memory") {
-      if (mnemonic.rd == "imm") {
+      if (mnemonic.rd == "imm") { // for 'lui'
+        let rt = registerBin(keywordArray[1], registers);
+        let imm =  toBin(keywordArray[2]);
+        result = mnemonic.op + " " + mnemonic.rs + " " + rt + " " + imm;
         //
       } else {  // rt, offset(rs)	
-        let rt = keywordArray[1], offset = keywordArray[2], rs = keywordArray[3];
+        let rt = registerBin(keywordArray[1], registers);
+        let {offset, rs} = sepOffset(keywordArray[2]);
+        console.log(offset);
+        offset = toBin(offset).padStart(16, "0");
+        rs = registerBin(rs, registers);
+        result = mnemonic.op + " " + rs + " " + rt + " " + offset;
       }
     }
   } else {}
 
-  // Perform filtering based on the split array
-  // const filteredData = registers.filter(() => {
-  //   return keywordArray.some(
-  //     (word) => findRegister(word, registers)
-  //   );
-  // });
-
-  res.json(mnemonic);
+  res.json(result);
 });
 
 const port = process.env.PORT || 8000;
