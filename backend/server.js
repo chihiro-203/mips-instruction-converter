@@ -132,6 +132,19 @@ app.get("/get-data/:keyword", async (req, res) => {
         offset = toBin(offset).padStart(16, "0");
         rs = registerBin(rs, registers);
         result = mnemonic.op + " " + rs + " " + rt + " " + offset;
+      } 
+    } else if (mnemonic.kind == "branch") {
+      if (mnemonic.rd == "offset") {
+        if (mnemonic.rt == "rt") { // on equal and not on equal
+          let rs = registerBin(keywordArray[1], registers);
+          let rt = registerBin(keywordArray[2], registers);
+          let offset = toBin(keywordArray[3]).padStart(16, "0");
+          result = mnemonic.op + " " + rs + " " + rt + " " + offset;
+        } else {
+          let rs = registerBin(keywordArray[1], registers);
+          let offset = toBin(keywordArray[2]).padStart(16, "0");
+          result = mnemonic.op + " " + rs + " " + mnemonic.rt + " " + offset;
+        }
       }
     }
   } else {}
