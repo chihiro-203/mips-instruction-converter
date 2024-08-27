@@ -45,14 +45,13 @@ app.get("/search-mips", async (req, res) => {
     );
   });
 
-  // This is to print the Explanation
-  let explain = "";
-
   let name = mipsArray[0];
   var mnemonic = opcodes.find(function (item) {
     return item.mnemonic.includes(name.toLowerCase());
   });
 
+  // This is to print the Explanation
+  let explain = "";
   if (mnemonic) {
     explain = explanation(mnemonic);
   }

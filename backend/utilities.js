@@ -63,16 +63,17 @@ function drawTable() {}
 function explanation(mnemonic) {
   let format = mnemonic.format;
   let explain = `
-      <div class="" style="text-align: left; font-size: 1.2vw; margin-bottom: 0.5rem;">
-        ${mnemonic.name} (${mnemonic.mnemonic}) is ${format}-type instruction.
-      </div>`;
+      <p style="text-align: left; font-size: 1.2vw; margin-bottom: 0.5rem;">
+        ${mnemonic.name} (${mnemonic.mnemonic}) is ${format}-type instruction
+      </p>
+      <p></p>`;
   if (format == "R") {
     explain += `
       <table style="width: 100%; border: 2px solid #5f3c9180; border-collapse: collapse; font-size: 1.2vw">
         <tr><th>op</th><th>rs</th><th>rt</th><th>rd</th><th>shamt</th><th>funct</th></tr>
         <tr><td>6-bit</td><td>5-bit</td><td>5-bit</td><td>5-bit</td><td>5-bit</td><td>6-bit</td></tr>
       </table>
-      <div style="text-align: left; font-size: 1vw; margin-top: 0.75rem;">
+      <div style="text-align: left; font-size: 0.95vw; margin-top: 0.75rem;">
         <li><strong>op:</strong> Opcode = 0 (common to all R-format instructions) (6 bits)</li>
         <li><strong>rs:</strong> 1st register operand (5 bits)</li>
         <li><strong>rt:</strong> 2nd register operand (5 bits)</li>

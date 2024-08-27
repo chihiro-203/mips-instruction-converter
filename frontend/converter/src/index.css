@@ -106,7 +106,7 @@
   }
 
   .panel{
-    @apply h-[420px] w-[48%] text-center text-2xl shadow-[0px_4px_6px_rgba(95,60,145,0.2),0px_-4px_6px_rgba(95,60,145,0.2),4px_0px_6px_rgba(95,60,145,0.2),-4px_0px_6px_rgba(95,60,145,0.2)] mx-[35px] my-[45px] p-5 rounded-[10px]; 
+    @apply h-[430px] w-[48%] text-center text-2xl shadow-[0px_4px_6px_rgba(95,60,145,0.2),0px_-4px_6px_rgba(95,60,145,0.2),4px_0px_6px_rgba(95,60,145,0.2),-4px_0px_6px_rgba(95,60,145,0.2)] mx-[35px] my-[45px] p-5 rounded-[10px]; 
     text-shadow: 700;
     background: var(--text);
   }

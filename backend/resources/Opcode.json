@@ -10,7 +10,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "100000"
+      "funct": "100000",
+      "action": "Adds two registers and stores the result in a destination register"
     },
     {
       "mnemonic": "addi",
@@ -23,7 +24,8 @@
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Adds an immediate value to a register and stores the result"
     },
     {
       "mnemonic": "addiu",
@@ -36,7 +38,8 @@
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Adds an unsigned immediate value to a register and stores the result"
     },
     {
       "mnemonic": "addu",
@@ -49,7 +52,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "100001"
+      "funct": "100001",
+      "action": "Adds two unsigned integers in registers and stores the result"
     },
     {
       "mnemonic": "and",
@@ -62,7 +66,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "100100"
+      "funct": "100100",
+      "action": "Performs a bitwise AND on two registers and stores the result"
     },
     {
       "mnemonic": "andi",
@@ -75,7 +80,8 @@
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Performs a bitwise AND between a register and an immediate value"
     },
     {
       "mnemonic": "nor",
@@ -88,7 +94,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "100111"
+      "funct": "100111",
+      "action": "Performs a bitwise NOR on two registers and stores the result"
     },
     {
       "mnemonic": "or",
@@ -101,7 +108,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "100101"
+      "funct": "100101",
+      "action": "Performs a bitwise OR on two registers and stores the result"
     },
     {
       "mnemonic": "ori",
@@ -114,7 +122,8 @@
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Performs a bitwise OR between a register and an immediate value"
     },
     {
       "mnemonic": "slt",
@@ -127,7 +136,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "101010"
+      "funct": "101010",
+      "action": "Sets a register to 1 if the first register is less than the second, else 0"
     },
     {
       "mnemonic": "slti",
@@ -140,7 +150,8 @@
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Sets a register to 1 if a register is less than an immediate value"
     },
     {
       "mnemonic": "sltiu",
@@ -153,7 +164,8 @@
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Sets a register to 1 if a register is less than an unsigned immediate value"
     },
     {
       "mnemonic": "sltu",
@@ -166,7 +178,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "101011"
+      "funct": "101011",
+      "action": "Sets a register to 1 if the first unsigned integer is less than the second, else 0"
     },
     {
       "mnemonic": "sub",
@@ -179,7 +192,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "100010"
+      "funct": "100010",
+      "action": "Subtracts the second register from the first and stores the result"
     },
     {
       "mnemonic": "subu",
@@ -192,7 +206,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "100011"
+      "funct": "100011",
+      "action": "Subtracts the second unsigned integer from the first and stores the result"
     },
     {
       "mnemonic": "xor",
@@ -205,7 +220,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "100110"
+      "funct": "100110",
+      "action": "Performs a bitwise XOR on two registers and stores the result"
     },
     {
       "mnemonic": "xori",
@@ -218,7 +234,8 @@
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Performs a bitwise XOR between a register and an immediate value"
     },
     {
       "mnemonic": "sll",
@@ -231,7 +248,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "sa",
-      "funct": "000000"
+      "funct": "000000",
+      "action": "Shifts a register's value left by a specified number of bits"
     },
     {
       "mnemonic": "sllv",
@@ -244,7 +262,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "000100"
+      "funct": "000100",
+      "action": "Shifts a register's value left by a number of bits specified in another register"
     },
     {
       "mnemonic": "sra",
@@ -257,7 +276,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "sa",
-      "funct": "000011"
+      "funct": "000011",
+      "action": "Shifts a register's value right by a specified number of bits, preserving the sign"
     },
     {
       "mnemonic": "srav",
@@ -270,7 +290,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "000111"
+      "funct": "000111",
+      "action": "Shifts a register's value right by a number of bits specified in another register, preserving the sign"
     },
     {
       "mnemonic": "srl",
@@ -283,7 +304,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "sa",
-      "funct": "000010"
+      "funct": "000010",
+      "action": "Shifts a register's value right by a specified number of bits, filling with zeros"
     },
     {
       "mnemonic": "srlv",
@@ -296,7 +318,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "000110"
+      "funct": "000110",
+      "action": "Shifts a register's value right by a number of bits specified in another register, filling with zeros"
     },
     {
       "mnemonic": "div",
@@ -309,7 +332,8 @@
       "rt": "rt",
       "rd": "00000",
       "shamt": "00000",
-      "funct": "011010"
+      "funct": "011010",
+      "action": "Divides the value in one register by another, storing the quotient in LO and the remainder in HI"
     },
     {
       "mnemonic": "divu",
@@ -322,7 +346,8 @@
       "rt": "rt",
       "rd": "00000",
       "shamt": "00000",
-      "funct": "011011"
+      "funct": "011011",
+      "action": "Divides unsigned values in two registers, storing the quotient in LO and the remainder in HI"
     },
     {
       "mnemonic": "mfhi",
@@ -335,7 +360,8 @@
       "rt": "00000",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "010000"
+      "funct": "010000",
+      "action": "Moves the contents of the HI register to a general-purpose register"
     },
     {
       "mnemonic": "mflo",
@@ -348,7 +374,8 @@
       "rt": "00000",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "010010"
+      "funct": "010010",
+      "action": "Moves the contents of the LO register to a general-purpose register"
     },
     {
       "mnemonic": "mthi",
@@ -361,7 +388,8 @@
       "rt": "00000",
       "rd": "00000",
       "shamt": "00000",
-      "funct": "010001"
+      "funct": "010001", 
+      "action": "Moves a value from a general-purpose register to the HI register"
     },
     {
       "mnemonic": "mtlo",
@@ -374,7 +402,8 @@
       "rt": "00000",
       "rd": "00000",
       "shamt": "00000",
-      "funct": "010011"
+      "funct": "010011", 
+      "action": "Moves a value from a general-purpose register to the LO register"
     },
     {
       "mnemonic": "mult",
@@ -387,7 +416,8 @@
       "rt": "rt",
       "rd": "00000",
       "shamt": "00000",
-      "funct": "011000"
+      "funct": "011000",
+      "action": "Multiplies two registers and stores the result in HI and LO registers"
     },
     {
       "mnemonic": "multu",
@@ -400,7 +430,8 @@
       "rt": "rt",
       "rd": "00000",
       "shamt": "00000",
-      "funct": "011001"
+      "funct": "011001",
+      "action": "Multiplies two unsigned registers and stores the result in HI and LO registers"
     },
     {
       "mnemonic": "beq",
@@ -413,7 +444,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Branches to a specified address if two registers are equal"
     },
     {
       "mnemonic": "bgez",
@@ -426,7 +458,8 @@
       "rt": "00001",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Branches if a register's value is greater than or equal to zero"
     },
     {
       "mnemonic": "bgezal",
@@ -439,7 +472,8 @@
       "rt": "10001",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Branches if a register's value is greater than or equal to zero and saves the return address"
     },
     {
       "mnemonic": "bgtz",
@@ -452,7 +486,8 @@
       "rt": "00000",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Branches if a register's value is greater than zero"
     },
     {
       "mnemonic": "blez",
@@ -465,7 +500,8 @@
       "rt": "00000",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Branches if a register's value is less than or equal to zero"
     },
     {
       "mnemonic": "bltz",
@@ -478,7 +514,8 @@
       "rt": "00000",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Branches if a register's value is less than zero"
     },
     {
       "mnemonic": "bltzal",
@@ -491,7 +528,8 @@
       "rt": "10000",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null", 
+      "action": "Branches if a register's value is less than zero and saves the return address"
     },
     {
       "mnemonic": "bne",
@@ -504,7 +542,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Branches to a specified address if two registers are not equal"
     },
     {
       "mnemonic": "break",
@@ -517,7 +556,8 @@
       "rt": "null",
       "rd": "null",
       "shamt": "null",
-      "funct": "001101"
+      "funct": "001101",
+      "action": "Causes the processor to enter a debug mode at a specified point in the code"
     },
     {
       "mnemonic": "j",
@@ -530,7 +570,8 @@
       "rt": "null",
       "rd": "null",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Unconditionally jumps to a specified address"
     },
     {
       "mnemonic": "jal",
@@ -543,7 +584,8 @@
       "rt": "null",
       "rd": "null",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Jumps to a specified address and saves the return address in the link register"
     },
     {
       "mnemonic": "jalr",
@@ -556,7 +598,8 @@
       "rt": "00000",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "001001"
+      "funct": "001001",
+      "action": "Jumps to the address contained in a register and saves the return address"
     },
     {
       "mnemonic": "jr",
@@ -569,7 +612,8 @@
       "rt": "00000",
       "rd": "null",
       "shamt": "null",
-      "funct": "001000"
+      "funct": "001000",
+      "action": "Jumps to the address contained in a register"
     },
     {
       "mnemonic": "mfc0",
@@ -582,7 +626,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "null"
+      "funct": "null", 
+      "action": "Moves a value from a coprocessor register to a general-purpose register"
     },
     {
       "mnemonic": "mtc0",
@@ -595,7 +640,8 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "null"
+      "funct": "null",
+      "action": "Moves a value from a general-purpose register to a coprocessor register"
     },
     {
       "mnemonic": "syscall",
@@ -608,7 +654,8 @@
       "rt": "null",
       "rd": "null",
       "shamt": "null",
-      "funct": "001100"
+      "funct": "001100",
+      "action": "Triggers a system call to request services from the operating system"
     },
     {
       "mnemonic": "lb",
@@ -621,7 +668,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Loads a byte from memory into a register"
     },
     {
       "mnemonic": "lbu",
@@ -634,7 +682,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Loads a byte from memory into a register without sign extension"
     },
     {
       "mnemonic": "lh",
@@ -647,7 +696,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Loads a halfword from memory into a register"
     },
     {
       "mnemonic": "lhu",
@@ -660,7 +710,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Loads a halfword from memory into a register without sign extension"
     },
     {
       "mnemonic": "lui",
@@ -673,7 +724,8 @@
       "rt": "rt",
       "rd": "imm",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null", 
+      "action": "Loads a 16-bit immediate value into the upper half of a register"
     },
     {
       "mnemonic": "lw",
@@ -686,7 +738,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Loads a word from memory into a register"
     },
     {
       "mnemonic": "sb",
@@ -699,7 +752,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Stores the least significant byte of a register's value into memory"
     },
     {
       "mnemonic": "sh",
@@ -712,7 +766,8 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Stores the least significant halfword of a register's value into memory"
     },
     {
       "mnemonic": "sw",
@@ -725,6 +780,7 @@
       "rt": "rt",
       "rd": "offset",
       "shamt": "null",
-      "funct": "null"
+      "funct": "null",
+      "action": "Stores the word value of a register into memory"
     }
   ]
