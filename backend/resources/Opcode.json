@@ -626,7 +626,7 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "null", 
+      "funct": "00000", 
       "action": "Moves a value from a coprocessor register to a general-purpose register"
     },
     {
@@ -640,7 +640,7 @@
       "rt": "rt",
       "rd": "rd",
       "shamt": "00000",
-      "funct": "null",
+      "funct": "00000",
       "action": "Moves a value from a general-purpose register to a coprocessor register"
     },
     {
@@ -651,9 +651,9 @@
       "format": "NULL",
       "op": "000000",
       "rs": "00000",
-      "rt": "null",
-      "rd": "null",
-      "shamt": "null",
+      "rt": "00000",
+      "rd": "00000",
+      "shamt": "00000",
       "funct": "001100",
       "action": "Triggers a system call to request services from the operating system"
     },

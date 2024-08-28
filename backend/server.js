@@ -134,7 +134,8 @@ app.get("/get-data/:keyword", async (req, res) => {
         result = mnemonic.op + " " + rs + " " + rt + " " + offset;
       } 
     } else if (mnemonic.kind == "branch") {
-      if (mnemonic.rd == "offset") {
+      if (mnemonic.format == "J") { // J format
+      } else if (mnemonic.rd == "offset") {
         if (mnemonic.rt == "rt") { // on equal and not on equal
           let rs = registerBin(keywordArray[1], registers);
           let rt = registerBin(keywordArray[2], registers);
@@ -144,6 +145,14 @@ app.get("/get-data/:keyword", async (req, res) => {
           let rs = registerBin(keywordArray[1], registers);
           let offset = toBin(keywordArray[2]).padStart(16, "0");
           result = mnemonic.op + " " + rs + " " + mnemonic.rt + " " + offset;
+        }
+      } else if (mnemonic.format == "NULL") {
+        if (mnemonic.mnemonic == "syscall") { // not used rs, rt, rd, shamt
+          result = mnemonic.op + " " + mnemonic.rs + " " + mnemonic.rt + " " + mnemonic.rd +  " " + mnemonic.shamt + " " + mnemonic.funct;
+        } else {  // not used shamt, funct, and rs is fixed
+          let rt = registerBin(keywordArray[1], registers);
+          let rd = registerBin(keywordArray[2], registers);
+          result = mnemonic.op + " " + mnemonic.rs + " " + rt + " " + rd +  " " + mnemonic.shamt + " " + mnemonic.funct;
         }
       }
     }

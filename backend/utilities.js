@@ -23,12 +23,14 @@ function toBin(input) {
 
 // Fix this
 function registerBin(name, registers) {
-  for (const item of registers) {
-    if (
-      item.name1.toLowerCase() === name.toLowerCase() ||
-      item.name2.toLowerCase() === name.toLowerCase()
-    ) {
-      return String(toBinary(item.value)).padStart(5, "0");
+  if (name.match(/^\$\w+$/) || name.match(/^\w+$/)) {
+    for (const item of registers) {
+      if (
+        item.name1.toLowerCase() === name.toLowerCase() ||
+        item.name2.toLowerCase() === name.toLowerCase()
+      ) {
+        return String(toBinary(item.value)).padStart(5, "0");
+      }
     }
   }
   return null;

@@ -566,9 +566,9 @@ const Opcode = () => {
                 <td>001000</td>
               </tr>
               <tr>
-                <td>MFCO rt,rd</td>
-                <td>Move From Coprocessor</td>
-                <td>mfco</td>
+                <td>MFC0 rt,rd</td>
+                <td>Move From Coprocessor 0</td>
+                <td>mfc0</td>
                 <td></td>
                 <td>rt=CPR[0,rd]</td>
                 <td>010000</td>
@@ -578,9 +578,9 @@ const Opcode = () => {
                 <td colSpan={2}>00000000000</td>
               </tr>
               <tr>
-                <td>MTCO rt,rd</td>
-                <td>Move To Coprocessor</td>
-                <td>mtco</td>
+                <td>MTC0 rt,rd</td>
+                <td>Move To Coprocessor 0</td>
+                <td>mtc0</td>
                 <td></td>
                 <td>CPR[0,rd]=rt</td>
                 <td>010000</td>
