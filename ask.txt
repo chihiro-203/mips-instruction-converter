@@ -2,4 +2,15 @@ test cases:
 - now, im checking if resisters can be found or not
 - check an instruction with full, include rs, rt, rd or rs, rt, imm 
 - check lack of registers, for example add $t1, $t2, $t3, but input add $t1
-- wrong format of instruction syntax
+
+
+- wrong format of instruction syntax: check length of array ----> I think I solved it
+
+- "add $t1 $t2 " -> "Some registers are not valid."
+- "add $t1 $t2" -> "Wrong syntax: ADD rd rs rt"
+---> solved
+
+- Remember to check that imm is how many bits, for example, if user inputs the wrong or too much, input FFF, while FF is the maximum, then return fail
+I think I should add function to check in toBin function
+
+- for case lb $t2 12($t1), if I input lb $t2 ($t1), it prints out error
