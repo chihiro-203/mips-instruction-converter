@@ -1,1 +1,5 @@
 test cases:
+- now, im checking if resisters can be found or not
+- check an instruction with full, include rs, rt, rd or rs, rt, imm 
+- check lack of registers, for example add $t1, $t2, $t3, but input add $t1
+- wrong format of instruction syntax

@@ -5,7 +5,7 @@ const fs = require("fs");
 const cors = require("cors");
 const {
   registerBin,
-  checkType,
+  checkRegister,
   explanation,
   toBin,
   sepOffset,
@@ -92,7 +92,9 @@ app.get("/get-data/:keyword", async (req, res) => {
         let rt = registerBin(keywordArray[1], registers);
         let rs = registerBin(keywordArray[2], registers);
         let imm = toBin(keywordArray[3], 16);
+        
         result = mnemonic.op + " " + rt + " " + rs + " " + imm;
+        result = checkRegister(result, rt, rs, imm);
       }
 
       // rd, rs, rt - R type
@@ -112,12 +114,13 @@ app.get("/get-data/:keyword", async (req, res) => {
           " " +
           mnemonic.shamt +
           " " +
-          mnemonic.funct;
+          mnemonic.funct;        
+        result = checkRegister(result, rd, rs, rt);
       }
     }
 
     // Kind: Shifter (R)
-    else if (mnemonic.kind == "shifter") {
+    else if (mnemonic.kind == "shifter") {  // sll $t1 $t2 4
       // rd, rt, sa - R type
       // sll, sra, srl - not used rs
       if (mnemonic.shamt == "sa") {
@@ -137,11 +140,12 @@ app.get("/get-data/:keyword", async (req, res) => {
           shamt +
           " " +
           mnemonic.funct;
+          result = checkRegister(result, rt, rd, shamt);
       }
 
       // rd, rt, rs - R type
       // sllv, srav, srlv
-      else {
+      else {  // sllv $t1 $t2 $t3
         let rd = registerBin(keywordArray[1], registers);
         let rt = registerBin(keywordArray[2], registers);
         let rs = registerBin(keywordArray[3], registers);
@@ -157,6 +161,7 @@ app.get("/get-data/:keyword", async (req, res) => {
           mnemonic.shamt +
           " " +
           mnemonic.funct;
+        result = checkRegister(result, rs, rt, rd);
       }
     }
 
@@ -359,7 +364,11 @@ app.get("/get-data/:keyword", async (req, res) => {
         result = mnemonic.op + " " + rs + " " + mnemonic.rt + " " + mnemonic.rd + " " + mnemonic.shamt + " " + mnemonic.funct;
       }
     }
-  } else {
+  } 
+   
+  // Mnemonic is not existed
+  else {
+    result = "No mnemonic matches"
   }
 
   res.json(result);

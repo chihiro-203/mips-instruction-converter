@@ -29,9 +29,9 @@ function toBin(input, zero) {
     // If it's already binary, normalize by removing the "0b" prefix if present
     return input.replace(/^0b/, '').padStart(zero, "0");
   }
+  return "null";
 }
 
-// Fix this
 function registerBin(name, registers) {
   if (name.match(/^\$\w+$/) || name.match(/^\w+$/)) {
     for (const item of registers) {
@@ -43,7 +43,17 @@ function registerBin(name, registers) {
       }
     }
   }
-  return null;
+  return "null";
+}
+
+// Check if registers exist or not
+function checkRegister(result, ...registers) {
+  for (let i = 0; i < registers.length; i++) {
+    if (registers[i] === null || registers[i] === undefined || registers[i] == "null") {
+      return "Some registers are not valid.";
+    }
+  }
+  return result;
 }
 
 function findRegister(mips, registers, result) {
@@ -134,6 +144,7 @@ module.exports = {
   toBin,
   sepOffset,
   registerBin,
+  checkRegister,
   findRegister,
   drawTable,
   explanation,
