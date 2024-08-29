@@ -4,20 +4,30 @@ function toBinary(number) {
 }
 
 function isHex(value) {
-  // return /^0x[0-9A-Fa-f]+$/.test(value) || /^[0-9A-Fa-f]+$/.test(value);
+  // Check if the value is a valid hexadecimal number (optional "0x" prefix)
   return /^0x[0-9A-Fa-f]+$/.test(value);
 }
+
 function isDec(value) {
-  // A simple regex to check if the value is a valid decimal number
+  // Check if the value is a valid decimal number
   return /^[0-9]+$/.test(value);
 }
-function toBin(input) {
+
+function isBin(value) {
+  // Check if the value is a valid binary number (optional "0b" prefix)
+  return /^0b[01]+$/.test(value) || /^[01]+$/.test(value);
+}
+
+function toBin(input, zero) {
   if (isHex(input)) {
-    let dec = parseInt(input, 16);
-    return dec.toString(2).padStart(5, "0");
+    let dec = parseInt(input, 16); // Parse as hexadecimal
+    return dec.toString(2).padStart(zero, "0"); // Convert to binary
   } else if (isDec(input)) {
-    let dec = parseInt(input);
-    return dec.toString(2).padStart(5, "0");
+    let dec = parseInt(input, 10); // Parse as decimal
+    return dec.toString(2).padStart(zero, "0"); // Convert to binary
+  } else if (isBin(input)) {
+    // If it's already binary, normalize by removing the "0b" prefix if present
+    return input.replace(/^0b/, '').padStart(zero, "0");
   }
 }
 
@@ -113,7 +123,7 @@ function explanation(mnemonic) {
 function sepOffset(str) {
   const match = str.match(/^(\d+)\((\$\w+)\)$/);
   if (match) {
-    const [ , offset, rs] = match;
+    const [, offset, rs] = match;
     return { offset, rs };
   } else {
     throw new Error("Format is incorrect");
