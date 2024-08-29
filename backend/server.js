@@ -321,18 +321,19 @@ app.get("/get-data/:keyword", async (req, res) => {
         result = mnemonic.op + " " + code + " " + mnemonic.funct;
       }
 
-      // rs
+      // rs - R type
       // jalr - not used rt, shamt
       else if (mnemonic.mnemonic == "jalr") {
         let rs, rd;
 
-        // no rd, set rd to $ra
+        // no rd
+        // set rd to $ra
         if (keywordArray[2] === undefined || keywordArray[2] === null) {
           rs = registerBin(keywordArray[1], registers);
           rd = registerBin("$ra", registers);
         }
 
-        // have rd, rs
+        // have rd, rs 
         else {
           rd = registerBin(keywordArray[1], registers);
           rs = registerBin(keywordArray[2], registers);
@@ -351,7 +352,7 @@ app.get("/get-data/:keyword", async (req, res) => {
           mnemonic.funct;
       }
 
-      // rs
+      // rs - R type
       // jr - not used rt rd, shamt
       else if (mnemonic.mnemonic == "jr") {
         let rs = registerBin(keywordArray[1], registers);
