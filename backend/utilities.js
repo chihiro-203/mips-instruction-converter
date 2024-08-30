@@ -19,23 +19,26 @@ function isBin(value) {
 }
 
 function toBin(input, zero) {
-  let dec, bin;
+  let dec, bin, overflow;
 
   // Hexadecimal to Binary - 0xFF
   if (isHex(input)) {
     dec = parseInt(input, 16); // Parse as hexadecimal
     bin = dec.toString(2);
+    overflow = "hex";
   }
 
   // Decimal to Binary - 12
   else if (isDec(input)) {
     dec = parseInt(input, 10); // Parse as decimal
     bin = dec.toString(2);
+    overflow = "dec";
   }
 
   // Binary - 0b1101
   else if (isBin(input)) {
     bin = input.replace(/^0b/, "");
+    overflow = "bin";
   }
 
   // If not decimal, hexadecimal, or binary
@@ -45,7 +48,7 @@ function toBin(input, zero) {
 
   // If one of decimal, hexadecimal, or binary
   if (bin.length > zero) {
-    return "overflow";
+    return overflow;
   }
   return bin.padStart(zero, "0");
 }
@@ -74,8 +77,8 @@ function checkRegister(result, ...registers) {
       registers[i] == "null"
     ) {
       return "Some registers are not valid.";
-    } else if (registers[i] == "overflow") {
-      return "The operand is out of range.";
+    } else if (registers[i] == "bin" || registers[i] == "dec" || registers[i] == "hex") {
+      return registers[i];
     }
   }
   return result;

@@ -28,7 +28,10 @@
       "rd": "imm",
       "shamt": "null",
       "funct": "null",
-      "action": "Adds an immediate value to a register and stores the result"
+      "action": "Adds an immediate value to a register and stores the result",
+      "dec": "0 to 65535 (unsigned) / -32768 to 32767 (signed)",
+      "hex": "0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "addiu",
@@ -42,7 +45,10 @@
       "rd": "imm",
       "shamt": "null",
       "funct": "null",
-      "action": "Adds an unsigned immediate value to a register and stores the result"
+      "action": "Adds an unsigned immediate value to a register and stores the result",
+      "dec": "0 to 65535 (unsigned) / -32768 to 32767 (signed)",
+      "hex": "0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "addu",
@@ -90,7 +96,10 @@
       "rd": "imm",
       "shamt": "null",
       "funct": "null",
-      "action": "Performs a bitwise AND between a register and an immediate value"
+      "action": "Performs a bitwise AND between a register and an immediate value",
+      "dec": "0 to 65535 (unsigned) / -32768 to 32767 (signed)",
+      "hex": "0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "nor",
@@ -138,7 +147,10 @@
       "rd": "imm",
       "shamt": "null",
       "funct": "null",
-      "action": "Performs a bitwise OR between a register and an immediate value"
+      "action": "Performs a bitwise OR between a register and an immediate value",
+      "dec": "0 to 65535 (unsigned) / -32768 to 32767 (signed)",
+      "hex": "0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "slt",
@@ -169,7 +181,10 @@
       "rd": "imm",
       "shamt": "null",
       "funct": "null",
-      "action": "Sets a register to 1 if a register is less than an immediate value"
+      "action": "Sets a register to 1 if a register is less than an immediate value",
+      "dec": "0 to 65535 (unsigned) / -32768 to 32767 (signed)",
+      "hex": "0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "sltiu",
@@ -183,7 +198,10 @@
       "rd": "imm",
       "shamt": "null",
       "funct": "null",
-      "action": "Sets a register to 1 if a register is less than an unsigned immediate value"
+      "action": "Sets a register to 1 if a register is less than an unsigned immediate value",
+      "dec": "0 to 65535 (unsigned) / -32768 to 32767 (signed)",
+      "hex": "0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "sltu",
@@ -265,7 +283,10 @@
       "rd": "imm",
       "shamt": "null",
       "funct": "null",
-      "action": "Performs a bitwise XOR between a register and an immediate value"
+      "action": "Performs a bitwise XOR between a register and an immediate value",
+      "dec": "0 to 65535 (unsigned) / -32768 to 32767 (signed)",
+      "hex": "0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "sll",
@@ -280,9 +301,9 @@
       "shamt": "sa",
       "funct": "000000",
       "action": "Shifts a register's value left by a specified number of bits",
-      "dec": "",
-      "hex": "",
-      "bin": ""
+      "dec": "0 to 31",
+      "hex": "0x0 to 0x1F",
+      "bin": "5 bits"
     },
     {
       "mnemonic": "sllv",
@@ -314,9 +335,9 @@
       "shamt": "sa",
       "funct": "000011",
       "action": "Shifts a register's value right by a specified number of bits, preserving the sign",
-      "dec": "",
-      "hex": "",
-      "bin": ""
+      "dec": "0 to 31",
+      "hex": "0x0 to 0x1F",
+      "bin": "5 bits"
     },
     {
       "mnemonic": "srav",
@@ -348,9 +369,9 @@
       "shamt": "sa",
       "funct": "000010",
       "action": "Shifts a register's value right by a specified number of bits, filling with zeros",
-      "dec": "",
-      "hex": "",
-      "bin": ""
+      "dec": "0 to 31",
+      "hex": "0x0 to 0x1F",
+      "bin": "5 bits"
     },
     {
       "mnemonic": "srlv",
@@ -630,9 +651,9 @@
       "shamt": "null",
       "funct": "001101",
       "action": "Causes the processor to enter a debug mode at a specified point in the code",
-      "dec": "",
-      "hex": "",
-      "bin": ""
+      "dec": "0 to 1048575",
+      "hex": "0x00000 to 0xFFFFF",
+      "bin": "20 bits"
     },
     {
       "mnemonic": "j",
@@ -646,7 +667,10 @@
       "rd": "null",
       "shamt": "null",
       "funct": "null",
-      "action": "Unconditionally jumps to a specified address"
+      "action": "Unconditionally jumps to a specified address",
+      "dec": "0 to 67108863",
+      "hex": "0x0000000 to 0x3FFFFFF",
+      "bin": "26 bits"
     },
     {
       "mnemonic": "jal",
@@ -750,7 +774,10 @@
       "rd": "offset",
       "shamt": "null",
       "funct": "null",
-      "action": "Loads a byte from memory into a register"
+      "action": "Loads a byte from memory into a register",
+      "dec": "-32768 to 32767 (signed)",
+      "hex": "0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "lbu",
@@ -764,7 +791,10 @@
       "rd": "offset",
       "shamt": "null",
       "funct": "null",
-      "action": "Loads a byte from memory into a register without sign extension"
+      "action": "Loads a byte from memory into a register without sign extension",
+      "dec": "-32768 to 32767 (signed)",
+      "hex": "0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "lh",
@@ -778,7 +808,10 @@
       "rd": "offset",
       "shamt": "null",
       "funct": "null",
-      "action": "Loads a halfword from memory into a register"
+      "action": "Loads a halfword from memory into a register",
+      "dec": "-32768 to 32767 (signed)",
+      "hex": "0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "lhu",
@@ -792,7 +825,10 @@
       "rd": "offset",
       "shamt": "null",
       "funct": "null",
-      "action": "Loads a halfword from memory into a register without sign extension"
+      "action": "Loads a halfword from memory into a register without sign extension",
+      "dec": "-32768 to 32767 (signed)",
+      "hex": "0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "lui",
@@ -806,7 +842,10 @@
       "rd": "imm",
       "shamt": "null",
       "funct": "null", 
-      "action": "Loads a 16-bit immediate value into the upper half of a register"
+      "action": "Loads a 16-bit immediate value into the upper half of a register",
+      "dec": "0 to 65535 (unsigned) / -32768 to 32767 (signed)",
+      "hex": "0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "lw",
@@ -820,7 +859,10 @@
       "rd": "offset",
       "shamt": "null",
       "funct": "null",
-      "action": "Loads a word from memory into a register"
+      "action": "Loads a word from memory into a register",
+      "dec": "-32768 to 32767 (signed)",
+      "hex": "0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "sb",
@@ -834,7 +876,10 @@
       "rd": "offset",
       "shamt": "null",
       "funct": "null",
-      "action": "Stores the least significant byte of a register's value into memory"
+      "action": "Stores the least significant byte of a register's value into memory",
+      "dec": "-32768 to 32767 (signed)",
+      "hex": "0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "sh",
@@ -848,7 +893,10 @@
       "rd": "offset",
       "shamt": "null",
       "funct": "null",
-      "action": "Stores the least significant halfword of a register's value into memory"
+      "action": "Stores the least significant halfword of a register's value into memory",
+      "dec": "-32768 to 32767 (signed)",
+      "hex": "0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     },
     {
       "mnemonic": "sw",
@@ -862,6 +910,9 @@
       "rd": "offset",
       "shamt": "null",
       "funct": "null",
-      "action": "Stores the word value of a register into memory"
+      "action": "Stores the word value of a register into memory",
+      "dec": "-32768 to 32767 (signed)",
+      "hex": "0x8000 to 0x7FFF (signed)",
+      "bin": "16 bits"
     }
   ]

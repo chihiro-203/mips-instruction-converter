@@ -408,7 +408,15 @@ app.get("/get-data/:keyword", async (req, res) => {
   if (result == "invalid") {
     result = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode;
   }
-  else if (result == "overflow") {}
+  else if (result == "bin") {
+    result = "The operand is out of range. Bit-width: " + mnemonic.bin;
+  }
+  else if (result == "dec") {
+    result = "The operand is out of range. Range (Decimal): " + mnemonic.dec;
+  }
+  else if (result == "hex") {
+    result = "The operand is out of range. Range (Hexadecimal): " + mnemonic.hex;
+  }
 
   res.json(result);
 });
