@@ -3,12 +3,13 @@ import React from 'react'
 const Explain = ({ searchResults }) => {
   return (
     <div>
-        {searchResults.length > 0 ? (
-        <div dangerouslySetInnerHTML={{ __html: searchResults }} />
+      {searchResults && searchResults.explain ? (
+        <div dangerouslySetInnerHTML={{ __html: searchResults.explain }} />
       ) : (
-        <p>No results found.</p>)}
+        <p>No results found.</p>
+      )}
     </div>
   )
 }
 
-export default Explain
+export default Explain;

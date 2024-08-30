@@ -67,7 +67,9 @@ app.get("/search-mips", async (req, res) => {
     result = "No mnemonic matches";
   }
 
-  res.json(explain);
+  let value = "It works. I nailed it.";
+
+  res.json({explain, value});
 });
 
 // API to get data by keyword
@@ -246,7 +248,7 @@ app.get("/get-data/:keyword", async (req, res) => {
       if (mnemonic.rd == "imm") { // lui $t1 0xFF
         // for 'lui'
         let rt = registerBin(keywordArray[1], registers);
-        let imm = toBin(keywordArray[2], 5);
+        let imm = toBin(keywordArray[2], 16);
         result = mnemonic.op + " " + mnemonic.rs + " " + rt + " " + imm;
         result = checkRegister(result, rt, imm);
       }

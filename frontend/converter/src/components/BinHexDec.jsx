@@ -1,8 +1,14 @@
 import React from 'react'
 
-const BinHexDec = () => {
+const BinHexDec = ({ searchResults }) => {
   return (
-    <div>BinHexDec</div>
+    <div>
+      {searchResults && searchResults.value ? (
+        <div dangerouslySetInnerHTML={{ __html: searchResults.value }} />
+      ) : (
+        <p>No results found.</p>
+      )}
+    </div>
   )
 }
 

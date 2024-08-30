@@ -44,7 +44,7 @@ const Result = () => {
               <div className="line"></div>
               <div
                 className="result my-[15px]"
-              ><BinHexDec /></div>
+              ><BinHexDec searchResults={searchResults} /></div>
             </div>
           </div>
         </div>

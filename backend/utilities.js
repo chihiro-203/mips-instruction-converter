@@ -84,7 +84,16 @@ function checkRegister(result, ...registers) {
   return result;
 }
 
-function drawTable() {}
+// This is for case "Memory Access"
+function sepOffset(str) {
+  const match = str.match(/^(\d+)\((\$\w+)\)$/);
+  if (match) {
+    const [, offset, rs] = match;
+    return { offset, rs };
+  } else {
+    throw new Error("Format is incorrect");
+  }
+}
 
 function explanation(mnemonic) {
   let format = mnemonic.format;
@@ -133,21 +142,10 @@ function explanation(mnemonic) {
   return explain;
 }
 
-function sepOffset(str) {
-  const match = str.match(/^(\d+)\((\$\w+)\)$/);
-  if (match) {
-    const [, offset, rs] = match;
-    return { offset, rs };
-  } else {
-    throw new Error("Format is incorrect");
-  }
-}
-
 module.exports = {
   toBin,
   sepOffset,
   registerBin,
   checkRegister,
-  drawTable,
   explanation,
 };
