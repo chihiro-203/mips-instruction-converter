@@ -40,36 +40,95 @@ app.get("/search-mips", async (req, res) => {
   const mipsArray = mips.split(/\s+/);
 
   // Log the array to verify
-  console.log("Keyword Array:", mipsArray);
+  console.log("MIPS Array:", mipsArray);
 
   // Perform filtering based on the split array
-  const filteredMIPS = registers.filter((item) => {
-    return mipsArray.some(
-      (word) =>
-        item.name1.includes(word.toLowerCase()) ||
-        item.name2.includes(word.toLowerCase())
-    );
-  });
+  // const filteredMIPS = registers.filter((item) => {
+  //   return mipsArray.some(
+  //     (word) =>
+  //       item.name1.includes(word.toLowerCase()) ||
+  //       item.name2.includes(word.toLowerCase())
+  //   );
+  // });
 
   let name = mipsArray[0];
   var mnemonic = opcodes.find(function (item) {
     return item.mnemonic.includes(name.toLowerCase());
   });
 
+  let instruction = "error";
+
   // This is to print the Explanation
   let explain = "";
   if (mnemonic) {
     explain = explanation(mnemonic);
+    // Kind: Arithmetic (I, R)
+    if (mnemonic.kind == "arithmetic" && mipsArray.length == 4) {
+      // rt, rs, imm - I type
+      // addi, addiu, andi, ori, slti, sltiu, xori - not used shamt, funct
+      if (mnemonic.rd == "imm") {
+        // ori $t1 $t2 10
+        let rt = registerBin(mipsArray[1], registers);
+        let rs = registerBin(mipsArray[2], registers);
+        let imm = toBin(mipsArray[3], 16);
+
+        instruction = mnemonic.op + " " + rt + " " + rs + " " + imm;
+        instruction = checkRegister(instruction, rt, rs, imm);
+      }
+
+      // rd, rs, rt - R type
+      // add, addu, and, nor, or, slt, sltu, sub, subu, xor
+      else {
+        // add $t1 $t2 $t3
+        let rd = registerBin(mipsArray[1], registers);
+        let rs = registerBin(mipsArray[2], registers);
+        let rt = registerBin(mipsArray[3], registers);
+        instruction =
+          mnemonic.op +
+          " " +
+          rs +
+          " " +
+          rt +
+          " " +
+          rd +
+          " " +
+          mnemonic.shamt +
+          " " +
+          mnemonic.funct;
+        instruction = checkRegister(instruction, rd, rs, rt);
+      }
+    }
   }
 
   // Mnemonic is not existed
   else {
-    result = "No mnemonic matches";
+    instruction = "No mnemonic matches";
   }
 
-  let value = "It works. I nailed it.";
+  // Wrong syntax
+  if (instruction == "error") {
+    instruction = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode + ".";
+  }
 
-  res.json({explain, value});
+  // Wrong registers or operand
+  else if (instruction == "invalid") {
+    instruction = "Some registers are not valid.";
+  }
+
+  // Overflow
+  else if (instruction == "bin") {
+    instruction = "The operand is out of range. Bit-width: " + mnemonic.bin + ".";
+  }
+  else if (instruction == "dec") {
+    instruction = "The operand is out of range. Range (Decimal): " + mnemonic.dec + ".";
+  }
+  else if (instruction == "hex") {
+    instruction = "The operand is out of range. Range (Hexadecimal): " + mnemonic.hex + ".";
+  }
+
+  console.log(instruction);
+
+  res.json({explain, instruction});
 });
 
 // API to get data by keyword

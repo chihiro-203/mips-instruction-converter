@@ -3,10 +3,10 @@ import React from 'react'
 const BinHexDec = ({ searchResults }) => {
   return (
     <div>
-      {searchResults && searchResults.value ? (
-        <div dangerouslySetInnerHTML={{ __html: searchResults.value }} />
+      {searchResults && searchResults.instruction !== "" ? (
+        <p>{searchResults.instruction}</p>
       ) : (
-        <p>No results found.</p>
+        <p>No value available.</p>
       )}
     </div>
   )

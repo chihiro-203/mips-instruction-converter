@@ -99,7 +99,7 @@ function explanation(mnemonic) {
   let format = mnemonic.format;
   let explain = `
       <div style="text-align: left; margin-bottom: 0.5rem; font-size: 1vw;">
-        <strong>${mnemonic.name} (${mnemonic.mnemonic})</strong> is a ${format}-type instruction: 
+        <strong>${mnemonic.name} (${mnemonic.opcode})</strong> is a ${format}-type instruction: 
         ${mnemonic.action}
       </div>`;
   if (format == "R") {
