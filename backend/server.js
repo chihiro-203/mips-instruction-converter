@@ -62,6 +62,11 @@ app.get("/search-mips", async (req, res) => {
     explain = explanation(mnemonic);
   }
 
+  // Mnemonic is not existed
+  else {
+    result = "No mnemonic matches";
+  }
+
   res.json(explain);
 });
 
@@ -79,10 +84,7 @@ app.get("/get-data/:keyword", async (req, res) => {
     return item.mnemonic.includes(name.toLowerCase());
   });
 
-  let result = "invalid";
-
-  let notUsed = "00000";
-  console.log(keywordArray.length);
+  let result = "error";
 
   if (mnemonic) {
     // Kind: Arithmetic (I, R)
@@ -221,7 +223,6 @@ app.get("/get-data/:keyword", async (req, res) => {
         // divu $t1 $t2
         let rs = registerBin(keywordArray[1], registers);
         let rt = registerBin(keywordArray[2], registers);
-        console.log(rt);
         result =
           mnemonic.op +
           " " +
@@ -255,7 +256,6 @@ app.get("/get-data/:keyword", async (req, res) => {
       else if (keywordArray[2].match(/^(\d+)\((\$\w+)\)$/)) {  // lb $t2 12($t1)
         let rt = registerBin(keywordArray[1], registers);
         let { offset, rs } = sepOffset(keywordArray[2]);
-        console.log(offset);
         offset = toBin(offset, 16);
         rs = registerBin(rs, registers);
         result = mnemonic.op + " " + rs + " " + rt + " " + offset;
@@ -405,17 +405,25 @@ app.get("/get-data/:keyword", async (req, res) => {
     result = "No mnemonic matches";
   }
 
-  if (result == "invalid") {
-    result = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode;
+  // Wrong syntax
+  if (result == "error") {
+    result = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode + ".";
   }
+
+  // Wrong registers or operand
+  else if (result == "invalid") {
+    result = "Some registers are not valid.";
+  }
+
+  // Overflow
   else if (result == "bin") {
-    result = "The operand is out of range. Bit-width: " + mnemonic.bin;
+    result = "The operand is out of range. Bit-width: " + mnemonic.bin + ".";
   }
   else if (result == "dec") {
-    result = "The operand is out of range. Range (Decimal): " + mnemonic.dec;
+    result = "The operand is out of range. Range (Decimal): " + mnemonic.dec + ".";
   }
   else if (result == "hex") {
-    result = "The operand is out of range. Range (Hexadecimal): " + mnemonic.hex;
+    result = "The operand is out of range. Range (Hexadecimal): " + mnemonic.hex + ".";
   }
 
   res.json(result);
