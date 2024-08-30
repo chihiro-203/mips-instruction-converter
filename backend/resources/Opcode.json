@@ -11,7 +11,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "100000",
-      "action": "Adds two registers and stores the result in a destination register"
+      "action": "Adds two registers and stores the result in a destination register",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "addi",
@@ -53,7 +56,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "100001",
-      "action": "Adds two unsigned integers in registers and stores the result"
+      "action": "Adds two unsigned integers in registers and stores the result",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "and",
@@ -67,7 +73,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "100100",
-      "action": "Performs a bitwise AND on two registers and stores the result"
+      "action": "Performs a bitwise AND on two registers and stores the result",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "andi",
@@ -95,7 +104,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "100111",
-      "action": "Performs a bitwise NOR on two registers and stores the result"
+      "action": "Performs a bitwise NOR on two registers and stores the result",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "or",
@@ -109,7 +121,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "100101",
-      "action": "Performs a bitwise OR on two registers and stores the result"
+      "action": "Performs a bitwise OR on two registers and stores the result",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "ori",
@@ -137,7 +152,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "101010",
-      "action": "Sets a register to 1 if the first register is less than the second, else 0"
+      "action": "Sets a register to 1 if the first register is less than the second, else 0",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "slti",
@@ -179,7 +197,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "101011",
-      "action": "Sets a register to 1 if the first unsigned integer is less than the second, else 0"
+      "action": "Sets a register to 1 if the first unsigned integer is less than the second, else 0",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "sub",
@@ -193,7 +214,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "100010",
-      "action": "Subtracts the second register from the first and stores the result"
+      "action": "Subtracts the second register from the first and stores the result",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "subu",
@@ -207,7 +231,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "100011",
-      "action": "Subtracts the second unsigned integer from the first and stores the result"
+      "action": "Subtracts the second unsigned integer from the first and stores the result",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "xor",
@@ -221,7 +248,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "100110",
-      "action": "Performs a bitwise XOR on two registers and stores the result"
+      "action": "Performs a bitwise XOR on two registers and stores the result",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "xori",
@@ -249,7 +279,10 @@
       "rd": "rd",
       "shamt": "sa",
       "funct": "000000",
-      "action": "Shifts a register's value left by a specified number of bits"
+      "action": "Shifts a register's value left by a specified number of bits",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "sllv",
@@ -263,7 +296,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "000100",
-      "action": "Shifts a register's value left by a number of bits specified in another register"
+      "action": "Shifts a register's value left by a number of bits specified in another register",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "sra",
@@ -277,7 +313,10 @@
       "rd": "rd",
       "shamt": "sa",
       "funct": "000011",
-      "action": "Shifts a register's value right by a specified number of bits, preserving the sign"
+      "action": "Shifts a register's value right by a specified number of bits, preserving the sign",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "srav",
@@ -291,7 +330,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "000111",
-      "action": "Shifts a register's value right by a number of bits specified in another register, preserving the sign"
+      "action": "Shifts a register's value right by a number of bits specified in another register, preserving the sign",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "srl",
@@ -305,7 +347,10 @@
       "rd": "rd",
       "shamt": "sa",
       "funct": "000010",
-      "action": "Shifts a register's value right by a specified number of bits, filling with zeros"
+      "action": "Shifts a register's value right by a specified number of bits, filling with zeros",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "srlv",
@@ -319,7 +364,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "000110",
-      "action": "Shifts a register's value right by a number of bits specified in another register, filling with zeros"
+      "action": "Shifts a register's value right by a number of bits specified in another register, filling with zeros",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "div",
@@ -333,7 +381,10 @@
       "rd": "00000",
       "shamt": "00000",
       "funct": "011010",
-      "action": "Divides the value in one register by another, storing the quotient in LO and the remainder in HI"
+      "action": "Divides the value in one register by another, storing the quotient in LO and the remainder in HI",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "divu",
@@ -347,7 +398,10 @@
       "rd": "00000",
       "shamt": "00000",
       "funct": "011011",
-      "action": "Divides unsigned values in two registers, storing the quotient in LO and the remainder in HI"
+      "action": "Divides unsigned values in two registers, storing the quotient in LO and the remainder in HI",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "mfhi",
@@ -361,7 +415,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "010000",
-      "action": "Moves the contents of the HI register to a general-purpose register"
+      "action": "Moves the contents of the HI register to a general-purpose register",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "mflo",
@@ -375,7 +432,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "010010",
-      "action": "Moves the contents of the LO register to a general-purpose register"
+      "action": "Moves the contents of the LO register to a general-purpose register",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "mthi",
@@ -389,7 +449,10 @@
       "rd": "00000",
       "shamt": "00000",
       "funct": "010001", 
-      "action": "Moves a value from a general-purpose register to the HI register"
+      "action": "Moves a value from a general-purpose register to the HI register",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "mtlo",
@@ -403,7 +466,10 @@
       "rd": "00000",
       "shamt": "00000",
       "funct": "010011", 
-      "action": "Moves a value from a general-purpose register to the LO register"
+      "action": "Moves a value from a general-purpose register to the LO register",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "mult",
@@ -417,7 +483,10 @@
       "rd": "00000",
       "shamt": "00000",
       "funct": "011000",
-      "action": "Multiplies two registers and stores the result in HI and LO registers"
+      "action": "Multiplies two registers and stores the result in HI and LO registers",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "multu",
@@ -431,7 +500,10 @@
       "rd": "00000",
       "shamt": "00000",
       "funct": "011001",
-      "action": "Multiplies two unsigned registers and stores the result in HI and LO registers"
+      "action": "Multiplies two unsigned registers and stores the result in HI and LO registers",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "beq",
@@ -557,7 +629,10 @@
       "rd": "null",
       "shamt": "null",
       "funct": "001101",
-      "action": "Causes the processor to enter a debug mode at a specified point in the code"
+      "action": "Causes the processor to enter a debug mode at a specified point in the code",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "j",
@@ -599,7 +674,10 @@
       "rd": "rd",
       "shamt": "00000",
       "funct": "001001",
-      "action": "Jumps to the address contained in a register and saves the return address"
+      "action": "Jumps to the address contained in a register and saves the return address",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "jr",
@@ -613,7 +691,10 @@
       "rd": "00000",
       "shamt": "00000",
       "funct": "001000",
-      "action": "Jumps to the address contained in a register"
+      "action": "Jumps to the address contained in a register",
+      "dec": "",
+      "hex": "",
+      "bin": ""
     },
     {
       "mnemonic": "mfc0",

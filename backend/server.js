@@ -406,8 +406,9 @@ app.get("/get-data/:keyword", async (req, res) => {
   }
 
   if (result == "invalid") {
-    result = "Wrong syntax. Correct syntax must be: " + mnemonic.opcode;
+    result = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode;
   }
+  else if (result == "overflow") {}
 
   res.json(result);
 });

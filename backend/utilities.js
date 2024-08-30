@@ -19,19 +19,38 @@ function isBin(value) {
 }
 
 function toBin(input, zero) {
+  let dec, bin;
+
+  // Hexadecimal to Binary - 0xFF
   if (isHex(input)) {
-    let dec = parseInt(input, 16); // Parse as hexadecimal
-    return dec.toString(2).padStart(zero, "0"); // Convert to binary
-  } else if (isDec(input)) {
-    let dec = parseInt(input, 10); // Parse as decimal
-    return dec.toString(2).padStart(zero, "0"); // Convert to binary
-  } else if (isBin(input)) {
-    // If it's already binary, normalize by removing the "0b" prefix if present
-    return input.replace(/^0b/, '').padStart(zero, "0");
+    dec = parseInt(input, 16); // Parse as hexadecimal
+    bin = dec.toString(2);
   }
-  return "null";
+
+  // Decimal to Binary - 12
+  else if (isDec(input)) {
+    dec = parseInt(input, 10); // Parse as decimal
+    bin = dec.toString(2);
+  }
+
+  // Binary - 0b1101
+  else if (isBin(input)) {
+    bin = input.replace(/^0b/, "");
+  }
+
+  // If not decimal, hexadecimal, or binary
+  else {
+    return "null";
+  }
+
+  // If one of decimal, hexadecimal, or binary
+  if (bin.length > zero) {
+    return "overflow";
+  }
+  return bin.padStart(zero, "0");
 }
 
+// Find register in Register.json
 function registerBin(name, registers) {
   if (name.match(/^\$\w+$/) || name.match(/^\w+$/)) {
     for (const item of registers) {
@@ -49,8 +68,14 @@ function registerBin(name, registers) {
 // Check if registers exist or not
 function checkRegister(result, ...registers) {
   for (let i = 0; i < registers.length; i++) {
-    if (registers[i] === null || registers[i] === undefined || registers[i] == "null") {
+    if (
+      registers[i] === null ||
+      registers[i] === undefined ||
+      registers[i] == "null"
+    ) {
       return "Some registers are not valid.";
+    } else if (registers[i] == "overflow") {
+      return "The operand is out of range.";
     }
   }
   return result;
