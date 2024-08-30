@@ -252,7 +252,7 @@ app.get("/get-data/:keyword", async (req, res) => {
 
       // rt, offset(rs) - I type
       // lb, lbu, lh, lhu, lw, sb, sh, sw - not used shamt, funct
-      else {  // lb $t2 12($t1)
+      else if (keywordArray[2].match(/^(\d+)\((\$\w+)\)$/)) {  // lb $t2 12($t1)
         let rt = registerBin(keywordArray[1], registers);
         let { offset, rs } = sepOffset(keywordArray[2]);
         console.log(offset);
@@ -406,7 +406,7 @@ app.get("/get-data/:keyword", async (req, res) => {
   }
 
   if (result == "invalid") {
-    result = "Wrong syntax: " + mnemonic.opcode;
+    result = "Wrong syntax. Correct syntax must be: " + mnemonic.opcode;
   }
 
   res.json(result);
