@@ -98,11 +98,15 @@
   }
 
   .search-btn {
-    @apply text-3xl text-[#9665dd] bg-transparent pr-2.5 rounded-[50%] hover:text-[#5f3c91];
+    @apply text-3xl text-[#9665dd] bg-transparent pr-2.5 rounded-[50%] hover:text-[#5f3c91] outline-none border-none;
   }
   .search-btn:hover {
     text-shadow: 0px 0.5px 0.75px #9665dd, 0px -0.5px 0.75px #9665dd,
       0.5px 0px 0.75px #9665dd, -0.5px 0px 0.75px #9665dd;
+  }
+  .search-btn:focus {
+    outline: none; 
+    color: #5f3c91;
   }
 
   .panel{

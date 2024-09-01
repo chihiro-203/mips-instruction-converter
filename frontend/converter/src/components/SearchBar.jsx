@@ -48,7 +48,7 @@ const SearchBar = ({ inputWidth, onSearchResults }) => {
   };
 
   return (
-    <div>
+    <form>
       <div
         className="m-auto bg-[white] h-fit flex items-center border-[#955ed3] justify-between px-2.5 py-[5px] rounded-[40px] border-[2.5px] border-solid"
         style={{ width: `${inputWidth}%` }}
@@ -70,7 +70,7 @@ const SearchBar = ({ inputWidth, onSearchResults }) => {
       </div>
 
       {error && <p className="text-red-500 text-xs pb-1">{error}</p>}
-    </div>
+    </form>
   );
 };
 

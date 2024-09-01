@@ -102,23 +102,6 @@
       "bin": "16 bits"
     },
     {
-      "mnemonic": "nor",
-      "kind": "arithmetic",
-      "name": "Nor",
-      "opcode": "NOR rd rs rt",
-      "format": "R",
-      "op": "000000",
-      "rs": "rs",
-      "rt": "rt",
-      "rd": "rd",
-      "shamt": "00000",
-      "funct": "100111",
-      "action": "Performs a bitwise NOR on two registers and stores the result",
-      "dec": "",
-      "hex": "",
-      "bin": ""
-    },
-    {
       "mnemonic": "or",
       "kind": "arithmetic",
       "name": "Or",
@@ -131,6 +114,23 @@
       "shamt": "00000",
       "funct": "100101",
       "action": "Performs a bitwise OR on two registers and stores the result",
+      "dec": "",
+      "hex": "",
+      "bin": ""
+    },
+    {
+      "mnemonic": "nor",
+      "kind": "arithmetic",
+      "name": "Nor",
+      "opcode": "NOR rd rs rt",
+      "format": "R",
+      "op": "000000",
+      "rs": "rs",
+      "rt": "rt",
+      "rd": "rd",
+      "shamt": "00000",
+      "funct": "100111",
+      "action": "Performs a bitwise NOR on two registers and stores the result",
       "dec": "",
       "hex": "",
       "bin": ""

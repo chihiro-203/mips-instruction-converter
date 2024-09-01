@@ -42,24 +42,14 @@ app.get("/search-mips", async (req, res) => {
   // Log the array to verify
   console.log("MIPS Array:", mipsArray);
 
-  // Perform filtering based on the split array
-  // const filteredMIPS = registers.filter((item) => {
-  //   return mipsArray.some(
-  //     (word) =>
-  //       item.name1.includes(word.toLowerCase()) ||
-  //       item.name2.includes(word.toLowerCase())
-  //   );
-  // });
-
   let name = mipsArray[0];
   var mnemonic = opcodes.find(function (item) {
     return item.mnemonic.includes(name.toLowerCase());
   });
 
-  let instruction = "error";
-
-  // This is to print the Explanation
+  let instruction = "error";  
   let explain = "";
+  
   if (mnemonic) {
     explain = explanation(mnemonic);
     // Kind: Arithmetic (I, R)

@@ -101,19 +101,6 @@ const Opcode = () => {
                 <td colSpan={3}>imm</td>
               </tr>
               <tr>
-                <td>NOR rd,rs,rt</td>
-                <td>Nor</td>
-                <td>nor</td>
-                <td>R</td>
-                <td>rd=~(rs|rt)</td>
-                <td>000000</td>
-                <td>rs</td>
-                <td>rt</td>
-                <td>rd</td>
-                <td>00000</td>
-                <td>100111</td>
-              </tr>
-              <tr>
                 <td>OR rd,rs,rt</td>
                 <td>Or</td>
                 <td>or</td>
@@ -125,6 +112,19 @@ const Opcode = () => {
                 <td>rd</td>
                 <td>00000</td>
                 <td>100101</td>
+              </tr>
+              <tr>
+                <td>NOR rd,rs,rt</td>
+                <td>Nor</td>
+                <td>nor</td>
+                <td>R</td>
+                <td>rd=~(rs|rt)</td>
+                <td>000000</td>
+                <td>rs</td>
+                <td>rt</td>
+                <td>rd</td>
+                <td>00000</td>
+                <td>100111</td>
               </tr>
               <tr>
                 <td>ORI rt,rs,imm</td>
