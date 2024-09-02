@@ -45,18 +45,21 @@ app.get("/search-mips", async (req, res) => {
     return item.mnemonic.includes(name.toLowerCase());
   });
 
-  let definition = "";
+  let definition;
   let explain;
   let result = "";
   
   if (mnemonic) {
     let format = mnemonic.format;
+    definition = `
+      <div style="text-align: left; margin-bottom: 0.5rem; font-size: 1vw;">
+        <strong>${mnemonic.name} (${mnemonic.opcode})</strong> is a ${format}-type instruction: 
+        ${mnemonic.action}
+      </div>`;
     explain = explainJSON.results.find(result => result.format === format);
   }
-  
-  console.log(explain);
-  
-  res.json({ explain, result });
+
+  res.json({ definition, explain, result });
 });
 
 const port = process.env.PORT || 8000;
