@@ -336,6 +336,62 @@
                 "format": "R",
                 "action": "epc=pc; pc=0x3c",
                 "fields": ["000000", "code", "001101"]
+            },
+            {
+                "opcode": "J target",
+                "name": "Jump",
+                "mnemonic": "j",
+                "format": "J",
+                "action": "pc=pc_upper|(target&lt;&lt;2)",
+                "fields": ["000010", "target"]
+            },
+            {
+                "opcode": "JAL target",
+                "name": "Jump And Link",
+                "mnemonic": "jal",
+                "format": "J",
+                "action": "r31=pc; pc=target&lt;&lt;2",
+                "fields": ["000011", "target"]
+            },
+            {
+                "opcode": "JR rs",
+                "name": "Jump Register",
+                "mnemonic": "jr",
+                "format": "R",
+                "action": "pc=rs",
+                "fields": ["000000", "rs", "00000", "00000", "00000", "001000"]
+            },
+            {
+                "opcode": "JALR rs",
+                "name": "Jump And Link Register",
+                "mnemonic": "jalr",
+                "format": "R",
+                "action": "rd=pc; pc=rs",
+                "fields": ["000000", "rs", "00000", "rd", "00000", "001001"]
+            },
+            {
+                "opcode": "MFC0 rt,rd",
+                "name": "Move From Coprocessor 0",
+                "mnemonic": "mfc0",
+                "format": "",
+                "action": "rd=pc; pc=rs",
+                "fields": ["010000", "00000", "rt", "rd", "00000", "000000"]
+            },
+            {
+                "opcode": "MTC0 rt,rd",
+                "name": "Move To Coprocessor 0",
+                "mnemonic": "mtc0",
+                "format": "",
+                "action": "CPR[0,rd]=rt",
+                "fields": ["010000", "00100", "rt", "rd", "00000", "000000"]
+            },
+            {
+                "opcode": "SYSCALL",
+                "name": "System Call",
+                "mnemonic": "syscall",
+                "format": "",
+                "action": "epc=pc; pc=0x3c",
+                "fields": ["000000", "00000", "00000", "00000", "00000", "001100"]
             }
         ]
     },

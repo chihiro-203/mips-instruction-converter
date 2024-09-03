@@ -3,12 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-const {
-  registerBin,
-  checkRegister,  
-  toBin,
-  sepOffset,
-} = require("./utilities");
+const { registerBin, checkRegister, toBin, sepOffset } = require("./utilities");
 const app = express();
 
 app.use(express.json());
@@ -23,7 +18,9 @@ const registers = JSON.parse(
   fs.readFileSync("./resources/Register.json", "utf-8")
 );
 const opcodes = JSON.parse(fs.readFileSync("./resources/Opcode.json", "utf-8"));
-const explainJSON = JSON.parse(fs.readFileSync("./resources/Explain.json", "utf-8"));
+const explainJSON = JSON.parse(
+  fs.readFileSync("./resources/Explain.json", "utf-8")
+);
 
 app.get("/", async (req, res) => {
   res.json({ data: "hello" });
@@ -45,9 +42,9 @@ app.get("/search-mips", async (req, res) => {
   });
 
   let definition;
-  let explain;
+  let explain = [];
   let result = "";
-  
+
   if (mnemonic) {
     let format = mnemonic.format;
     definition = `
@@ -55,7 +52,19 @@ app.get("/search-mips", async (req, res) => {
         <strong>${mnemonic.name} (${mnemonic.opcode})</strong> is a ${format}-type instruction: 
         ${mnemonic.action}
       </div>`;
-    explain = explainJSON.results.find(result => result.format === format);
+
+    let index;
+
+    if (format === "R" || format === "NULL") {
+      if (mnemonic.mnemonic === "break") {
+        index = 2;
+      } else if (mnemonic.mnemonic === "syscall") {
+        index = 1;
+      } else {
+        index = 1;
+      }
+      explain = explainJSON.results.find((result) => result.index === index);
+    }
   }
 
   res.json({ definition, explain, result });

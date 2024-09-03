@@ -36,7 +36,7 @@ const Opcode = () => {
                       <td>{instruction.format}</td>
                       <td>{instruction.action}</td>
                       {instruction.fields.map((field, fieldIndex) => (
-                        <td key={fieldIndex} colSpan={field === "imm" || field === "offset" || field === "target" ? 3 : field === "code" ? 4 : 1}>
+                        <td key={fieldIndex} colSpan={field === "imm" || field === "offset" ? 3 : field === "code" ? 4 : field === "target" ? 5 : 1}>
                           {field}
                         </td>
                       ))}
