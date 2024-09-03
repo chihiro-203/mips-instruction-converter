@@ -31,7 +31,7 @@ const Description = ({ table, data }) => {
       <div className="text-left text-[0.95vw] mt-[0.75rem]">
         {data.map((item, index) => (
           <li key={`${item.field}-${index}`}>
-            <strong>{item.field}:</strong> {item.description} {item.bits}
+            <strong>{item.field}:</strong> {item.description} ({item.bits} bits)
           </li>
         ))}
       </div>
