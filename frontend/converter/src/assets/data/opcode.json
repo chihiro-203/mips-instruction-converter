@@ -1,0 +1,419 @@
+[
+    {
+        "section": "Arithmetic Logic Unit",
+        "instructions": [
+            {
+                "opcode": "ADD rd,rs,rt",
+                "name": "Add",
+                "mnemonic": "add",
+                "format": "R",
+                "action": "rd=rs+rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "100000"]
+            },
+            {
+                "opcode": "ADDI rt,rs,imm",
+                "name": "Add Immediate",
+                "mnemonic": "addi",
+                "format": "I",
+                "action": "rt=rs+imm",
+                "fields": ["001000", "rs", "rt", "imm"]
+            },
+            {
+                "opcode": "ADDIU rt,rs,imm",
+                "name": "Add Immediate Unsigned",
+                "mnemonic": "addiu",
+                "format": "I",
+                "action": "rt=rs+imm",
+                "fields": ["001001", "rs", "rt", "imm"]
+            },
+            {
+                "opcode": "ADDU rd,rs,rt",
+                "name": "Add Unsigned",
+                "mnemonic": "addu",
+                "format": "R",
+                "action": "rd=rs+rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "100001"]
+            },
+            {
+                "opcode": "AND rd,rs,rt",
+                "name": "And",
+                "mnemonic": "and",
+                "format": "R",
+                "action": "rd=rs&rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "100100"]
+            },
+            {
+                "opcode": "ANDI rt,rs,imm",
+                "name": "And Immediate",
+                "mnemonic": "andi",
+                "format": "I",
+                "action": "rt=rs&imm",
+                "fields": ["001100", "rs", "rt", "imm"]
+            },
+            {
+                "opcode": "OR rd,rs,rt",
+                "name": "Or",
+                "mnemonic": "or",
+                "format": "R",
+                "action": "rd=rs|rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "100101"]
+            },
+            {
+                "opcode": "NOR rd,rs,rt",
+                "name": "Nor",
+                "mnemonic": "nor",
+                "format": "R",
+                "action": "rd=~(rs|rt)",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "100111"]
+            },
+            {
+                "opcode": "ORI rt,rs,imm",
+                "name": "Or Immediate",
+                "mnemonic": "ori",
+                "format": "I",
+                "action": "rt=rs|imm",
+                "fields": ["001101", "rs", "rt", "imm"]
+            },
+            {
+                "opcode": "SLT rd,rs,rt",
+                "name": "Set On Less Than",
+                "mnemonic": "slt",
+                "format": "R",
+                "action": "rd=rs<rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "101010"]
+            },
+            {
+                "opcode": "SLTI rt,rs,imm",
+                "name": "Set On Less Than Immediate",
+                "mnemonic": "slti",
+                "format": "I",
+                "action": "rt=rs<imm",
+                "fields": ["001010", "rs", "rt", "imm"]
+            },
+            {
+                "opcode": "SLTIU rt,rs,imm",
+                "name": "Set On < Immediate Unsigned",
+                "mnemonic": "sltiu",
+                "format": "I",
+                "action": "rt=rs<imm",
+                "fields": ["001011", "rs", "rt", "imm"]
+            },
+            {
+                "opcode": "SLTU rd,rs,rt",
+                "name": "Set On Less Than Unsigned",
+                "mnemonic": "sltu",
+                "format": "R",
+                "action": "rd=rs<rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "101011"]
+            },
+            {
+                "opcode": "SUB rd,rs,rt",
+                "name": "Subtract",
+                "mnemonic": "sub",
+                "format": "R",
+                "action": "rd=rs-rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "100010"]
+            },
+            {
+                "opcode": "SUBU rd,rs,rt",
+                "name": "Subtract Unsigned",
+                "mnemonic": "subu",
+                "format": "R",
+                "action": "rd=rs-rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "100011"]
+            },
+            {
+                "opcode": "XOR rd,rs,rt",
+                "name": "Exclusive Or",
+                "mnemonic": "xor",
+                "format": "R",
+                "action": "rd=rs^rt",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "100110"]
+            },
+            {
+                "opcode": "XORI rt,rs,imm",
+                "name": "Exclusive Or Immediate",
+                "mnemonic": "xori",
+                "format": "I",
+                "action": "rt=rs^imm",
+                "fields": ["001110", "rs", "rt", "imm"]
+            }
+        ]
+    },
+    {
+        "section": "Shifter",
+        "instructions": [
+            {
+                "opcode": "SLL rd,rt,sa",
+                "name": "Shift Left Logical",
+                "mnemonic": "sll",
+                "format": "R",
+                "action": "rd=rt<<sa",
+                "fields": ["000000", "00000", "rt", "rd", "sa", "000000"]
+            },
+            {
+                "opcode": "SLLV rd,rt,rs",
+                "name": "Shift Left Logical Variable",
+                "mnemonic": "sllv",
+                "format": "R",
+                "action": "rd=rt<<rs",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "000100"]
+            },
+            {
+                "opcode": "SRA rd,rt,sa",
+                "name": "Shift Right Arithmetic",
+                "mnemonic": "sra",
+                "format": "R",
+                "action": "rd=rt>>sa",
+                "fields": ["000000", "00000", "rt", "rd", "sa", "000011"]
+            },
+            {
+                "opcode": "SRAV rd,rt,rs",
+                "name": "Shift Right Arithmetic Variable",
+                "mnemonic": "srav",
+                "format": "R",
+                "action": "rd=rt>>rs",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "000111"]
+            },
+            {
+                "opcode": "SRL rd,rt,sa",
+                "name": "Shift Right Logical",
+                "mnemonic": "srl",
+                "format": "R",
+                "action": "rd=rt>>sa",
+                "fields": ["000000", "00000", "rt", "rd", "sa", "000010"]
+            },
+            {
+                "opcode": "SRLV rd,rt,rs",
+                "name": "Shift Right Logical Variable",
+                "mnemonic": "srlv",
+                "format": "R",
+                "action": "rd=rt>>rs",
+                "fields": ["000000", "rs", "rt", "rd", "00000", "000110"]
+            }
+        ]
+    },
+    {
+        "section": "Multiply & Divide",
+        "instructions": [
+            {
+                "opcode": "DIV rs,rt",
+                "name": "Divide",
+                "mnemonic": "div",
+                "format": "R",
+                "action": "HI=rs%rt; LO=rs/rt",
+                "fields": ["000000", "rs", "rt", "00000", "00000", "011010"]
+            },
+            {
+                "opcode": "DIVU rs,rt",
+                "name": "Divide Unsigned",
+                "mnemonic": "divu",
+                "format": "R",
+                "action": "HI=rs%rt; LO=rs/rt",
+                "fields": ["000000", "rs", "rt", "00000" , "00000", "011011"]
+            },
+            {
+                "opcode": "MFHI rd",
+                "name": "Move From HI",
+                "mnemonic": "mfhi",
+                "format": "R",
+                "action": "rd=HI",
+                "fields": ["000000", "00000", "00000", "rd", "00000", "010000"]
+            },
+            {
+                "opcode": "MFLO rd",
+                "name": "Move From LO",
+                "mnemonic": "mflo",
+                "format": "R",
+                "action": "rd=LO",
+                "fields": ["000000", "00000", "00000", "rd", "00000", "010010"]
+            },
+            {
+                "opcode": "MTHI rs",
+                "name": "Move To HI",
+                "mnemonic": "mthi",
+                "format": "R",
+                "action": "HI=rs",
+                "fields": ["000000", "rs", "00000", "00000", "00000", "010001"]
+            },
+            {
+                "opcode": "MTLO rs",
+                "name": "Move To LO",
+                "mnemonic": "mtlo",
+                "format": "R",
+                "action": "LO=rs",
+                "fields": ["000000", "rs", "00000", "00000", "00000", "010011"]
+            },
+            {
+                "opcode": "MULT rs,rt",
+                "name": "Multiply",
+                "mnemonic": "mult",
+                "format": "R",
+                "action": "HI,LO=rs*rt",
+                "fields": ["000000", "rs", "rt", "00000", "00000", "011000"]
+            },
+            {
+                "opcode": "MULTU rs,rt",
+                "name": "Multiply Unsigned",
+                "mnemonic": "multu",
+                "format": "R",
+                "action": "HI,LO=rs*rt",
+                "fields": ["000000", "rs", "rt", "00000", "00000", "011001"]
+            }
+        ]
+    },
+    {
+        "section": "Branch",
+        "instructions": [
+            {
+                "opcode": "BEQ rs,rt,offset",
+                "name": "Branch On Equal",
+                "mnemonic": "beq",
+                "format": "I",
+                "action": "if(rs==rt) pc+=offset*4",
+                "fields": ["000100", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "BGEZ rs,offset",
+                "name": "Branch On >= 0",
+                "mnemonic": "bgez",
+                "format": "I",
+                "action": "if(rs>=0) pc+=offset*4",
+                "fields": ["000001", "rs", "00001", "offset"]
+            },
+            {
+                "opcode": "BGEZAL rs,offset",
+                "name": "Branch On >= 0 And Link",
+                "mnemonic": "bgezal",
+                "format": "I",
+                "action": "r31=pc; if(rs>=0) pc+=offset*4",
+                "fields": ["000001", "rs", "10001", "offset"]
+            },
+            {
+                "opcode": "BGTZ rs,offset",
+                "name": "Branch On > 0",
+                "mnemonic": "bgtz",
+                "format": "I",
+                "action": "if(rs>0) pc+=offset*4",
+                "fields": ["000111", "rs", "00000", "offset"]
+            },
+            {
+                "opcode": "BLEZ rs,offset",
+                "name": "Branch On",
+                "mnemonic": "blez",
+                "format": "I",
+                "action": "if(rs<=0) pc+=offset*4",
+                "fields": ["000110", "rs", "00000", "offset"]
+            },
+            {
+                "opcode": "BLTZ rs,offset",
+                "name": "Branch On < 0",
+                "mnemonic": "bltz",
+                "format": "I",
+                "action": "if(rs<0) pc+=offset*4",
+                "fields": ["000001", "rs", "00000", "offset"]
+            },
+            {
+                "opcode": "BLTZAL rs,offset",
+                "name": "Branch On < 0 And Link",
+                "mnemonic": "bltzal",
+                "format": "I",
+                "action": "r31=pc; if(rs<0) pc+=offset*4",
+                "fields": ["000001", "rs", "10000", "offset"]
+            },
+            {
+                "opcode": "BNE rs,rt,offset",
+                "name": "Branch On Not Equal",
+                "mnemonic": "bne",
+                "format": "I",
+                "action": "if(rs!=rt) pc+=offset*4",
+                "fields": ["000101", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "BREAK",
+                "name": "Breakpoint",
+                "mnemonic": "break",
+                "format": "R",
+                "action": "epc=pc; pc=0x3c",
+                "fields": ["000000", "code", "001101"]
+            }
+        ]
+    },
+    {
+        "section": "Memory Access",
+        "instructions": [
+            {
+                "opcode": "LB rt,offset(rs)",
+                "name": "Load Byte",
+                "mnemonic": "lb",
+                "format": "I",
+                "action": "rt=*(char*)(offset+rs)",
+                "fields": ["100000", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "LBU rt,offset(rs)",
+                "name": "Load Byte Unsigned",
+                "mnemonic": "lbu",
+                "format": "I",
+                "action": "rt=*(Uchar*)(offset+rs)",
+                "fields": ["100100", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "LH rt,offset(rs)",
+                "name": "Load Halfword",
+                "mnemonic": "lh",
+                "format": "I",
+                "action": "rt=*(short*)(offset+rs)",
+                "fields": ["100001", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "LHU rt,offset(rs)",
+                "name": "Load Halfword Unsigned",
+                "mnemonic": "lhu",
+                "format": "I",
+                "action": "rt=*(Ushort*)(offset+rs)",
+                "fields": ["100101", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "LUI rt,imm",
+                "name": "Load Upper Immediate",
+                "mnemonic": "lui",
+                "format": "I",
+                "action": "rt=imm<<16",
+                "fields": ["001111", "rs", "rt", "imm"]
+            },
+            {
+                "opcode": "LW rt,offset(rs)",
+                "name": "Load Word",
+                "mnemonic": "lw",
+                "format": "I",
+                "action": "rt=*(int*)(offset+rs)",
+                "fields": ["100011", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "SB rt,offset(rs)",
+                "name": "Store Byte",
+                "mnemonic": "sb",
+                "format": "I",
+                "action": "*(char*)(offset+rs)=rt",
+                "fields": ["101000", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "SH rt,offset(rs)",
+                "name": "Store Halfword",
+                "mnemonic": "sh",
+                "format": "I",
+                "action": "*(short*)(offset+rs)=rt",
+                "fields": ["101001", "rs", "rt", "offset"]
+            },
+            {
+                "opcode": "SW rt,offset(rs)",
+                "name": "Store Word",
+                "mnemonic": "sw",
+                "format": "I",
+                "action": "*(int*)(offset+rs)=rt",
+                "fields": ["101011", "rs", "rt", "offset"]
+            }
+        ]
+    }
+]
