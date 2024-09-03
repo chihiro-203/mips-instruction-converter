@@ -19,7 +19,6 @@ const Result = () => {
     const mips = params.get("mips");
     if (mips) {
       // handleSearchResults(mips);
-      // You can initiate a search with the mips here if needed
     }
   }, [location.search]);
 

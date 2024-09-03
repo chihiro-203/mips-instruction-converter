@@ -1,13 +1,13 @@
 [
     {
       "Name": "$zero",
-      "Number": 0,
+      "Number": "0",
       "Function_Use": "The constant value 0",
       "Preserved_Across_A_Call": "N.A."
     },
     {
       "Name": "$at",
-      "Number": 1,
+      "Number": "1",
       "Function_Use": "Assembler temporary, reserved for pseudo-instructions",
       "Preserved_Across_A_Call": "No"
     },
@@ -49,26 +49,62 @@
     },
     {
       "Name": "$gp",
-      "Number": 28,
+      "Number": "28",
       "Function_Use": "Global Area Pointer (base of global data segment)",
       "Preserved_Across_A_Call": "Yes"
     },
     {
       "Name": "$sp",
-      "Number": 29,
-      "Function_Use": "Stack Pointer",
+      "Number": "29",
+      "Function_Use": "Stack Pointer, points to the top of the stack, used in function calls and returns",
       "Preserved_Across_A_Call": "Yes"
     },
     {
       "Name": "$fp",
-      "Number": 30,
-      "Function_Use": "Frame Pointer",
+      "Number": "30",
+      "Function_Use": "Frame Pointer, points to the base of the current stack frame, used to access local variables",
       "Preserved_Across_A_Call": "Yes"
     },
     {
       "Name": "$ra",
-      "Number": 31,
-      "Function_Use": "Return Address",
+      "Number": "31",
+      "Function_Use": "Return Address, stores the return address for function calls",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$status",
+      "Number": "12",
+      "Function_Use": "Processor status register, used for storing system status and control bits",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$cause",
+      "Number": "13",
+      "Function_Use": "Cause of the last exception, used by the exception handler",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$epc",
+      "Number": "14",
+      "Function_Use": "Exception Program Counter, holds the address to return to after an exception",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$badvaddr",
+      "Number": "8",
+      "Function_Use": "Bad virtual address, stores the address that caused the exception",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$index",
+      "Number": "0",
+      "Function_Use": "Index register used in TLB operations",
+      "Preserved_Across_A_Call": "Yes"
+    },
+    {
+      "Name": "$fcsr",
+      "Number": "31",
+      "Function_Use": "Floating-point Control and Status Register",
       "Preserved_Across_A_Call": "Yes"
     }
   ]

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const BinHexDec = ({ searchResults }) => {
   return (
@@ -9,7 +9,7 @@ const BinHexDec = ({ searchResults }) => {
         <p>No value available.</p>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default BinHexDec
+export default BinHexDec;

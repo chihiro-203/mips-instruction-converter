@@ -5,8 +5,7 @@ const fs = require("fs");
 const cors = require("cors");
 const {
   registerBin,
-  checkRegister,
-  explanation,
+  checkRegister,  
   toBin,
   sepOffset,
 } = require("./utilities");
