@@ -1,8 +1,7 @@
 {
     "results": [
         {
-            "index": 1,
-            "case": "R",
+            "format": "R",
             "table": [
                 "op,1,6",
                 "rs,1,5",
@@ -45,8 +44,7 @@
             ]
         },
         {
-            "index": 2,
-            "case": "NULL",
+            "format": "special",
             "table": [
                 "op,1, 6",
                 "code,4, 20",
@@ -71,8 +69,7 @@
             ]
         },
         {
-            "index": 3,
-            "case": "I",
+            "format": "I",
             "table": [
                 "op,1,6",
                 "rs,1,5",
@@ -103,8 +100,7 @@
             ]
         },
         {
-            "index": 4,
-            "case": "J",
+            "format": "J",
             "table": [
                 "op,1,6",
                 "target,3,26"

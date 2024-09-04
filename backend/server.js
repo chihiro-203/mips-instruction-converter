@@ -53,18 +53,87 @@ app.get("/search-mips", async (req, res) => {
         ${mnemonic.action}
       </div>`;
 
-    let index;
+    let f = "R";  // R format
 
     if (format === "R" || format === "NULL") {
-      if (mnemonic.mnemonic === "break") {
-        index = 2;
-      } else if (mnemonic.mnemonic === "syscall") {
-        index = 1;
-      } else {
-        index = 1;
+
+      // break and syscall case
+      if (mnemonic.mnemonic === "break" || mnemonic.mnemonic === "syscall") {
+        f = "special" ;   // Special with code
       }
-      explain = explainJSON.results.find((result) => result.index === index);
+
+      // Kind: Arithmetic (R)
+      // rd, rs, rt - R type
+      // add, addu, and, nor, or, slt, sltu, sub, subu, xor
+      else if (mnemonic.kind == "arithmetic" && mipsArray.length == 4) {}
+
+      // Kind: Shifter (R)
+      else if (mnemonic.kind == "shifter" && mipsArray.length == 4) {
+
+        // rd, rt, sa - R type
+        // sll, sra, srl - not used rs
+        if (mnemonic.shamt == "sa") {}
+
+        // rd, rt, rs - R type
+        // sllv, srav, srlv
+        else {}
+      }
+
+      // Kind: Multiply & Divide (R)
+      else if (mnemonic.kind == "muldiv") {
+
+        if (mipsArray.length == 2) {
+
+          // rs - R type
+          // mthi, mtlo - not used rt, rd, shamt
+          if (mnemonic.rd == "00000") {}
+
+          // rd - R type
+          // mfhi, mflo - not used rs, rt, shamt
+          else if (mnemonic.rd != "00000") {}
+        }
+
+        // rs, rt - R type
+        // div, divu, mult, multu - not used rd, shamt
+        else if (keywordArray.length == 3) {}
+      }
+
+      // Kind: Branch (R)
+      else if (mnemonic.kind == "branch") {}
     }
+    
+    else if (format === "I") {
+
+      // rt, rs, imm - I type
+      // addi, addiu, andi, ori, slti, sltiu, xori
+      if (mnemonic.kind == "arithmetic" && mipsArray.length == 4) {}
+
+      else if (mnemonic.kind == "branch" && mipsArray.length >= 3) {        
+
+        // rs, rt, offset - I type
+        // beq, bne - not used rd
+        if (mnemonic.rt == "rt") {}
+
+        // rs, offset - I type
+        // bgez, bgezal, bgtz, blez, bltz, bltzal - not used rd, shamt, funct
+        else {}
+      }
+
+      else if (mnemonic.kind == "memory" && mipsArray.length == 3) {
+
+        // rt,imm - I type
+        // lui - not used rs, shamt, funct
+        if (mnemonic.rd == "imm") {}
+
+        // rt, offset(rs) - I type
+        // lb, lbu, lh, lhu, lw, sb, sh, sw - not used shamt, funct
+        else if (keywordArray[2].match(/^(\d+)\((\$\w+)\)$/)) {}
+      }
+    }
+    
+    else if (format === "J") {}
+    
+    explain = explainJSON.results.find((result) => result.format === f);
   }
 
   res.json({ definition, explain, result });
