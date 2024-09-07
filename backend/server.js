@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-const { registerBin, checkRegister, toBin, sepOffset } = require("./utilities");
+const { registerBin, checkRegister, toBin, sepOffset, checkValue } = require("./utilities");
 const app = express();
 
 app.use(express.json());
@@ -33,10 +33,10 @@ app.get("/search-mips", async (req, res) => {
   console.log(mips);
 
   // Split the keyword into an array based on spaces
-  const mipsArray = mips.split(/\s+/);
-  console.log("MIPS Array:", mipsArray);
+  const mArr = mips.split(/\s+/);
+  console.log("MIPS Array:", mArr);
 
-  let name = mipsArray[0];
+  let name = mArr[0];
   var mnemonic = opcodes.find(function (item) {
     return item.mnemonic.includes(name.toLowerCase());
   });
@@ -61,54 +61,61 @@ app.get("/search-mips", async (req, res) => {
       if (mnemonic.mnemonic === "break" || mnemonic.mnemonic === "syscall") {
         f = "special" ;   // Special with code
       }
+      
+      else {
+        let rs, rt, rd, shamt, funct;
 
-      // Kind: Arithmetic (R)
-      // rd, rs, rt - R type
-      // add, addu, and, nor, or, slt, sltu, sub, subu, xor
-      else if (mnemonic.kind == "arithmetic" && mipsArray.length == 4) {}
-
-      // Kind: Shifter (R)
-      else if (mnemonic.kind == "shifter" && mipsArray.length == 4) {
-
-        // rd, rt, sa - R type
-        // sll, sra, srl - not used rs
-        if (mnemonic.shamt == "sa") {}
-
-        // rd, rt, rs - R type
-        // sllv, srav, srlv
-        else {}
-      }
-
-      // Kind: Multiply & Divide (R)
-      else if (mnemonic.kind == "muldiv") {
-
-        if (mipsArray.length == 2) {
-
-          // rs - R type
-          // mthi, mtlo - not used rt, rd, shamt
-          if (mnemonic.rd == "00000") {}
-
-          // rd - R type
-          // mfhi, mflo - not used rs, rt, shamt
-          else if (mnemonic.rd != "00000") {}
+        // Kind: Arithmetic (R)
+        // rd, rs, rt - R type
+        // add, addu, and, nor, or, slt, sltu, sub, subu, xor
+        if (mnemonic.kind == "arithmetic" && mArr.length == 4) {
+          rs = mArr[2];
+          checkValue(rs, rt, rd);
         }
 
-        // rs, rt - R type
-        // div, divu, mult, multu - not used rd, shamt
-        else if (keywordArray.length == 3) {}
-      }
+        // Kind: Shifter (R)
+        else if (mnemonic.kind == "shifter" && mArr.length == 4) {
 
-      // Kind: Branch (R)
-      else if (mnemonic.kind == "branch") {}
+          // rd, rt, sa - R type
+          // sll, sra, srl - not used rs
+          if (mnemonic.shamt == "sa") {}
+
+          // rd, rt, rs - R type
+          // sllv, srav, srlv
+          else {}
+        }
+
+        // Kind: Multiply & Divide (R)
+        else if (mnemonic.kind == "muldiv") {
+
+          if (mArr.length == 2) {
+
+            // rs - R type
+            // mthi, mtlo - not used rt, rd, shamt
+            if (mnemonic.rd == "00000") {}
+
+            // rd - R type
+            // mfhi, mflo - not used rs, rt, shamt
+            else if (mnemonic.rd != "00000") {}
+          }
+
+          // rs, rt - R type
+          // div, divu, mult, multu - not used rd, shamt
+          else if (keywordArray.length == 3) {}
+        }
+
+        // Kind: Branch (R)
+        else if (mnemonic.kind == "branch") {}
+      }
     }
     
     else if (format === "I") {
 
       // rt, rs, imm - I type
       // addi, addiu, andi, ori, slti, sltiu, xori
-      if (mnemonic.kind == "arithmetic" && mipsArray.length == 4) {}
+      if (mnemonic.kind == "arithmetic" && mArr.length == 4) {}
 
-      else if (mnemonic.kind == "branch" && mipsArray.length >= 3) {        
+      else if (mnemonic.kind == "branch" && mArr.length >= 3) {        
 
         // rs, rt, offset - I type
         // beq, bne - not used rd
@@ -119,7 +126,7 @@ app.get("/search-mips", async (req, res) => {
         else {}
       }
 
-      else if (mnemonic.kind == "memory" && mipsArray.length == 3) {
+      else if (mnemonic.kind == "memory" && mArr.length == 3) {
 
         // rt,imm - I type
         // lui - not used rs, shamt, funct

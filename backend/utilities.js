@@ -84,6 +84,20 @@ function checkRegister(result, ...registers) {
   return result;
 }
 
+// Check if input values are registers or not, then return registers
+// [rs, rt, rd] = checkValue(registers, mArr)
+// [rt, rs, rd] = checkValue(registers, mArr)
+function checkValue(registers, mipsArray) {
+  let v;
+  for (let i = 1; i < mipsArray.length; i++) {
+    v[i] = registerBin[mipsArray[i], registers];
+    if (v[i] == "null") {
+      return "invalid";
+    }
+  }
+  return v;
+}
+
 // This is for case "Memory Access"
 function sepOffset(str) {
   const match = str.match(/^(\d+)\((\$\w+)\)$/);
@@ -100,4 +114,5 @@ module.exports = {
   sepOffset,
   registerBin,
   checkRegister,
+  checkValue
 };
