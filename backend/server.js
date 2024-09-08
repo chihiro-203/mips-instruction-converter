@@ -43,7 +43,7 @@ app.get("/search-mips", async (req, res) => {
 
   let definition;
   let explain = [];
-  let result = "";
+  let instruction;
 
   if (mnemonic) {
     let format = mnemonic.format;
@@ -69,8 +69,9 @@ app.get("/search-mips", async (req, res) => {
         // rd, rs, rt - R type
         // add, addu, and, nor, or, slt, sltu, sub, subu, xor
         if (mnemonic.kind == "arithmetic" && mArr.length == 4) {
-          rs = mArr[2];
-          checkValue(rs, rt, rd);
+          [rd, rs, rt] = checkValue(registers, mArr);
+          instruction = rd + " " + rs + " " + rt;
+          console.log(instruction);
         }
 
         // Kind: Shifter (R)
@@ -143,7 +144,7 @@ app.get("/search-mips", async (req, res) => {
     explain = explainJSON.results.find((result) => result.format === f);
   }
 
-  res.json({ definition, explain, result });
+  res.json({ definition, explain, instruction });
 });
 
 const port = process.env.PORT || 8000;

@@ -88,9 +88,9 @@ function checkRegister(result, ...registers) {
 // [rs, rt, rd] = checkValue(registers, mArr)
 // [rt, rs, rd] = checkValue(registers, mArr)
 function checkValue(registers, mipsArray) {
-  let v;
+  let v = [];
   for (let i = 1; i < mipsArray.length; i++) {
-    v[i] = registerBin[mipsArray[i], registers];
+    v.push(registerBin(mipsArray[i], registers));
     if (v[i] == "null") {
       return "invalid";
     }
