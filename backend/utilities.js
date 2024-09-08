@@ -85,6 +85,7 @@ function checkRegister(result, ...registers) {
 }
 
 // Check if input values are registers or not, then return registers
+// For R format
 // [rs, rt, rd] = checkValue(registers, mArr)
 // [rt, rs, rd] = checkValue(registers, mArr)
 function checkValue(registers, mipsArray) {

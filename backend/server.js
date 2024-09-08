@@ -84,7 +84,7 @@ app.get("/search-mips", async (req, res) => {
           }
 
           // rd, rt, rs - R type
-          // sllv, srav, srlv
+          // sllv, srav, srlv - not used shamt
           else {
             [rd, rt, rs] = checkValue(registers, mArr);
           }
