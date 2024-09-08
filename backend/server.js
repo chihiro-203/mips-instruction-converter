@@ -79,11 +79,15 @@ app.get("/search-mips", async (req, res) => {
 
           // rd, rt, sa - R type
           // sll, sra, srl - not used rs
-          if (mnemonic.shamt == "sa") {}
+          if (mnemonic.shamt == "sa") {
+            [rd, rt, shamt] = checkValue(registers, mArr);
+          }
 
           // rd, rt, rs - R type
           // sllv, srav, srlv
-          else {}
+          else {
+            [rd, rt, rs] = checkValue(registers, mArr);
+          }
         }
 
         // Kind: Multiply & Divide (R)
@@ -93,16 +97,22 @@ app.get("/search-mips", async (req, res) => {
 
             // rs - R type
             // mthi, mtlo - not used rt, rd, shamt
-            if (mnemonic.rd == "00000") {}
+            if (mnemonic.rd == "00000") {              
+              [rs] = checkValue(registers, mArr);
+            }
 
             // rd - R type
             // mfhi, mflo - not used rs, rt, shamt
-            else if (mnemonic.rd != "00000") {}
+            else if (mnemonic.rd != "00000") { 
+              [rd] = checkValue(registers, mArr);
+            }
           }
 
           // rs, rt - R type
           // div, divu, mult, multu - not used rd, shamt
-          else if (keywordArray.length == 3) {}
+          else if (keywordArray.length == 3) {             
+            [rs, rt] = checkValue(registers, mArr);
+          }
         }
 
         // Kind: Branch (R)
