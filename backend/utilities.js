@@ -99,6 +99,24 @@ function checkValue(registers, mipsArray) {
   return v;
 }
 
+// For R format
+// Convert op, funct and not used values
+function convertValue(mnemonic, values) {
+  let v = [];
+  for (let i = 0; i < values.length; i++) {
+    let val = values[i];
+    console.log(`Accessing ${val} from mnemonic`);
+    
+    // Check if the value exists and it's not "not used"
+    if (mnemonic[val] === "not used" || mnemonic[val] === undefined) {
+      v.push("00000"); 
+    } else {
+      v.push(mnemonic[val]); 
+    }
+  }
+  return v;
+}
+
 // This is for case "Memory Access"
 function sepOffset(str) {
   const match = str.match(/^(\d+)\((\$\w+)\)$/);
@@ -115,5 +133,6 @@ module.exports = {
   sepOffset,
   registerBin,
   checkRegister,
-  checkValue
+  checkValue,
+  convertValue
 };
