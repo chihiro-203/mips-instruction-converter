@@ -57,7 +57,7 @@ const Explain = ({ searchResults }) => {
           />
         </div>
       ) : (
-        <p>No results found.</p>
+        <p>No mnemonic found.</p>
       )}
     </div>
   );

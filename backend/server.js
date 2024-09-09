@@ -55,37 +55,15 @@ app.get("/search-mips", async (req, res) => {
 
     let f = "R";  // R format
 
-    if (format === "R" || format === "NULL") {
+    if (format === "R" || format === "NULL" && mArr.length === 1) {
       let op, rs, rt, rd, shamt, funct;
+      let code = "XXXXXXXXXXXXXXXXXXXX";
 
       // break and syscall case
       if (mnemonic.mnemonic === "break" || mnemonic.mnemonic === "syscall") {
         f = "special" ;   // Special with code
-      }
-
-      // Kind: Branch (R)
-      // rs - R type
-      // jalr - not used rt, shamt
-      else if (mnemonic.mnemonic === "jalr") {
-        // no rd
-        // set rd to $ra
-        if (mArr[2] === undefined || mArr[2] === null) {
-          mArr.push("$ra");
-          [rs, rd] = checkValue(registers, mArr);
-        }
-        // rd
-        else {
-          [rd, rs] = checkValue(registers, mArr);
-        }
-        [op, rt, shamt, funct] = convertValue(mnemonic, ["op", "rt", "shamt", "funct"]);
-        instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
-      }
-      // rs - R type
-      // jr - not used rt rd, shamt
-      else if (mnemonic.mnemonic === "jr") {        
-        [rs] = checkValue(registers, mArr);
-        [op, rt, rd, shamt, funct] = convertValue(mnemonic, ["op", "rt", "rd", "shamt", "funct"]);
-        instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
+        [op, funct] = convertValue(mnemonic, ["op", "funct"]);
+        instruction = op + " " + code + " " + funct;
       }
       
       else {
@@ -95,7 +73,6 @@ app.get("/search-mips", async (req, res) => {
         if (mnemonic.kind == "arithmetic" && mArr.length == 4) {
           [rd, rs, rt] = checkValue(registers, mArr);
           [op, shamt, funct] = convertValue(mnemonic, ["op", "shamt", "funct"]);
-          instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
         }
 
         // Kind: Shifter (R)
@@ -106,7 +83,6 @@ app.get("/search-mips", async (req, res) => {
           if (mnemonic.shamt == "sa") {
             [rd, rt, shamt] = checkValue(registers, mArr);
             [op, rs, funct] = convertValue(mnemonic, ["op", "rs", "funct"]);
-            instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
           }
 
           // rd, rt, rs - R type
@@ -114,7 +90,6 @@ app.get("/search-mips", async (req, res) => {
           else {
             [rd, rt, rs] = checkValue(registers, mArr);
             [op, shamt, funct] = convertValue(mnemonic, ["op", "shamt", "funct"]);
-            instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
           }
         }
 
@@ -127,7 +102,6 @@ app.get("/search-mips", async (req, res) => {
             if (mnemonic.rd == "not used") {              
               [rs] = checkValue(registers, mArr);
               [op, rt, rd, shamt, funct] = convertValue(mnemonic, ["op", "rt", "rd", "shamt", "funct"]);
-              instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
             }
 
             // rd - R type
@@ -135,7 +109,6 @@ app.get("/search-mips", async (req, res) => {
             else if (mnemonic.rd != "00000") { 
               [rd] = checkValue(registers, mArr);
               [op, rs, rt, shamt, funct] = convertValue(mnemonic, ["op", "rs", "rt", "shamt", "funct"]);
-              instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
             }
           }
 
@@ -144,34 +117,75 @@ app.get("/search-mips", async (req, res) => {
           else if (mArr.length == 3) {             
             [rs, rt] = checkValue(registers, mArr);
             [op, rd, shamt, funct] = convertValue(mnemonic, ["op", "rd", "shamt", "funct"]);
-            instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
+          }
+          // rt, rd
+          // mfco, mtco - not used shamt, funct, and rs is fixed
+          else if (mnemonic.mnemonic === "mfc0" || mnemonic.mnemonic === "mtc0") {
+            [rt, rd] = checkValue(registers, mArr);
+            [op, rs, shamt, funct] = convertValue(mnemonic, ["op", "rs", "shamt", "funct"])
+          }
+    
+          // Kind: Branch (R)
+          // rs - R type
+          // jalr - not used rt, shamt
+          else if (mnemonic.mnemonic === "jalr") {
+            // no rd
+            // set rd to $ra
+            if (mArr[2] === undefined || mArr[2] === null) {
+              mArr.push("$ra");
+              [rs, rd] = checkValue(registers, mArr);
+            }
+            // rd
+            else {
+              [rd, rs] = checkValue(registers, mArr);
+            }
+            [op, rt, shamt, funct] = convertValue(mnemonic, ["op", "rt", "shamt", "funct"]);
+          }
+          // rs - R type
+          // jr - not used rt rd, shamt
+          else if (mnemonic.mnemonic === "jr") {        
+            [rs] = checkValue(registers, mArr);
+            [op, rt, rd, shamt, funct] = convertValue(mnemonic, ["op", "rt", "rd", "shamt", "funct"]);
           }
         }
-      }
+        instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
+      }    
+    
     }
     
     else if (format === "I") {
+      f = "I";
+      let op, rs, rt, imm, offset;
+      [op] = checkValue(mnemonic, ["op"]);
 
       // rt, rs, imm - I type
       // addi, addiu, andi, ori, slti, sltiu, xori
-      if (mnemonic.kind == "arithmetic" && mArr.length == 4) {}
+      if (mnemonic.kind == "arithmetic" && mArr.length == 4) {
+        [rt, rs] = checkRegister(registers, mArr);
+      }
 
       else if (mnemonic.kind == "branch" && mArr.length >= 3) {        
 
         // rs, rt, offset - I type
         // beq, bne - not used rd
-        if (mnemonic.rt == "rt") {}
+        if (mnemonic.rt == "rt") {
+          [rs, rt] = checkRegister(registers, mArr);
+        }
 
         // rs, offset - I type
         // bgez, bgezal, bgtz, blez, bltz, bltzal - not used rd, shamt, funct
-        else {}
+        else {          
+          [rs] = checkRegister(registers, mArr);
+        }
       }
 
       else if (mnemonic.kind == "memory" && mArr.length == 3) {
 
         // rt,imm - I type
         // lui - not used rs, shamt, funct
-        if (mnemonic.rd == "imm") {}
+        if (mnemonic.rd == "imm") {
+          [rt] = checkRegister(registers, mArr);
+        }
 
         // rt, offset(rs) - I type
         // lb, lbu, lh, lhu, lw, sb, sh, sw - not used shamt, funct

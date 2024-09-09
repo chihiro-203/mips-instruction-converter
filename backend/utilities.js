@@ -109,7 +109,9 @@ function convertValue(mnemonic, values) {
     
     // Check if the value exists and it's not "not used"
     if (mnemonic[val] === "not used" || mnemonic[val] === undefined) {
-      v.push("00000"); 
+      if (val === "funct") 
+        v.push("000000"); 
+      else v.push("00000"); 
     } else {
       v.push(mnemonic[val]); 
     }
