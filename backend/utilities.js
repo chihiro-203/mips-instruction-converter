@@ -99,8 +99,8 @@ function checkValue(registers, mipsArray) {
   return v;
 }
 
-// For R format
 // Convert op, funct and not used values
+// Convert imm, offset, target
 function convertValue(mnemonic, values) {
   let v = [];
   for (let i = 0; i < values.length; i++) {
