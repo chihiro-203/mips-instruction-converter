@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-const { registerBin, checkRegister, toBin, sepOffset, checkValue, convertValue } = require("./utilities");
+const { registerBin, toBin, sepOffset, checkValue, convertValue } = require("./utilities");
 const app = express();
 
 app.use(express.json());
@@ -55,9 +55,10 @@ app.get("/search-mips", async (req, res) => {
       </div>`;
 
     let f = "R";  // R format
+    let op, rs, rt, imm, shamt, funct;
 
     if (format === "R" || format === "NULL" && mArr.length === 1) {
-      let op, rs, rt, rd, shamt, funct;
+      // let op, rs, rt, rd, shamt, funct;
       let code = "XXXXXXXXXXXXXXXXXXXX";
 
       // break and syscall case
@@ -156,55 +157,63 @@ app.get("/search-mips", async (req, res) => {
     
     else if (format === "I") {
       f = "I";
-      let op, rs, rt, imm, offset;
 
       [op] = convertValue(mnemonic, ["op"]);
       instruction = op;
 
-      // rt, rs, imm - I type
-      // addi, addiu, andi, ori, slti, sltiu, xori
-      if (mnemonic.kind == "arithmetic" && mArr.length == 4) {
-        [rt, rs] = checkValue(registers, mArr); 
-        imm = toBin(mArr[3], 16);
-        instruction += " " + rs + " " + rt + " " + imm;
-      }
-
-      else if (mnemonic.kind == "branch" && mArr.length >= 3) {        
+      if (mArr.length == 4 || mArr[2].match(/^(\d+)\((\$\w+)\)$/)) {
+        
+        // rt, rs, imm - I type
+        // addi, addiu, andi, ori, slti, sltiu, xori
+        if (mnemonic.kind == "arithmetic") {
+          [rt, rs] = checkValue(registers, mArr); 
+        } 
 
         // rs, rt, offset - I type
-        // beq, bne - not used rd
-        if (mnemonic.rt == "rt") {
+        // beq, bne
+        else if (mnemonic.kind == "branch") {
           [rs, rt] = checkValue(registers, mArr);
         }
 
-        // rs, offset - I type
-        // bgez, bgezal, bgtz, blez, bltz, bltzal - not used rd, shamt, funct
-        else {          
-          [rs] = checkValue(registers, mArr);
-          [rt] = convertValue(mnemonic, ["rd"]);
-        }
-
-        offset = toBin(mArr[3], 16);
-        instruction += " " + rs + " " + rt + " " + offset;
-      }
-
-      else if (mnemonic.kind == "memory" && mArr.length == 3) {
-
-        // rt, imm - I type
-        // lui - not used rs, shamt, funct
-        if (mnemonic.rd == "imm") {
-          [rt] = checkValue(registers, mArr);
-        }
-
         // rt, offset(rs) - I type
-        // lb, lbu, lh, lhu, lw, sb, sh, sw - not used shamt, funct
-        else if (keywordArray[2].match(/^(\d+)\((\$\w+)\)$/)) {}
+        // lb, lbu, lh, lhu, lw, sb, sh, sw
+        else if (mnemonic.kind == "memory") {
+          [ imm, rs ] = sepOffset(mArr[2]);
+          console.log(imm + " " + rs);
+          mArr.splice(2, 1);
+          mArr.push(rs, imm);
+          [rt, rs] = checkValue(registers, mArr);
+        }
       }
-    }
+      
+      else if (mArr.length == 3) {
+  
+        // rs, offset - I type
+        // bgez, bgezal, bgtz, blez, bltz, bltzal
+        if (mnemonic.kind == "branch") {
+          [rs] = checkValue(registers, mArr);
+          [rt] = convertValue(mnemonic, ["rt"]);
+        }
+  
+        // rt, imm - I type
+        // lui
+        else if (mnemonic.mnemonic === "lui") {
+          [rt] = checkValue(registers, mArr);
+          [rs] = convertValue(mnemonic, ["rs"]);
+        }
+      }
+  
+      imm = toBin(mArr[3], 16, mnemonic);
+      instruction += " " + rs + " " + rt + " " + imm;
+    } 
     
     else if (format === "J") {}
     
     explain = explainJSON.results.find((result) => result.format === f);
+
+    if (imm.includes("The operand is out of range.")) {
+      instruction = imm;
+    }
   }
 
   res.json({ definition, explain, instruction });

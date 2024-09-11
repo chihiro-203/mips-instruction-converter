@@ -397,7 +397,15 @@
     },
     {
         "section": "Memory Access",
-        "instructions": [
+        "instructions": [            
+            {
+                "opcode": "LUI rt,imm",
+                "name": "Load Upper Immediate",
+                "mnemonic": "lui",
+                "format": "I",
+                "action": "rt=imm<<16",
+                "fields": ["001111", "rs", "rt", "imm"]
+            },
             {
                 "opcode": "LB rt,offset(rs)",
                 "name": "Load Byte",
@@ -429,14 +437,6 @@
                 "format": "I",
                 "action": "rt=*(Ushort*)(offset+rs)",
                 "fields": ["100101", "rs", "rt", "offset"]
-            },
-            {
-                "opcode": "LUI rt,imm",
-                "name": "Load Upper Immediate",
-                "mnemonic": "lui",
-                "format": "I",
-                "action": "rt=imm<<16",
-                "fields": ["001111", "rs", "rt", "imm"]
             },
             {
                 "opcode": "LW rt,offset(rs)",

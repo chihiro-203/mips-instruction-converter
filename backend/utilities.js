@@ -18,7 +18,7 @@ function isBin(value) {
   return /^0b[01]+$/.test(value) || /^[01]+$/.test(value);
 }
 
-function toBin(input, zero) {
+function toBin(input, zero, mnemonic) {
   let dec, bin, overflow;
 
   // Hexadecimal to Binary - 0xFF
@@ -48,7 +48,15 @@ function toBin(input, zero) {
 
   // If one of decimal, hexadecimal, or binary
   if (bin.length > zero) {
-    return overflow;
+    if (overflow == "bin") {
+      return "The operand is out of range. Bit-width: " + mnemonic.bin + ".";
+    }
+    else if (overflow == "dec") {
+      return "The operand is out of range. Range (Decimal): " + mnemonic.dec + ".";
+    }
+    else if (overflow == "hex") {
+      return "The operand is out of range. Range (Hexadecimal): " + mnemonic.hex + ".";
+    }
   }
   return bin.padStart(zero, "0");
 }
@@ -68,21 +76,21 @@ function registerBin(name, registers) {
   return "null";
 }
 
-// Check if registers exist or not
-function checkRegister(result, ...registers) {
-  for (let i = 0; i < registers.length; i++) {
-    if (
-      registers[i] === null ||
-      registers[i] === undefined ||
-      registers[i] == "null"
-    ) {
-      return "invalid";
-    } else if (registers[i] == "bin" || registers[i] == "dec" || registers[i] == "hex") {
-      return registers[i];
-    }
-  }
-  return result;
-}
+// // Check if registers exist or not
+// function checkRegister(result, ...registers) {
+//   for (let i = 0; i < registers.length; i++) {
+//     if (
+//       registers[i] === null ||
+//       registers[i] === undefined ||
+//       registers[i] == "null"
+//     ) {
+//       return "invalid";
+//     } else if (registers[i] == "bin" || registers[i] == "dec" || registers[i] == "hex") {
+//       return registers[i];
+//     }
+//   }
+//   return result;
+// }
 
 // Check if input values are registers or not, then return registers
 // For R format
@@ -124,7 +132,7 @@ function sepOffset(str) {
   const match = str.match(/^(\d+)\((\$\w+)\)$/);
   if (match) {
     const [, offset, rs] = match;
-    return { offset, rs };
+    return [ offset, rs ];
   } else {
     throw new Error("Format is incorrect");
   }
@@ -134,7 +142,6 @@ module.exports = {
   toBin,
   sepOffset,
   registerBin,
-  checkRegister,
   checkValue,
   convertValue
 };
