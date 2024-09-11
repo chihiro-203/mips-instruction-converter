@@ -43,7 +43,7 @@ function toBin(input, zero, mnemonic) {
 
   // If not decimal, hexadecimal, or binary
   else {
-    return "null";
+    return "wrong";
   }
 
   // If one of decimal, hexadecimal, or binary
@@ -58,6 +58,7 @@ function toBin(input, zero, mnemonic) {
       return "The operand is out of range. Range (Hexadecimal): " + mnemonic.hex + ".";
     }
   }
+  
   return bin.padStart(zero, "0");
 }
 
@@ -73,24 +74,8 @@ function registerBin(name, registers) {
       }
     }
   }
-  return "null";
+  return "invalid";
 }
-
-// // Check if registers exist or not
-// function checkRegister(result, ...registers) {
-//   for (let i = 0; i < registers.length; i++) {
-//     if (
-//       registers[i] === null ||
-//       registers[i] === undefined ||
-//       registers[i] == "null"
-//     ) {
-//       return "invalid";
-//     } else if (registers[i] == "bin" || registers[i] == "dec" || registers[i] == "hex") {
-//       return registers[i];
-//     }
-//   }
-//   return result;
-// }
 
 // Check if input values are registers or not, then return registers
 // For R format
@@ -100,7 +85,7 @@ function checkValue(registers, mipsArray) {
   let v = [];
   for (let i = 1; i < mipsArray.length; i++) {
     v.push(registerBin(mipsArray[i], registers));
-    if (v[i] == "null") {
+    if (v[i] == "invalid") {
       return "invalid";
     }
   }

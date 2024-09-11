@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
-const { registerBin, toBin, sepOffset, checkValue, convertValue } = require("./utilities");
+const { toBin, sepOffset, checkValue, convertValue } = require("./utilities");
 const app = express();
 
 app.use(express.json());
@@ -30,7 +30,6 @@ app.get("/", async (req, res) => {
 app.get("/search-mips", async (req, res) => {
   // Retrieve and decode the keyword
   const mips = req.query.mips;
-  console.log(mips);
 
   // Split the keyword into an array based on spaces
   const mArr = mips.split(/\s+/);
@@ -55,7 +54,10 @@ app.get("/search-mips", async (req, res) => {
       </div>`;
 
     let f = "R";  // R format
-    let op, rs, rt, imm, shamt, funct;
+    let op, rs, rt, rd, shamt, funct, imm = "";
+
+    [op] = convertValue(mnemonic, ["op"]);
+    instruction = op;
 
     if (format === "R" || format === "NULL" && mArr.length === 1) {
       // let op, rs, rt, rd, shamt, funct;
@@ -65,7 +67,7 @@ app.get("/search-mips", async (req, res) => {
       if (mnemonic.mnemonic === "break" || mnemonic.mnemonic === "syscall") {
         f = "special" ;   // Special with code
         [op, funct] = convertValue(mnemonic, ["op", "funct"]);
-        instruction = op + " " + code + " " + funct;
+        instruction += " " + code + " " + funct;
       }
       
       else {
@@ -120,7 +122,7 @@ app.get("/search-mips", async (req, res) => {
             [rs, rt] = checkValue(registers, mArr);
             [op, rd, shamt, funct] = convertValue(mnemonic, ["op", "rd", "shamt", "funct"]);
           }
-          // rt, rd
+          // rt, rd - NULL type
           // mfco, mtco - not used shamt, funct, and rs is fixed
           else if (mnemonic.mnemonic === "mfc0" || mnemonic.mnemonic === "mtc0") {
             [rt, rd] = checkValue(registers, mArr);
@@ -150,7 +152,7 @@ app.get("/search-mips", async (req, res) => {
             [op, rt, rd, shamt, funct] = convertValue(mnemonic, ["op", "rt", "rd", "shamt", "funct"]);
           }
         }
-        instruction = op + " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
+        instruction += " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
       }    
     
     }
@@ -158,10 +160,7 @@ app.get("/search-mips", async (req, res) => {
     else if (format === "I") {
       f = "I";
 
-      [op] = convertValue(mnemonic, ["op"]);
-      instruction = op;
-
-      if (mArr.length == 4 || mArr[2].match(/^(\d+)\((\$\w+)\)$/)) {
+      if (mArr.length == 4 || mArr.length == 3 && mArr[2].match(/^(\d+)\((\$\w+)\)$/)) {
         
         // rt, rs, imm - I type
         // addi, addiu, andi, ori, slti, sltiu, xori
@@ -185,7 +184,7 @@ app.get("/search-mips", async (req, res) => {
           [rt, rs] = checkValue(registers, mArr);
         }
       }
-      
+
       else if (mArr.length == 3) {
   
         // rs, offset - I type
@@ -207,12 +206,28 @@ app.get("/search-mips", async (req, res) => {
       instruction += " " + rs + " " + rt + " " + imm;
     } 
     
-    else if (format === "J") {}
+    // target - J type
+    // j, jal
+    else if (format === "J") {
+      f = "J";
+      imm = toBin(mArr[1], 26, mnemonic);
+      console.log(imm);
+      instruction += " " + imm;
+    }
     
     explain = explainJSON.results.find((result) => result.format === f);
 
     if (imm.includes("The operand is out of range.")) {
       instruction = imm;
+    }
+
+    else if (instruction.includes("invalid")) {
+      instruction = "Some registers/operand are not valid.";
+      console.log("No");
+    }
+    
+    else if (instruction.includes(undefined) || instruction.includes("wrong")) {
+      instruction = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode + ".";
     }
   }
 
