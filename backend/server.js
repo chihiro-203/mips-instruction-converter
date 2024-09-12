@@ -56,13 +56,12 @@ app.get("/search-mips", async (req, res) => {
 
     let f = "R";  // R format
     let op, rs, rt, rd, shamt, funct, imm = "";
-    let op_, rs_, rt_, rd_, shamt_, funct_, imm_ = "";
+    let rs_, rt_, rd_, shamt_, imm_ = "";
 
     [op] = convertValue(mnemonic, ["op"]);
     instruction = op;
 
     convert.push(`op,${op},${op}`);
-    console.log(convert);
 
     if (format === "R" || format === "NULL" && mArr.length === 1) {
       let code = "XXXXXXXXXXXXXXXXXXXX";
@@ -70,8 +69,12 @@ app.get("/search-mips", async (req, res) => {
       // break and syscall case
       if (mnemonic.mnemonic === "break" || mnemonic.mnemonic === "syscall") {
         f = "special" ;   // Special with code
-        [op, funct] = convertValue(mnemonic, ["op", "funct"]);
+        [funct] = convertValue(mnemonic, ["funct"]);
         instruction += " " + code + " " + funct;
+
+        convert.push(`code,${code},${code}`);
+        convert.push(`funct,${mnemonic.funct},${funct}`);
+        console.log(convert);
       }
       
       else {
@@ -82,7 +85,7 @@ app.get("/search-mips", async (req, res) => {
           [rd, rs, rt] = checkValue(registers, mArr);
           [shamt, funct] = convertValue(mnemonic, ["shamt", "funct"]);
           [, rd_, rs_, rt_] = mArr;
-          [shamt_, funct_] = [mnemonic.shamt, mnemonic.funct];
+          [shamt_] = [mnemonic.shamt];
         }
 
         // Kind: Shifter (R)
@@ -94,7 +97,7 @@ app.get("/search-mips", async (req, res) => {
             [rd, rt] = checkValue(registers, mArr);
             [rs, funct] = convertValue(mnemonic, ["rs", "funct"]);
             [, rd_, rt_, shamt_] = mArr;
-            [rs_, funct_] = [mnemonic.rs, mnemonic.funct];
+            [rs_] = [mnemonic.rs];
             shamt = toBin(shamt_, 5);
           }
 
@@ -104,7 +107,7 @@ app.get("/search-mips", async (req, res) => {
             [rd, rt, rs] = checkValue(registers, mArr);
             [shamt, funct] = convertValue(mnemonic, ["shamt", "funct"]);
             [, rd_, rs_, rt_] = mArr;
-            [shamt_, funct_] = [mnemonic.shamt, mnemonic.funct];
+            [shamt_] = [mnemonic.shamt];
           }
         }
 
@@ -118,7 +121,7 @@ app.get("/search-mips", async (req, res) => {
               [rs] = checkValue(registers, mArr);
               [rt, rd, shamt, funct] = convertValue(mnemonic, ["rt", "rd", "shamt", "funct"]);
               [, rs_] = mArr;
-              [rt_, rd_, shamt_, funct_] = [mnemonic.rt, mnemonic.rd, mnemonic.shamt, mnemonic.funct];
+              [rt_, rd_, shamt_] = [mnemonic.rt, mnemonic.rd, mnemonic.shamt];
             }
 
             // rd - R type
@@ -127,7 +130,7 @@ app.get("/search-mips", async (req, res) => {
               [rd] = checkValue(registers, mArr);
               [rs, rt, shamt, funct] = convertValue(mnemonic, ["rs", "rt", "shamt", "funct"]);
               [, rd_] = mArr;
-              [rs_, rt_, shamt_, funct_] = [mnemonic.rs, mnemonic.rt, mnemonic.shamt, mnemonic.funct];
+              [rs_, rt_, shamt_] = [mnemonic.rs, mnemonic.rt, mnemonic.shamt];
             }
           }
 
@@ -137,7 +140,7 @@ app.get("/search-mips", async (req, res) => {
             [rs, rt] = checkValue(registers, mArr);
             [rd, shamt, funct] = convertValue(mnemonic, ["rd", "shamt", "funct"]);
             [, rs_, rt_] = mArr;
-            [rd_, shamt_, funct_] = [mnemonic.rd, mnemonic.shamt, mnemonic.funct];
+            [rd_, shamt_] = [mnemonic.rd, mnemonic.shamt];
           }
 
           // rt, rd - NULL type
@@ -147,7 +150,7 @@ app.get("/search-mips", async (req, res) => {
             [rt, rd] = checkValue(registers, mArr);
             [rs, shamt, funct] = convertValue(mnemonic, ["rs", "shamt", "funct"]);
             [, rt_, rd_] = mArr;
-            [rs_, shamt_, funct_] = [mnemonic.rs, mnemonic.shamt, mnemonic.funct];
+            [rs_, shamt_] = [mnemonic.rs, mnemonic.shamt];
           }
         }
     
@@ -160,30 +163,36 @@ app.get("/search-mips", async (req, res) => {
           if (mArr[2] === undefined || mArr[2] === null) {
             mArr.push("$ra");
             [rs, rd] = checkValue(registers, mArr);
+            [, rs_, rd_] = mArr;
           }
           // rd
           else {
             [rd, rs] = checkValue(registers, mArr);
+            [, rd_, rs_] = mArr;
           }
           [rt, shamt, funct] = convertValue(mnemonic, ["rt", "shamt", "funct"]);
+          [rt_, shamt_] = [mnemonic.rt, mnemonic.shamt];
         }
+        
         // rs - R type
         // jr - not used rt rd, shamt
         else if (mnemonic.mnemonic === "jr") {        
           [rs] = checkValue(registers, mArr);
           [rt, rd, shamt, funct] = convertValue(mnemonic, ["rt", "rd", "shamt", "funct"]);
+          [, rs_] = mArr;
+          [rt_, rd_, shamt_] = [mnemonic.rt, mnemonic.rd, mnemonic.shamt];
         }
-      }
-      instruction += " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
 
-      convert.push(`rs,${rs_},${rs}`);
-      convert.push(`rt,${rt_},${rt}`);
-      convert.push(`rd,${rd_},${rd}`);
-      convert.push(`shamt,${shamt_},${shamt}`);
-      convert.push(`funct,${funct_},${funct}`);
-      console.log(convert);
-      }    
-    
+        instruction += " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
+  
+        convert.push(`rs,${rs_},${rs}`);
+        convert.push(`rt,${rt_},${rt}`);
+        convert.push(`rd,${rd_},${rd}`);
+        convert.push(`shamt,${shamt_},${shamt}`);
+        convert.push(`funct,${mnemonic.funct},${funct}`);
+        console.log(convert);
+      }
+      
     }
     
     else if (format === "I") {
@@ -195,12 +204,14 @@ app.get("/search-mips", async (req, res) => {
         // addi, addiu, andi, ori, slti, sltiu, xori
         if (mnemonic.kind == "arithmetic") {
           [rt, rs] = checkValue(registers, mArr); 
+          [, rt_, rs_, imm_] = mArr;
         } 
 
         // rs, rt, offset - I type
         // beq, bne
         else if (mnemonic.kind == "branch") {
           [rs, rt] = checkValue(registers, mArr);
+          [, rs_, rt_, imm_] = mArr;
         }
 
         // rt, offset(rs) - I type
@@ -211,6 +222,7 @@ app.get("/search-mips", async (req, res) => {
           mArr.splice(2, 1);
           mArr.push(rs, imm);
           [rt, rs] = checkValue(registers, mArr);
+          [, rt_, rs_, imm_] = mArr;
         }
       }
 
@@ -221,6 +233,8 @@ app.get("/search-mips", async (req, res) => {
         if (mnemonic.kind == "branch") {
           [rs] = checkValue(registers, mArr);
           [rt] = convertValue(mnemonic, ["rt"]);
+          [, rs_, imm_] = mArr;
+          rt_ = mnemonic.rt;
         }
   
         // rt, imm - I type
@@ -228,11 +242,18 @@ app.get("/search-mips", async (req, res) => {
         else if (mnemonic.mnemonic === "lui") {
           [rt] = checkValue(registers, mArr);
           [rs] = convertValue(mnemonic, ["rs"]);
+          [, rt_, imm_] = mArr;
+          rs_ = mnemonic.rs;
         }
       }
   
       imm = toBin(mArr[3], 16, mnemonic);
       instruction += " " + rs + " " + rt + " " + imm;
+  
+      convert.push(`rs,${rs_},${rs}`);
+      convert.push(`rt,${rt_},${rt}`);
+      convert.push(`imm/offset,${imm_},${imm}`);
+      console.log(convert);
     } 
     
     // target - J type
