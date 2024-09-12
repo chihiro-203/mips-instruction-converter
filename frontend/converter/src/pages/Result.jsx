@@ -7,8 +7,8 @@ import BinHexDec from "../components/BinHexDec";
 import { useLocation } from "react-router-dom";
 
 const Result = () => {
-  const [searchResults, setSearchResults] = useState([]);
   const location = useLocation();
+  const [searchResults, setSearchResults] = useState(location.state?.results || []);
 
   const handleSearchResults = (result) => {
     setSearchResults(result);

@@ -40,7 +40,7 @@ const SearchBar = ({ inputWidth, onSearchResults }) => {
       if (onSearchResults) {
         onSearchResults(res.data); 
       }
-      navigate(url);
+      navigate(url, { state: { results: res.data } }); 
       // onSearchResults(res.data);
     } catch (error) {
       console.log("Error fetching data: ", error);
