@@ -3,7 +3,12 @@ import React, { useEffect } from "react";
 const Description = ({ table, data }) => {
   const explanation = (table || []).map((item, index) => {
     const [field, colspan, bit] = item.split(",");
-    return { key: `${field}-${index}`, field: field.trim(), colspan: parseInt(colspan.trim(), 10) || 1, bit: bit.trim() };
+    return {
+      key: `${field}-${index}`,
+      field: field.trim(),
+      colspan: parseInt(colspan.trim(), 10) || 1,
+      bit: bit.trim(),
+    };
   });
 
   return (

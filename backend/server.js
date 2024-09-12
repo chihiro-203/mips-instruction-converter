@@ -4,6 +4,7 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 const { toBin, sepOffset, checkValue, convertValue } = require("./utilities");
+const { table } = require("console");
 const app = express();
 
 app.use(express.json());
@@ -44,6 +45,8 @@ app.get("/search-mips", async (req, res) => {
   let explain = [];
   let instruction;
 
+  let table = [];
+
   if (mnemonic) {
     let format = mnemonic.format;
     definition = `
@@ -52,8 +55,6 @@ app.get("/search-mips", async (req, res) => {
         ${mnemonic.action}
       </div>`;
 
-    let convert = [];
-
     let f = "R";  // R format
     let op, rs, rt, rd, shamt, funct, imm = "";
     let rs_, rt_, rd_, shamt_, imm_ = "";
@@ -61,7 +62,7 @@ app.get("/search-mips", async (req, res) => {
     [op] = convertValue(mnemonic, ["op"]);
     instruction = op;
 
-    convert.push(`op,${op},${op}`);
+    table.push(`op,${op},${op},1`);
 
     if (format === "R" || format === "NULL" && mArr.length === 1) {
       let code = "XXXXXXXXXXXXXXXXXXXX";
@@ -72,9 +73,9 @@ app.get("/search-mips", async (req, res) => {
         [funct] = convertValue(mnemonic, ["funct"]);
         instruction += " " + code + " " + funct;
 
-        convert.push(`code,${code},${code}`);
-        convert.push(`funct,${mnemonic.funct},${funct}`);
-        console.log(convert);
+        table.push(`code,${code},${code},4`);
+        table.push(`funct,${mnemonic.funct},${funct},1`);
+        console.log(table);
       }
       
       else {
@@ -185,12 +186,12 @@ app.get("/search-mips", async (req, res) => {
 
         instruction += " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
   
-        convert.push(`rs,${rs_},${rs}`);
-        convert.push(`rt,${rt_},${rt}`);
-        convert.push(`rd,${rd_},${rd}`);
-        convert.push(`shamt,${shamt_},${shamt}`);
-        convert.push(`funct,${mnemonic.funct},${funct}`);
-        console.log(convert);
+        table.push(`rs,${rs_},${rs},1`);
+        table.push(`rt,${rt_},${rt},1`);
+        table.push(`rd,${rd_},${rd},1`);
+        table.push(`shamt,${shamt_},${shamt},1`);
+        table.push(`funct,${mnemonic.funct},${funct},1`);
+        console.log(table);
       }
       
     }
@@ -247,22 +248,24 @@ app.get("/search-mips", async (req, res) => {
         }
       }
   
-      imm = toBin(mArr[3], 16, mnemonic);
+      imm = toBin(mArr[3], 16, mnemonic, registers);
       instruction += " " + rs + " " + rt + " " + imm;
   
-      convert.push(`rs,${rs_},${rs}`);
-      convert.push(`rt,${rt_},${rt}`);
-      convert.push(`imm/offset,${imm_},${imm}`);
-      console.log(convert);
+      table.push(`rs,${rs_},${rs},1`);
+      table.push(`rt,${rt_},${rt},1`);
+      table.push(`imm/offset,${imm_},${imm},3`);
+      console.log(table);
     } 
     
     // target - J type
     // j, jal
     else if (format === "J") {
       f = "J";
-      imm = toBin(mArr[1], 26, mnemonic);
-      console.log(imm);
+      imm = toBin(mArr[1], 26, mnemonic, registers);
+      let [, target_] = mArr;
       instruction += " " + imm;
+      table.push(`target,${target_},${imm},3`);
+      console.log("It's work? ", instruction);
     }
     
     explain = explainJSON.results.find((result) => result.format === f);
@@ -280,6 +283,9 @@ app.get("/search-mips", async (req, res) => {
       instruction = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode + ".";
     }
   }
+
+  instruction = {"bin": instruction,"table": table};
+  console.log(instruction.bin);
 
   res.json({ definition, explain, instruction });
 });

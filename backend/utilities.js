@@ -18,7 +18,11 @@ function isBin(value) {
   return /^0b[01]+$/.test(value) || /^[01]+$/.test(value);
 }
 
-function toBin(input, zero, mnemonic) {
+function toBin(input, zero, mnemonic, registers) {
+  if (registerBin(input, registers) != "invalid") {
+    return "invalid";
+  }
+
   let dec, bin, overflow;
 
   // Hexadecimal to Binary - 0xFF
