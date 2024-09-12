@@ -28,16 +28,16 @@ const Result = () => {
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="max-w-[1350px] w-[95%] text-center justify-between mt-[50px]">
           <SearchBar inputWidth={80} onSearchResults={handleSearchResults} />
-          <div className="flex flex-row justify-between items-center w-full mt-[15px];">
+          <div className="flex flex-row justify-between items-stretch w-full mt-[15px]">
             <div className="panel binary">
-              <h4>Explanation</h4>
+              <h4 style={{fontSize: '1.6vw' }}>Explanation</h4>
               <div className="line"></div>
               <div
                 className="result my-[12px]"
               ><Explain searchResults={searchResults} /></div>
             </div>
             <div className="panel hex-dec">
-              <h4 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <h4 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.6vw' }}>
                 Bin <FaPaw style={{ fontSize: '12px', margin: '0 10px' }} /> Hex <FaPaw style={{ fontSize: '12px', margin: '0 10px' }} /> Dec
               </h4>
               <div className="line"></div>

@@ -44,6 +44,7 @@ app.get("/search-mips", async (req, res) => {
   let definition;
   let explain = [];
   let instruction;
+  let binary, hexadecimal, decimal;
 
   let table = [];
 
@@ -51,8 +52,7 @@ app.get("/search-mips", async (req, res) => {
     let format = mnemonic.format;
     definition = `
       <div style="text-align: left; margin-bottom: 0.5rem; font-size: 1vw;">
-        <strong>${mnemonic.name} (${mnemonic.opcode})</strong> is a ${format}-type instruction: 
-        ${mnemonic.action}
+        <strong>${mnemonic.name} (${mnemonic.opcode})</strong> is a ${format}-type instruction.
       </div>`;
 
     let f = "R";  // R format
@@ -60,9 +60,9 @@ app.get("/search-mips", async (req, res) => {
     let rs_, rt_, rd_, shamt_, imm_ = "";
 
     [op] = convertValue(mnemonic, ["op"]);
-    instruction = op;
+    binary = op;
 
-    table.push(`op,${op},${op},1`);
+    table.push(`op,${mnemonic.mnemonic},${op},1`);
 
     if (format === "R" || format === "NULL" && mArr.length === 1) {
       let code = "XXXXXXXXXXXXXXXXXXXX";
@@ -71,7 +71,7 @@ app.get("/search-mips", async (req, res) => {
       if (mnemonic.mnemonic === "break" || mnemonic.mnemonic === "syscall") {
         f = "special" ;   // Special with code
         [funct] = convertValue(mnemonic, ["funct"]);
-        instruction += " " + code + " " + funct;
+        binary += code + funct;
 
         table.push(`code,${code},${code},4`);
         table.push(`funct,${mnemonic.funct},${funct},1`);
@@ -184,7 +184,7 @@ app.get("/search-mips", async (req, res) => {
           [rt_, rd_, shamt_] = [mnemonic.rt, mnemonic.rd, mnemonic.shamt];
         }
 
-        instruction += " " + rs + " " + rt + " " + rd + " " + shamt + " " + funct;
+        binary += rs + rt + rd + shamt + funct;
   
         table.push(`rs,${rs_},${rs},1`);
         table.push(`rt,${rt_},${rt},1`);
@@ -219,7 +219,7 @@ app.get("/search-mips", async (req, res) => {
         // lb, lbu, lh, lhu, lw, sb, sh, sw
         else if (mnemonic.kind == "memory") {
           [ imm, rs ] = sepOffset(mArr[2]);
-          console.log(imm + " " + rs);
+          console.log(imm + rs);
           mArr.splice(2, 1);
           mArr.push(rs, imm);
           [rt, rs] = checkValue(registers, mArr);
@@ -249,7 +249,7 @@ app.get("/search-mips", async (req, res) => {
       }
   
       imm = toBin(mArr[3], 16, mnemonic, registers);
-      instruction += " " + rs + " " + rt + " " + imm;
+      binary += rs + rt + imm;
   
       table.push(`rs,${rs_},${rs},1`);
       table.push(`rt,${rt_},${rt},1`);
@@ -263,28 +263,34 @@ app.get("/search-mips", async (req, res) => {
       f = "J";
       imm = toBin(mArr[1], 26, mnemonic, registers);
       let [, target_] = mArr;
-      instruction += " " + imm;
+      binary += imm;
       table.push(`target,${target_},${imm},3`);
-      console.log("It's work? ", instruction);
+      console.log("It's work? ", binary);
     }
     
     explain = explainJSON.results.find((result) => result.format === f);
 
     if (imm.includes("The operand is out of range.")) {
-      instruction = imm;
+      binary = imm;
     }
 
-    else if (instruction.includes("invalid")) {
-      instruction = "Some registers/operand are not valid.";
-      console.log("No");
+    else if (binary.includes("invalid")) {
+      binary = "Some registers/operand are not valid.";
     }
     
-    else if (instruction.includes(undefined) || instruction.includes("wrong")) {
-      instruction = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode + ".";
+    else if (binary.includes(undefined) || binary.includes("wrong")) {
+      binary = "Wrong syntax. Correct syntax of " + mnemonic.name + " must be: " + mnemonic.opcode + ".";
+    }
+
+    if (/^[0-9]+$/.test(binary)) {
+      decimal = parseInt(binary, 2);
+      hexadecimal = "0x" + decimal.toString(16).toUpperCase();
+      binary = "0b" + binary;
+      console.log(decimal + " " + hexadecimal);
     }
   }
 
-  instruction = {"bin": instruction,"table": table};
+  instruction = {"mips": mips, "bin": binary,"table": table,"hex": hexadecimal, "dec":decimal, "ope":mnemonic.operation, "action":mnemonic.action};
   console.log(instruction.bin);
 
   res.json({ definition, explain, instruction });

@@ -13,7 +13,7 @@ const Description = ({ table, data }) => {
 
   return (
     <div>
-      <table className="w-full border-2 border-[#5f3c9180] text-[1.2vw] table-fixed">
+      <table className="w-full border-2 border-[#5f3c9180] text-[1.1vw] table-fixed">
         <thead>
           <tr>
             {explanation.map((item) => (
