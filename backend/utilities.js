@@ -1,6 +1,8 @@
-// Turn number to binary
-function toBinary(number) {
-  return (number >>> 0).toString(2);
+function checkUndefined(val, binary) {
+  if (val !== undefined) {
+    return "wrong";
+  }
+  return binary;
 }
 
 function isHex(value) {
@@ -74,7 +76,7 @@ function registerBin(name, registers) {
         item.name1.toLowerCase() === name.toLowerCase() ||
         item.name2.toLowerCase() === name.toLowerCase()
       ) {
-        return String(toBinary(item.value)).padStart(5, "0");
+        return String((item.value).toString(2)).padStart(5, "0");
       }
     }
   }
@@ -130,7 +132,7 @@ function sepOffset(str) {
 module.exports = {
   toBin,
   sepOffset,
-  registerBin,
   checkValue,
-  convertValue
+  convertValue,
+  checkUndefined
 };

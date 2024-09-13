@@ -14,7 +14,7 @@ const Result = ({ table, instruction }) => {
 
   return (
     <div>
-      {binary.every((item) => /^[0-9]+$/.test(item.value)) ? (
+      {binary.every((item) => /^[0-9X]+$/.test(item.value)) ? (
         <div>
           <div
             style={{
@@ -99,7 +99,7 @@ const Result = ({ table, instruction }) => {
         </div>
       ) : (
         <div style={{ marginTop: "0.5rem", fontSize: "1.1vw" }}>
-          Binary: {instruction.bin}
+          {instruction.bin}
         </div>
       )}
     </div>
