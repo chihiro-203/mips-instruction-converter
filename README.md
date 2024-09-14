@@ -38,7 +38,7 @@ The project is divided into two main folders:
 - __backend__: Contains all server-side code, including resources and utilities.
 - __frontend__: Houses the client-side code, including components, pages, utils, and assets.
 
-### :bullseye: Installation
+### 🎯 Installation
 
 1. **Create Project Folders:**
 
@@ -77,7 +77,7 @@ The project is divided into two main folders:
      npm install express mongoose jsonwebtoken dotenv cors nodemon
      ```
 
-### :dashing_away: Running the Application
+### 💨 Running the Application
 
 1. **Run the Frontend:**
 
