@@ -104,7 +104,6 @@ function convertValue(mnemonic, values) {
   let v = [];
   for (let i = 0; i < values.length; i++) {
     let val = values[i];
-    console.log(`Accessing ${val} from mnemonic`);
     
     // Check if the value exists and it's not "not used"
     if (mnemonic[val] === "not used" || mnemonic[val] === undefined) {
