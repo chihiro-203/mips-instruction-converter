@@ -123,16 +123,15 @@ const BinHexDec = ({ searchResults }) => {
           />
         </div>
       ) : (
-        <p>No mnemonic found.</p>
+        <div
+        style={{
+          marginTop: "0.5rem",
+          fontSize: "1.2vw",
+        }}>
+          <div dangerouslySetInnerHTML={{ __html: searchResults.definition }} />
+        </div>
       )}
     </div>
-    // <div>
-    //   {searchResults && searchResults.instruction !== "" ? (
-    //     <p>{searchResults.instruction}</p>
-    //   ) : (
-    //     <p>No value available.</p>
-    //   )}
-    // </div>
   );
 };
 

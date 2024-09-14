@@ -1,14 +1,21 @@
+break,
+break t1,
+break 88,
+bre,
+
 add t1 t2 t3,
 add t1 t2,
 add t1 t2 t3 t4,
 add t1 t2 15,
 add t1 15 t2,
+ad,
 
 sll t1 t2 15,
 sll t1 t2 t3,
 sll t1 t2,
 sll t1 t2 t3 t4,
 sll t1 15 t2,
+slll,
 
 sllv t1 t2 t3,
 sllv t1 t2 15,

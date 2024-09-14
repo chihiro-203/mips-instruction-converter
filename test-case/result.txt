@@ -1,15 +1,344 @@
-["add t1 t2 t3","add t1 t2","add t1 t2 t3 t4","add t1 t2 15","add t1 15 t2"],
-["sll t1 t2 15","sll t1 t2 t3","sll t1 t2","sll t1 t2 t3 t4","sll t1 15 t2"],
-["sllv t1 t2 t3","sllv t1 t2 15","sllv t1 t2","sllv t1 t2 t3 t4","sllv t1 15 t2"],
-["mthi t1","mthi t1 t2","mthi t1 15","mthi 15"],
-["mfhi t1","mfhi t1 t2","mfhi t1 15","mfhi 15"],
-["div t1 t2","div t1 t2 t3","div t1 0xFFF","div t1","div 15 t2"],
-["mfc0 t1 t2","mfc0 t1 t2 t3","mfc0 t1 0xFFF","mfc0 t1","mfc0 15 t2"],
-["jalr t1 t2","jalr t1","jalr t1 t2 t3","jalr t1 0xFFF","jalr 15 t2"],
-["jr t1","jr t1 t2","jr t1 15","jr 15"],
-["addi t1 t2 0xFFF","addi t1 t2 0xAAAAA","addi t1 t2 t3","addi t1 0xBB","addi t1 t2 t3 677","addi t1 t2 333 t3"],
-["beq t1 t2 0xFFF","beq t1 t2 0xAAAAA","beq t1 t2 t3","beq t1 0xBB","beq t1 t2 t3 677","beq t1 t2 333 t3"],
-["lb t1 0xFFF(t2)","lb t1 0xAAAAA(t2)","lb t1 t3(t2)","lb t1 0xBB","lb t1 t2","lb t1 t2 677(t3)","lb t1 t2 t3(333)","lb t1 t2 t3(t4)"],
-["bgez t1 0xFFF","bgez t1 0xAAAAA","bgez t1 t2","bgez 0xBB","bgez t1 t2 677","bgez t1 333 t3"],
-["lui t1 0xFFF","lui t1 0xAAAAA","lui t1 t2","lui 0xBB","lui t1 t2 677","lui t1 333 t3"],
-["j 0x3FFFFFA","j 15","j 0x4FFFFFF","j t1","j t1 t2","j t1 60000000"]
+Instruction: "break"
+ - Result: op,break,000000,1,code,XXXXXXXXXXXXXXXXXXXX,XXXXXXXXXXXXXXXXXXXX,4,funct,001101,001101,1
+ - Binary: 000000XXXXXXXXXXXXXXXXXXXX001101
+
+Instruction: "break t1"
+ - Result: op,break,000000,1,code,XXXXXXXXXXXXXXXXXXXX,XXXXXXXXXXXXXXXXXXXX,4,funct,001101,001101,1
+ - Binary: Wrong syntax. Correct syntax of Breakpoint must be: BREAK.
+
+Instruction: "break 88"
+ - Result: op,break,000000,1,code,XXXXXXXXXXXXXXXXXXXX,XXXXXXXXXXXXXXXXXXXX,4,funct,001101,001101,1
+ - Binary: Wrong syntax. Correct syntax of Breakpoint must be: BREAK.
+
+Instruction: "bre"
+ - Result: 
+ - Binary: Did you mean one of these instructions? break 
+
+Instruction: "add t1 t2 t3"
+ - Result: op,add,000000,1,rs,t2,01010,1,rt,t3,01011,1,rd,t1,01001,1,shamt,00000,00000,1,funct,100000,100000,1
+ - Binary: 00000001010010110100100000100000
+
+Instruction: "add t1 t2"
+ - Result: op,add,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,100000,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Add must be: ADD rd rs rt.
+
+Instruction: "add t1 t2 t3 t4"
+ - Result: op,add,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,100000,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Add must be: ADD rd rs rt.
+
+Instruction: "add t1 t2 15"
+ - Result: op,add,000000,1,rs,t2,01010,1,rt,15,invalid,1,rd,t1,01001,1,shamt,00000,00000,1,funct,100000,100000,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: ADD rd rs rt.
+
+Instruction: "add t1 15 t2"
+ - Result: op,add,000000,1,rs,15,invalid,1,rt,t2,01010,1,rd,t1,01001,1,shamt,00000,00000,1,funct,100000,100000,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: ADD rd rs rt.
+
+Instruction: "ad"
+ - Result: 
+ - Binary: Did you mean one of these instructions? add addi addiu addu 
+
+Instruction: "sll t1 t2 15"
+ - Result: op,sll,000000,1,rs,not used,00000,1,rt,t2,01010,1,rd,t1,01001,1,shamt,15,01111,1,funct,000000,000000,1
+ - Binary: 00000000000010100100101111000000
+
+Instruction: "sll t1 t2 t3"
+ - Result: op,sll,000000,1,rs,not used,00000,1,rt,t2,01010,1,rd,t1,01001,1,shamt,t3,invalid,1,funct,000000,000000,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: SLL rd rt sa.
+
+Instruction: "sll t1 t2"
+ - Result: op,sll,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,000000,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Shift Left Logical must be: SLL rd rt sa.
+
+Instruction: "sll t1 t2 t3 t4"
+ - Result: op,sll,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,000000,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Shift Left Logical must be: SLL rd rt sa.
+
+Instruction: "sll t1 15 t2"
+ - Result: op,sll,000000,1,rs,not used,00000,1,rt,15,invalid,1,rd,t1,01001,1,shamt,t2,invalid,1,funct,000000,000000,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: SLL rd rt sa.
+
+Instruction: "slll"
+ - Result: 
+ - Binary: No instructions found that match or contain: slll
+
+Instruction: "sllv t1 t2 t3"
+ - Result: op,sllv,000000,1,rs,t2,01011,1,rt,t3,01010,1,rd,t1,01001,1,shamt,not used,00000,1,funct,000100,000100,1
+ - Binary: 00000001011010100100100000000100
+
+Instruction: "sllv t1 t2 15"
+ - Result: op,sllv,000000,1,rs,t2,invalid,1,rt,15,01010,1,rd,t1,01001,1,shamt,not used,00000,1,funct,000100,000100,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: SLLV rd rt rs.
+
+Instruction: "sllv t1 t2"
+ - Result: op,sllv,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,000100,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Shift Left Logical Variable must be: SLLV rd rt rs.
+
+Instruction: "sllv t1 t2 t3 t4"
+ - Result: op,sllv,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,000100,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Shift Left Logical Variable must be: SLLV rd rt rs.
+
+Instruction: "sllv t1 15 t2"
+ - Result: op,sllv,000000,1,rs,15,01010,1,rt,t2,invalid,1,rd,t1,01001,1,shamt,not used,00000,1,funct,000100,000100,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: SLLV rd rt rs.
+
+Instruction: "mthi t1"
+ - Result: op,mthi,000000,1,rs,t1,01001,1,rt,not used,00000,1,rd,not used,00000,1,shamt,not used,00000,1,funct,010001,010001,1
+ - Binary: 00000001001000000000000000010001
+
+Instruction: "mthi t1 t2"
+ - Result: op,mthi,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,010001,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Move To HI must be: MTHI rs.
+
+Instruction: "mthi t1 15"
+ - Result: op,mthi,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,010001,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Move To HI must be: MTHI rs.
+
+Instruction: "mthi 15"
+ - Result: op,mthi,000000,1,rs,15,invalid,1,rt,not used,00000,1,rd,not used,00000,1,shamt,not used,00000,1,funct,010001,010001,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: MTHI rs.
+
+Instruction: "mfhi t1"
+ - Result: op,mfhi,000000,1,rs,not used,00000,1,rt,not used,00000,1,rd,t1,01001,1,shamt,not used,00000,1,funct,010000,010000,1
+ - Binary: 00000000000000000100100000010000
+
+Instruction: "mfhi t1 t2"
+ - Result: op,mfhi,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,010000,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Move From HI must be: MFHI rd.
+
+Instruction: "mfhi t1 15"
+ - Result: op,mfhi,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,010000,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Move From HI must be: MFHI rd.
+
+Instruction: "mfhi 15"
+ - Result: op,mfhi,000000,1,rs,not used,00000,1,rt,not used,00000,1,rd,15,invalid,1,shamt,not used,00000,1,funct,010000,010000,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: MFHI rd.
+
+Instruction: "div t1 t2"
+ - Result: op,div,000000,1,rs,t1,01001,1,rt,t2,01010,1,rd,not used,00000,1,shamt,not used,00000,1,funct,011010,011010,1
+ - Binary: 00000001001010100000000000011010
+
+Instruction: "div t1 t2 t3"
+ - Result: op,div,000000,1,rs,t1,01001,1,rt,t2,01010,1,rd,not used,00000,1,shamt,not used,00000,1,funct,011010,011010,1
+ - Binary: 00000001001010100000000000011010
+
+Instruction: "div t1 0xFFF"
+ - Result: op,div,000000,1,rs,t1,01001,1,rt,0xFFF,invalid,1,rd,not used,00000,1,shamt,not used,00000,1,funct,011010,011010,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: DIV rs rt.
+
+Instruction: "div t1"
+ - Result: op,div,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,011010,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Divide must be: DIV rs rt.
+
+Instruction: "div 15 t2"
+ - Result: op,div,000000,1,rs,15,invalid,1,rt,t2,01010,1,rd,not used,00000,1,shamt,not used,00000,1,funct,011010,011010,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: DIV rs rt.
+
+Instruction: "mfc0 t1 t2"
+ - Result: op,mfc0,010000,1,rs,00000,00000,1,rt,t1,01001,1,rd,t2,01010,1,shamt,not used,00000,1,funct,not used,000000,1
+ - Binary: 01000000000010010101000000000000
+
+Instruction: "mfc0 t1 t2 t3"
+ - Result: op,mfc0,010000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,not used,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Move From Coprocessor must be: MFC0 rt rd.
+
+Instruction: "mfc0 t1 0xFFF"
+ - Result: op,mfc0,010000,1,rs,00000,00000,1,rt,t1,01001,1,rd,0xFFF,invalid,1,shamt,not used,00000,1,funct,not used,000000,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: MFC0 rt rd.
+
+Instruction: "mfc0 t1"
+ - Result: op,mfc0,010000,1,rs,00000,00000,1,rt,t1,01001,1,rd,undefined,undefined,1,shamt,not used,00000,1,funct,not used,000000,1
+ - Binary: Wrong syntax. Correct syntax of Move From Coprocessor must be: MFC0 rt rd.
+
+Instruction: "mfc0 15 t2"
+ - Result: op,mfc0,010000,1,rs,00000,00000,1,rt,15,invalid,1,rd,t2,01010,1,shamt,not used,00000,1,funct,not used,000000,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: MFC0 rt rd.
+
+Instruction: "jalr t1 t2"
+ - Result: op,jalr,000000,1,rs,t2,01010,1,rt,not used,00000,1,rd,t1,01001,1,shamt,not used,00000,1,funct,001001,001001,1
+ - Binary: 00000001010000000100100000001001
+
+Instruction: "jalr t1"
+ - Result: op,jalr,000000,1,rs,t1,01001,1,rt,not used,00000,1,rd,$ra,11111,1,shamt,not used,00000,1,funct,001001,001001,1
+ - Binary: 00000001001000001111100000001001
+
+Instruction: "jalr t1 t2 t3"
+ - Result: op,jalr,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,001001,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Jump And Link Register must be: JALR rs.
+
+Instruction: "jalr t1 0xFFF"
+ - Result: op,jalr,000000,1,rs,0xFFF,invalid,1,rt,not used,00000,1,rd,t1,01001,1,shamt,not used,00000,1,funct,001001,001001,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: JALR rs.
+
+Instruction: "jalr 15 t2"
+ - Result: op,jalr,000000,1,rs,t2,01010,1,rt,not used,00000,1,rd,15,invalid,1,shamt,not used,00000,1,funct,001001,001001,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: JALR rs.
+
+Instruction: "jr t1"
+ - Result: op,jr,000000,1,rs,t1,01001,1,rt,not used,00000,1,rd,not used,00000,1,shamt,not used,00000,1,funct,001000,001000,1
+ - Binary: 00000001001000000000000000001000
+
+Instruction: "jr t1 t2"
+ - Result: op,jr,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,001000,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Jump Register must be: JR rs.
+
+Instruction: "jr t1 15"
+ - Result: op,jr,000000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,rd,undefined,undefined,1,shamt,undefined,undefined,1,funct,001000,undefined,1
+ - Binary: Wrong syntax. Correct syntax of Jump Register must be: JR rs.
+
+Instruction: "jr 15"
+ - Result: op,jr,000000,1,rs,15,invalid,1,rt,not used,00000,1,rd,not used,00000,1,shamt,not used,00000,1,funct,001000,001000,1
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: JR rs.
+
+Instruction: "addi t1 t2 0xFFF"
+ - Result: op,addi,001000,1,rs,t2,01010,1,rt,t1,01001,1,imm/offset,0xFFF,0000111111111111,3
+ - Binary: 00100001010010010000111111111111
+
+Instruction: "addi t1 t2 0xAAAAA"
+ - Result: op,addi,001000,1,rs,t2,01010,1,rt,t1,01001,1,imm/offset,0xAAAAA,The operand is out of range. Range (Hexadecimal): 0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed).,3
+ - Binary: The operand is out of range. Range (Hexadecimal): 0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed).
+
+Instruction: "addi t1 t2 t3"
+ - Result: op,addi,001000,1,rs,t2,01010,1,rt,t1,01001,1,imm/offset,t3,invalid,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: ADDI rt rs imm.
+
+Instruction: "addi t1 0xBB"
+ - Result: op,addi,001000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Add Immediate must be: ADDI rt rs imm.
+
+Instruction: "addi t1 t2 t3 677"
+ - Result: op,addi,001000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Add Immediate must be: ADDI rt rs imm.
+
+Instruction: "addi t1 t2 333 t3"
+ - Result: op,addi,001000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Add Immediate must be: ADDI rt rs imm.
+
+Instruction: "beq t1 t2 0xFFF"
+ - Result: op,beq,000100,1,rs,t1,01001,1,rt,t2,01010,1,imm/offset,0xFFF,0000111111111111,3
+ - Binary: 00010001001010100000111111111111
+
+Instruction: "beq t1 t2 0xAAAAA"
+ - Result: op,beq,000100,1,rs,t1,01001,1,rt,t2,01010,1,imm/offset,0xAAAAA,The operand is out of range. Range (Hexadecimal): undefined.,3
+ - Binary: The operand is out of range. Range (Hexadecimal): undefined.
+
+Instruction: "beq t1 t2 t3"
+ - Result: op,beq,000100,1,rs,t1,01001,1,rt,t2,01010,1,imm/offset,t3,invalid,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: BEQ rs rt offset.
+
+Instruction: "beq t1 0xBB"
+ - Result: op,beq,000100,1,rs,t1,01001,1,rt,rt,rt,1,imm/offset,0xBB,0000000010111011,3
+ - Binary: 00010001001rt0000000010111011
+
+Instruction: "beq t1 t2 t3 677"
+ - Result: op,beq,000100,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Branch On Equal must be: BEQ rs rt offset.
+
+Instruction: "beq t1 t2 333 t3"
+ - Result: op,beq,000100,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Branch On Equal must be: BEQ rs rt offset.
+
+Instruction: "lb t1 0xFFF(t2)"
+ - Result: op,lb,100000,1,rs,t2,01010,1,rt,t1,01001,1,imm/offset,0xFFF,0000111111111111,3
+ - Binary: 10000001010010010000111111111111
+
+Instruction: "lb t1 0xAAAAA(t2)"
+ - Result: op,lb,100000,1,rs,t2,01010,1,rt,t1,01001,1,imm/offset,0xAAAAA,The operand is out of range. Range (Hexadecimal): 0x8000 to 0x7FFF (signed).,3
+ - Binary: The operand is out of range. Range (Hexadecimal): 0x8000 to 0x7FFF (signed).
+
+Instruction: "lb t1 t3(t2)"
+ - Result: op,lb,100000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Load Byte must be: LB rt offset(rs).
+
+Instruction: "lb t1 0xBB"
+ - Result: op,lb,100000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Load Byte must be: LB rt offset(rs).
+
+Instruction: "lb t1 t2"
+ - Result: op,lb,100000,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Load Byte must be: LB rt offset(rs).
+
+Instruction: "lb t1 t2 677(t3)"
+ - Result: op,lb,100000,1,rs,677(t3),invalid,1,rt,t1,01001,1,imm/offset,invalid,wrong,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: LB rt offset(rs).
+
+Instruction: "lb t1 t2 t3(333)"
+ - Result: op,lb,100000,1,rs,t3(333),invalid,1,rt,t1,01001,1,imm/offset,invalid,wrong,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: LB rt offset(rs).
+
+Instruction: "lb t1 t2 t3(t4)"
+ - Result: op,lb,100000,1,rs,t3(t4),invalid,1,rt,t1,01001,1,imm/offset,invalid,wrong,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: LB rt offset(rs).
+
+Instruction: "bgez t1 0xFFF"
+ - Result: op,bgez,000001,1,rs,t1,01001,1,rt,00001,00001,1,imm/offset,0xFFF,0000111111111111,3
+ - Binary: 00000101001000010000111111111111
+
+Instruction: "bgez t1 0xAAAAA"
+ - Result: op,bgez,000001,1,rs,t1,01001,1,rt,00001,00001,1,imm/offset,0xAAAAA,The operand is out of range. Range (Hexadecimal): undefined.,3
+ - Binary: The operand is out of range. Range (Hexadecimal): undefined.
+
+Instruction: "bgez t1 t2"
+ - Result: op,bgez,000001,1,rs,t1,01001,1,rt,00001,00001,1,imm/offset,t2,invalid,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: BGEZ rs offset.
+
+Instruction: "bgez 0xBB"
+ - Result: op,bgez,000001,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Branch On Greater Than or Equal to Zero must be: BGEZ rs offset.
+
+Instruction: "bgez t1 t2 677"
+ - Result: op,bgez,000001,1,rs,t1,01001,1,rt,t2,01010,1,imm/offset,677,0000001010100101,3
+ - Binary: 00000101001010100000001010100101
+
+Instruction: "bgez t1 333 t3"
+ - Result: op,bgez,000001,1,rs,t1,01001,1,rt,333,invalid,1,imm/offset,t3,invalid,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: BGEZ rs offset.
+
+Instruction: "lui t1 0xFFF"
+ - Result: op,lui,001111,1,rs,not used,00000,1,rt,t1,01001,1,imm/offset,0xFFF,0000111111111111,3
+ - Binary: 00111100000010010000111111111111
+
+Instruction: "lui t1 0xAAAAA"
+ - Result: op,lui,001111,1,rs,not used,00000,1,rt,t1,01001,1,imm/offset,0xAAAAA,The operand is out of range. Range (Hexadecimal): 0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed).,3
+ - Binary: The operand is out of range. Range (Hexadecimal): 0x0000 to 0xFFFF (unsigned) / 0x8000 to 0x7FFF (signed).
+
+Instruction: "lui t1 t2"
+ - Result: op,lui,001111,1,rs,not used,00000,1,rt,t1,01001,1,imm/offset,t2,invalid,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: LUI rt imm.
+
+Instruction: "lui 0xBB"
+ - Result: op,lui,001111,1,rs,undefined,undefined,1,rt,undefined,undefined,1,imm/offset,,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Load Upper Immediate must be: LUI rt imm.
+
+Instruction: "lui t1 t2 677"
+ - Result: op,lui,001111,1,rs,677,invalid,1,rt,t1,01001,1,imm/offset,invalid,wrong,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: LUI rt imm.
+
+Instruction: "lui t1 333 t3"
+ - Result: op,lui,001111,1,rs,t3,01011,1,rt,t1,01001,1,imm/offset,invalid,wrong,3
+ - Binary: Wrong syntax. Correct syntax of Load Upper Immediate must be: LUI rt imm.
+
+Instruction: "j 0x3FFFFFA"
+ - Result: op,j,000010,1,target,0x3FFFFFA,11111111111111111111111010,3
+ - Binary: 00001011111111111111111111111010
+
+Instruction: "j 15"
+ - Result: op,j,000010,1,target,15,00000000000000000000001111,3
+ - Binary: 00001000000000000000000000001111
+
+Instruction: "j 0x4FFFFFF"
+ - Result: op,j,000010,1,target,0x4FFFFFF,The operand is out of range. Range (Hexadecimal): 0x0000000 to 0x3FFFFFF.,3
+ - Binary: The operand is out of range. Range (Hexadecimal): 0x0000000 to 0x3FFFFFF.
+
+Instruction: "j t1"
+ - Result: op,j,000010,1,target,t1,invalid,3
+ - Binary: Some registers/operand are not valid. Registers/Operand must follow the syntax: J target.
+
+Instruction: "j t1 t2"
+ - Result: op,j,000010,1,target,t1,invalid,3
+ - Binary: Wrong syntax. Correct syntax of Jump must be: J target.
+
+Instruction: "j t1 60000000"
+ - Result: op,j,000010,1,target,t1,invalid,3
+ - Binary: Wrong syntax. Correct syntax of Jump must be: J target.
+

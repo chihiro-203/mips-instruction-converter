@@ -120,12 +120,12 @@ function convertValue(mnemonic, values) {
 
 // This is for case "Memory Access"
 function sepOffset(str) {
-  const match = str.match(/^(\d+)\((\$\w+)\)$/);
+  const match = str.match(/^(0x[0-9A-Fa-f]+|0b[01]+|\d+)\((\$?\w+)\)$/);
   if (match) {
     const [, offset, rs] = match;
     return [ offset, rs ];
   } else {
-    throw new Error("Format is incorrect");
+    return ["invalid", "invalid"];
   }
 }
 

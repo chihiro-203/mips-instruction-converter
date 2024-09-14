@@ -39,11 +39,10 @@ app.get("/search-mips", async (req, res) => {
 
   // Split the keyword into an array based on spaces
   const mArr = mips.split(/\s+/);
-  console.log("MIPS Array:", mArr);
 
   let name = mArr[0];
   var mnemonic = opcodes.find(function (item) {
-    return item.mnemonic.includes(name.toLowerCase());
+    return item.mnemonic.toLowerCase() === name.toLowerCase();
   });
 
   let definition;
@@ -79,18 +78,26 @@ app.get("/search-mips", async (req, res) => {
 
     table.push(`op,${mnemonic.mnemonic},${op},1`);
 
+    // R and NULL format
     if (format === "R" || format === "NULL") {
       let code = "XXXXXXXXXXXXXXXXXXXX";
 
       // break and syscall case
-      if (mnemonic.mnemonic === "break" || mnemonic.mnemonic === "syscall") {
+      if (["break", "syscall"].includes(mnemonic.mnemonic)) {
         f = "special"; // Special with code
         [funct] = convertValue(mnemonic, ["funct"]);
         binary += code + funct;
 
         table.push(`code,${code},${code},4`);
         table.push(`funct,${mnemonic.funct},${funct},1`);
-      } else {
+
+        if (mArr[1] !== undefined) {
+          binary = "wrong";
+        }
+      }
+
+      //
+      else {
         // Kind: Arithmetic (R)
         // rd, rs, rt - R type
         // add, addu, and, nor, or, slt, sltu, sub, subu, xor
@@ -110,7 +117,7 @@ app.get("/search-mips", async (req, res) => {
             [rs, funct] = convertValue(mnemonic, ["rs", "funct"]);
             [, rd_, rt_, shamt_] = mArr;
             [rs_] = [mnemonic.rs];
-            shamt = toBin(shamt_, 5);
+            shamt = toBin(shamt_, 5, mnemonic, registers);
           }
 
           // rd, rt, rs - R type
@@ -176,7 +183,6 @@ app.get("/search-mips", async (req, res) => {
           // rt, rd - NULL type
           // mfc0, mtc0 - not used shamt, funct, and rs is fixed
           if (["mfc0", "mtc0"].includes(mnemonic.mnemonic)) {
-            console.log("Hello");
             [rt, rd] = checkValue(registers, mArr);
             [rs, shamt, funct] = convertValue(mnemonic, [
               "rs",
@@ -208,7 +214,6 @@ app.get("/search-mips", async (req, res) => {
               "funct",
             ]);
             [rt_, shamt_] = [mnemonic.rt, mnemonic.shamt];
-            console.log("Here?");
           }
 
           // rs - R type
@@ -235,13 +240,17 @@ app.get("/search-mips", async (req, res) => {
         table.push(`funct,${mnemonic.funct},${funct},1`);
         console.log(table);
       }
-    } else if (format === "I") {
+    }
+
+    // I format
+    else if (format === "I") {
       f = "I";
 
       // len = 4
       if (
         mArr.length == 4 ||
-        (mArr.length == 3 && mArr[2].match(/^(\d+)\((\$\w+)\)$/))
+        (mArr.length == 3 &&
+          mArr[2].match(/^(0x[0-9A-Fa-f]+|0b[01]+|\d+)\((\$?\w+)\)$/))
       ) {
         // rt, rs, imm - I type
         // addi, addiu, andi, ori, slti, sltiu, xori
@@ -261,7 +270,6 @@ app.get("/search-mips", async (req, res) => {
         // lb, lbu, lh, lhu, lw, sb, sh, sw
         else if (mnemonic.kind == "memory") {
           [imm, rs] = sepOffset(mArr[2]);
-          console.log(imm + rs);
           mArr.splice(2, 1);
           mArr.push(rs, imm);
           [rt, rs] = checkValue(registers, mArr);
@@ -290,13 +298,12 @@ app.get("/search-mips", async (req, res) => {
         }
       }
 
-      imm = toBin(mArr[3], 16, mnemonic, registers);
+      imm = toBin(imm_, 16, mnemonic, registers);
       binary += rs + rt + imm;
 
       table.push(`rs,${rs_},${rs},1`);
       table.push(`rt,${rt_},${rt},1`);
       table.push(`imm/offset,${imm_},${imm},3`);
-      console.log(table);
     }
 
     // target - J type
@@ -307,7 +314,6 @@ app.get("/search-mips", async (req, res) => {
       let [, target_] = mArr;
       binary += imm;
       table.push(`target,${target_},${imm},3`);
-      console.log("It's work? ", binary);
 
       if (mArr[2] !== undefined) {
         binary = "wrong";
@@ -319,7 +325,10 @@ app.get("/search-mips", async (req, res) => {
     if (imm.includes("The operand is out of range.")) {
       binary = imm;
     } else if (binary.includes("invalid")) {
-      binary = "Some registers/operand are not valid.";
+      binary =
+        "Some registers/operand are not valid. Registers/Operand must follow the syntax: " +
+        mnemonic.opcode +
+        ".";
     } else if (
       binary.includes(undefined) ||
       binary.includes("wrong") ||
@@ -337,7 +346,7 @@ app.get("/search-mips", async (req, res) => {
       decimal = parseInt(binary, 2);
       hexadecimal = "0x" + decimal.toString(16).toUpperCase();
       binary = "0b" + binary;
-    } 
+    }
     // syscall, break
     else if (/^[0-9X]+$/.test(binary)) {
       let bin = binary.slice(-4);
@@ -346,18 +355,37 @@ app.get("/search-mips", async (req, res) => {
       console.log(decimal + " " + hexadecimal);
       console.log("ok");
     }
-  }
 
-  instruction = {
-    mips: mips,
-    bin: binary,
-    table: table,
-    hex: hexadecimal,
-    dec: decimal,
-    ope: mnemonic.operation,
-    action: mnemonic.action,
-  };
-  console.log(instruction.bin);
+    instruction = {
+      mips: mips,
+      bin: binary,
+      table: table,
+      hex: hexadecimal,
+      dec: decimal,
+      ope: mnemonic.operation,
+      action: mnemonic.action,
+    };
+  } else {
+    // List all instructions that start with or contain the entered name
+    let suggestions = opcodes.filter(function (item) {
+      return (
+        item.mnemonic.toLowerCase().startsWith(name.toLowerCase()) ||
+        item.mnemonic.toLowerCase().includes(name.toLowerCase())
+      );
+    });
+
+    definition = "";
+    instruction = "";
+
+    if (suggestions.length > 0) {
+      definition = "Did you mean one of these mnemonic? ";
+      suggestions.forEach(function (suggestion) {
+        definition += suggestion.mnemonic + " ";
+      });
+    } else {
+      definition = "No mnemonic found that match or contain: " + name;
+    }
+  }
 
   res.json({ definition, explain, instruction });
 });
