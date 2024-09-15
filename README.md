@@ -134,6 +134,12 @@ The __Opcode Page__ lists and explains all supported MIPS operation codes (opcod
     <img src="./frontend/converter/src/assets/readme/opcode.png" alt="Opcode">
 </div>
 
+### :paw_prints: NotFound Page in dark mode:
+The __NotFound Page__ shows the message that "Page doesn't exist".
+<div align ="center">
+    <img src="./frontend/converter/src/assets/readme/notfound.png" alt="Not Found">
+</div>
+
 ## :crystal_ball: Future Updates <a name="future-updates"></a> 
 __Feature Goal__: Align the conversion results (binary, decimal, and hexadecimal) with an adjustable horizontal scale for easier comparison and visualization.
 

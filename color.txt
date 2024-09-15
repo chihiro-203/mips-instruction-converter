@@ -1,9 +1,0 @@
-:root {
-    --theme: #e3d6f6;
-    --text: #9665dd;
-    --text-hover: #5f3c91;
-    --text-table: #282129;
-    --d-theme: #330044;
-    --placeholder-text: #8a51ab;
-    --table-head: #4b0082;
-}
