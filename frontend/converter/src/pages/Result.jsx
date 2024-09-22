@@ -5,6 +5,7 @@ import { FaPaw } from "react-icons/fa6";
 import Explain from "../components/Explain";
 import BinHexDec from "../components/BinHexDec";
 import { useLocation } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const Result = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const Result = () => {
   return (
     <div>
       <Navbar />
+      <Footer />
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="max-w-[1350px] w-[95%] text-center justify-between mt-[50px]">
           <SearchBar inputWidth={80} onSearchResults={handleSearchResults} />

@@ -1,11 +1,13 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import opcode from "../assets/data/opcode.json";
+import Footer from "../components/Footer";
 
 const Opcode = () => {
   return (
     <div>
       <Navbar />
+      <Footer />
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="ref-title">MIPS Opcode Reference</div>
         <div className="ref-data">

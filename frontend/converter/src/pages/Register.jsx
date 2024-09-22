@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import register from "../assets/data/register.json";
+import Footer from "../components/Footer";
 
 const Register = () => {
   const [data, setData] = useState([]);
@@ -12,6 +13,7 @@ const Register = () => {
   return (
     <div>
       <Navbar />
+      <Footer />
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="ref-title">MIPS Register Usage</div>
         <div className="ref-data">

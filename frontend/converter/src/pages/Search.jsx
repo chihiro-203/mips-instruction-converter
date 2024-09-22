@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import SearchIcon from "../assets/image/search.png";
 import SearchBar from "../components/SearchBar";
+import Footer from "../components/Footer";
 
 const Search = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -14,6 +15,7 @@ const Search = () => {
   return (
     <div>
       <Navbar />
+      <Footer />
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="max-w-[1000px] w-[95%] text-center mb-[30px]">
           <div className="flex justify-center">

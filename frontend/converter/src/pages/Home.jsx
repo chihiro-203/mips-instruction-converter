@@ -10,6 +10,7 @@ import {
   FaRegFileCode,
 } from "react-icons/fa6";
 import HomeNavbar from "../components/HomeNavbar";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const [isHoveringArrowRight, setIsHoveringArrowRight] = useState(false);
@@ -41,6 +42,7 @@ const Home = () => {
   return (
     <div>
       <HomeNavbar />
+      <Footer />
       <div className="flex items-center justify-center h-screen">
         <div className="flex justify-center items-center flex-1 max-w-[1150px] mx-[50px] my-0">
           <div className="logo-box transition">

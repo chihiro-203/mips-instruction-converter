@@ -2,11 +2,13 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import NotFoundIcon from "../assets/image/404.png";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const NotFound = () => {
   return (
     <div>
       <Navbar />
+      <Footer />
       <div className="flex flex-col items-center justify-center h-screen">
         <div className="max-w-[1000px] w-[95%] text-center mb-[30px]">
           <div className="flex justify-center">
