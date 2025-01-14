@@ -1,0 +1,122 @@
+{
+    "results": [
+        {
+            "format": "R",
+            "table": [
+                "op,1,6",
+                "rs,1,5",
+                "rt,1,5",
+                "rd,1,5",
+                "shamt,1,5",
+                "funct,1,6"
+            ],
+            "data": [
+                {
+                    "field": "op",
+                    "description": "Opcode = 0 (common to all R-format instructions)",
+                    "bits": "6"
+                },
+                {
+                    "field": "rs",
+                    "description": "1st register operand",
+                    "bits": "5"
+                },
+                {
+                    "field": "rt",
+                    "description": "2nd register operand",
+                    "bits": "5"
+                },
+                {
+                    "field": "rd",
+                    "description": "Register destination",
+                    "bits": "5"
+                },
+                {
+                    "field": "shamt",
+                    "description": "Shift amount (0 when not applicable)",
+                    "bits": "5"
+                },
+                {
+                    "field": "funct",
+                    "description": "Function code (identifies the specific R-format instruction)",
+                    "bits": "6"
+                }
+            ]
+        },
+        {
+            "format": "special",
+            "table": [
+                "op,1, 6",
+                "code,4, 20",
+                "funct,1, 6"
+            ],
+            "data": [
+                {
+                    "field": "op",
+                    "description": "Opcode (specifies the operation type)",
+                    "bits": "6"
+                },
+                {
+                    "field": "code",
+                    "description": "Code (specific to the operation)",
+                    "bits": "20"
+                },
+                {
+                    "field": "funct",
+                    "description": "Function code (identifies the specific instruction)",
+                    "bits": "6"
+                }
+            ]
+        },
+        {
+            "format": "I",
+            "table": [
+                "op,1,6",
+                "rs,1,5",
+                "rt,1,5",
+                "imm/offset,3,16"
+            ],
+            "data": [
+                {
+                    "field": "op",
+                    "description": "Opcode (specifies the operation type)",
+                    "bits": "6"
+                },
+                {
+                    "field": "rs",
+                    "description": "Source register",
+                    "bits": "5"
+                },
+                {
+                    "field": "rt",
+                    "description": "Destination register",
+                    "bits": "5"
+                },
+                {
+                    "field": "imm/offset",
+                    "description": "Immediate value or offset",
+                    "bits": "16"
+                }
+            ]
+        },
+        {
+            "format": "J",
+            "table": [
+                "op,1,6",
+                "target,3,26"
+            ],
+            "data": [
+                {
+                    "field": "op",
+                    "description": "Opcode (specifies the operation type)",
+                    "bits": "6"
+                },
+                {
+                    "field": "target",
+                    "description": "Target Address",
+                    "bits": "26"
+                }
+            ]
+        }
+    ]
+}
