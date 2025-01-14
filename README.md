@@ -40,41 +40,18 @@ The project is divided into two main folders:
 
 ### 🎯 Installation
 
-1. **Create Project Folders:**
-
-   ```bash
-   mkdir backend
-   mkdir frontend
-   ```
-
-2. **Set up the Frontend:**
-
-   - Creating a new Vite project (Framework: React; Variant: JavaScript):
+1. **Set up the Frontend:**
 
      ```bash
-     npm create vite@latest converter
-     ```
-
-   - Install dependencies:
-
-     ```bash
-     cd converter
+     cd frontend/note-app
      npm install
-     npm install react-router-dom react-icons react-modal axios moment
      ```
 
-3. **Set up the Backend:**
-
-   - Initialize a new Node.js project:
+2. **Set up the Backend:**
 
      ```bash
-     npm init
-     ```
-
-   - Install dependencies:
-
-     ```bash
-     npm install express mongoose jsonwebtoken dotenv cors nodemon
+     cd backend
+     npm install
      ```
 
 ### 💨 Running the Application
