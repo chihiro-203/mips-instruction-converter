@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/-🐾 ume_meu 🐾-e3d6f6?style=flat&logo=per" alt="Badge">
+  <img src="https://img.shields.io/badge/-🐾 chihiro_203 🐾-e3d6f6?style=flat&logo=per" alt="Badge">
 </div>
 
 <div align="center">    
@@ -138,4 +138,4 @@ MIPS instructions come in different formats, primarily R-type, I-type, and J-typ
 
 ## :scroll: License <a name="license"></a> 
 
-This project is licensed under [MIT License](https://github.com/ume-meu/mips-instruction-converter/blob/main/LICENSE).
+This project is licensed under [MIT License](https://github.com/chihiro-203/mips-instruction-converter/blob/main/LICENSE).
