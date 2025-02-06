@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/-🐾 chihiro_203 🐾-e3d6f6?style=flat&logo=per" alt="Badge">
+  <img src="https://img.shields.io/badge/-🐾 chihiro_203 🐾-183369?style=flat&logo=per" alt="Badge">
 </div>
 
 <div align="center">    
